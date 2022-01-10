@@ -66,7 +66,10 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       preview,
       1,
       "",
-      ""
+      "",
+      undefined,
+      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_headermenuid,
+      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
     );
 
     return {

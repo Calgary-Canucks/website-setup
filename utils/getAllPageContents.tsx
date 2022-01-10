@@ -20,7 +20,9 @@ export const getAllPageContents = async (
   blogPageNumber?: number,
   blogCategory?: string,
   blogAuthor?: string,
-  blogSlug?: string
+  blogSlug?: string,
+  headerMenuId?: string,
+  footerMenuId?: string
 ) => {
   try {
     const dynamicsPageSections = (
@@ -56,15 +58,17 @@ export const getAllPageContents = async (
     const dynamicsHeaderMenuItemsRequest = retrieveMultiple(
       config,
       "bsi_navigationmenuitems",
-      "$filter=_bsi_navigationmenu_value eq 235c65d7-2a70-ec11-8f8e-000d3a09f130&" +
-        dynamicsHeaderMenuItemsQuery,
+      `$filter=_bsi_navigationmenu_value eq ${
+        headerMenuId || "235c65d7-2a70-ec11-8f8e-000d3a09f130"
+      }&` + dynamicsHeaderMenuItemsQuery,
       { representation: true }
     );
     const dynamicsFooterMenuItemsRequest = retrieveMultiple(
       config,
       "bsi_navigationmenuitems",
-      "$filter=_bsi_navigationmenu_value eq 525c65d7-2a70-ec11-8f8e-000d3a09f130&" +
-        dynamicsFooterMenuItemsQuery,
+      `$filter=_bsi_navigationmenu_value eq ${
+        footerMenuId || "525c65d7-2a70-ec11-8f8e-000d3a09f130"
+      }&` + dynamicsFooterMenuItemsQuery,
       { representation: true }
     );
 
@@ -106,8 +110,6 @@ export const getAllPageContents = async (
       dynamicsBlogs,
       dynamicsMatches,
     ] = otherResults;
-
-    console.log(dynamicsMatches);
 
     return {
       dynamicsPageSections,

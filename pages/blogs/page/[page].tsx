@@ -103,7 +103,10 @@ export const getStaticProps: GetStaticProps = async (req) => {
       false,
       parseInt(page),
       "",
-      ""
+      "",
+      undefined,
+      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_headermenuid,
+      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
     );
 
     return {
