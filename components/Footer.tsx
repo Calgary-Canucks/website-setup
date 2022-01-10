@@ -32,39 +32,19 @@ const Footer: React.FunctionComponent<IFooterProps> = ({
               CALGARY CANUCKS RUGBY
             </Text>
           </Flex>
-          {menuItems.map((m) => (
-            <Flex
-              key={m.bsi_navigationmenuitemid}
-              w="22%"
-              h="80%"
-              px={6}
-              justifyContent="flex-start"
-              flexDirection="column"
-            >
-              <Text as="h5" color="whiteAlpha.900" mb={8}>
+          <Flex flexWrap="wrap">
+            {menuItems.map((m) => (
+              <Link
+                fontSize="1.1rem"
+                color="white"
+                width="50%"
+                key={m.bsi_navigationmenuitemid}
+                href={m.bsi_linkurl}
+              >
                 {m.bsi_name}
-              </Text>
-              {m.bsi_NavigationMenuSubItem_NavigationMenuI.map((b: any) =>
-                b.bsi_linkurl ? (
-                  <NextLink
-                    href={b.bsi_linkurl || "#"}
-                    key={b.bsi_navigationmenusubitemid}
-                    passHref
-                  >
-                    <Link color="whiteAlpha.700">{b.bsi_name}</Link>
-                  </NextLink>
-                ) : (
-                  <Text
-                    key={b.bsi_navigationmenusubitemid}
-                    as="p"
-                    color="whiteAlpha.700"
-                  >
-                    {b.bsi_name}
-                  </Text>
-                )
-              )}
-            </Flex>
-          ))}
+              </Link>
+            ))}
+          </Flex>
 
           <Flex
             w="30%"
