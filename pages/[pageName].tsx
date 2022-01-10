@@ -96,7 +96,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     await retrieveMultiple(
       config,
       "bsi_webpages",
-      "$filter=bsi_published ne false and _bsi_parentwebpageid_value eq null&$select=bsi_name,bsi_pageurl"
+      "$filter=bsi_published ne false and _bsi_parentwebpageid_value eq null and bsi_name ne 'Home'&$select=bsi_name,bsi_pageurl"
     )
   ).value;
   const paths: (
