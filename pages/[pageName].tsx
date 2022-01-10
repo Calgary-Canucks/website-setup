@@ -10,13 +10,18 @@ import cca from "../utils/cca";
 import { getAllPageContents } from "../utils/getAllPageContents";
 import { getClientCredentialsToken } from "../utils/getClientCredentialsToken";
 import { dynamicsWebpageQuery } from "../utils/queries";
-import { DynamicsPageSection, PageSection } from "../utils/types";
+import {
+  DynamicsMatch,
+  DynamicsPageSection,
+  PageSection,
+} from "../utils/types";
 
 interface DynamicsPagesProps {
   pageSections?: PageSection[];
   error?: any;
   // accessToken?: string;
   dynamicsPageSections: DynamicsPageSection[];
+  dynamicsMatches: DynamicsMatch[];
   dynamicsHeaderMenuItems: any[];
   dynamicsFooterMenuItems: any[];
   companyLogoUrl: string;
@@ -79,6 +84,7 @@ const DynamicsPages: NextPage<DynamicsPagesProps> = (
           sectionConfig[s["bsi_DesignedSection"].bsi_name]({
             dynamicsPageSection: s,
             key: s.pagesectionid,
+            dynamicsMatches: props.dynamicsMatches,
           })
       )}
       <SectionControl
@@ -143,6 +149,7 @@ export const getStaticProps: GetStaticProps = async ({
       dynamicsPageSections,
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
+      dynamicsMatches,
     } = await getAllPageContents(
       config,
       dynamicsPageResult[0].bsi_webpageid,
@@ -158,6 +165,7 @@ export const getStaticProps: GetStaticProps = async ({
       props: {
         preview: preview,
         dynamicsPageSections: dynamicsPageSections,
+        dynamicsMatches: dynamicsMatches.value,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
         companyLogoUrl:
