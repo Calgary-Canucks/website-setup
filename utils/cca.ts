@@ -17,6 +17,7 @@ const clientConfig: Configuration = {
       `https://login.microsoftonline.com/${process.env.TENANT_ID}/`,
     ],
   },
+  //Comment out for deployment
   // cache: {
   //   cachePlugin,
   // },

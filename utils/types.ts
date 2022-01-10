@@ -13,6 +13,26 @@ export type SectionItem = {
   sectionId: string;
 };
 
+export type DynamicsMatch = {
+  bsi_name: string;
+  bsi_matchid: string;
+  bsi_TeamOne: {
+    bsi_name: string;
+    bsi_sportsteamid: string;
+  };
+  bsi_TeamTwo: {
+    bsi_name: string;
+    bsi_sportsteamid: string;
+  };
+  bsi_teamonescore: number;
+  bsi_teamtwoscore: number;
+  bsi_matchtime: Date;
+  bsi_Venue: {
+    bsi_name: string;
+    bsi_addressline1: string;
+  };
+};
+
 export type DynamicsBlog = {
   bsi_name: string;
   bsi_BlogCoverImage: {

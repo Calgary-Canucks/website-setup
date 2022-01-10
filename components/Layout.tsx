@@ -48,7 +48,10 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props) => {
         </Tooltip>
       )}
       {props.children}
-      <Footer menuItems={props.footerMenuItems} />
+      <Footer
+        menuItems={props.footerMenuItems}
+        companyLogoUrl={props.companyLogoUrl}
+      />
     </Box>
   );
 };

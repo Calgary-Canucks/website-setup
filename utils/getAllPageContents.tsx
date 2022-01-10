@@ -8,6 +8,7 @@ import {
   attachedComponentsQuery,
   dynamicsFooterMenuItemsQuery,
   dynamicsHeaderMenuItemsQuery,
+  dynamicsMatchesQuery,
   dynamicsPageSectionsQuery,
   generateBlogsODataQuery,
 } from "./queries";
@@ -55,15 +56,22 @@ export const getAllPageContents = async (
     const dynamicsHeaderMenuItemsRequest = retrieveMultiple(
       config,
       "bsi_navigationmenuitems",
-      "$filter=_bsi_navigationmenu_value eq 3fe455da-ef5e-ec11-8f8f-000d3af47f33&" +
+      "$filter=_bsi_navigationmenu_value eq 235c65d7-2a70-ec11-8f8e-000d3a09f130&" +
         dynamicsHeaderMenuItemsQuery,
       { representation: true }
     );
     const dynamicsFooterMenuItemsRequest = retrieveMultiple(
       config,
       "bsi_navigationmenuitems",
-      "$filter=_bsi_navigationmenu_value eq 3ee455da-ef5e-ec11-8f8f-000d3af47f33&" +
+      "$filter=_bsi_navigationmenu_value eq 525c65d7-2a70-ec11-8f8e-000d3a09f130&" +
         dynamicsFooterMenuItemsQuery,
+      { representation: true }
+    );
+
+    const dynamicsMatchesRequest = retrieveMultiple(
+      config,
+      "bsi_matchs",
+      dynamicsMatchesQuery,
       { representation: true }
     );
 
@@ -87,18 +95,26 @@ export const getAllPageContents = async (
       dynamicsHeaderMenuItemsRequest,
       dynamicsFooterMenuItemsRequest,
       dynamicsBlogsRequest,
+      dynamicsMatchesRequest,
     ];
 
     const otherResults = await Promise.all(promises);
 
-    const [dynamicsHeaderMenuItems, dynamicsFooterMenuItems, dynamicsBlogs] =
-      otherResults;
+    const [
+      dynamicsHeaderMenuItems,
+      dynamicsFooterMenuItems,
+      dynamicsBlogs,
+      dynamicsMatches,
+    ] = otherResults;
+
+    console.log(dynamicsMatches);
 
     return {
       dynamicsPageSections,
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
       dynamicsBlogs,
+      dynamicsMatches,
     };
   } catch (error) {
     throw error;

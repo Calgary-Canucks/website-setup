@@ -9,29 +9,39 @@ interface IBlogsDisplaySectionProps {
   dynamicsPageSection: DynamicsPageSection;
 }
 
-const BlogsDisplaySection: React.FunctionComponent<IBlogsDisplaySectionProps> =
-  ({ dynamicsBlogs, dynamicsPageSection }) => {
-    // If no blogs are fed into this section, simply render nothing to avoid broken pages
-    if (!dynamicsBlogs) {
-      return null;
-    }
-    return (
-      <AnchorSection
-        sectionId={dynamicsPageSection.bsi_sectionid}
-        key={dynamicsPageSection.bsi_pagesectionid}
-      >
-        <Heading as="h2" width="90%" mx="auto" my={16}>
+const BlogsDisplaySection: React.FunctionComponent<
+  IBlogsDisplaySectionProps
+> = ({ dynamicsBlogs, dynamicsPageSection }) => {
+  // If no blogs are fed into this section, simply render nothing to avoid broken pages
+  if (!dynamicsBlogs) {
+    return null;
+  }
+  return (
+    <AnchorSection
+      sectionId={dynamicsPageSection.bsi_sectionid}
+      key={dynamicsPageSection.bsi_pagesectionid}
+    >
+      <Box bgColor="rgb(241,241,241)">
+        <Heading as="h2" width="90%" mx="auto" py={16}>
           {dynamicsPageSection.bsi_mainheading}
         </Heading>
         <Flex
           width="90%"
           mx="auto"
           flexWrap="wrap"
-          mb={16}
           style={{ gap: "6%" }}
+          bgColor="rgb(241,241,241)"
         >
           {dynamicsBlogs.map((db) => (
-            <Box key={db.bsi_blogid} width="47%" mb={8}>
+            <Box
+              key={db.bsi_blogid}
+              width="47%"
+              mb={8}
+              boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
+              bgColor="white"
+              borderRadius="4px"
+              overflow="hidden"
+            >
               <BlogTile
                 blogTitle={db.bsi_name}
                 blogAuthors={db.bsi_Blog_bsi_BlogAuthor_bsi_BlogAuthor}
@@ -45,8 +55,9 @@ const BlogsDisplaySection: React.FunctionComponent<IBlogsDisplaySectionProps> =
             </Box>
           ))}
         </Flex>
-      </AnchorSection>
-    );
-  };
+      </Box>
+    </AnchorSection>
+  );
+};
 
 export default BlogsDisplaySection;

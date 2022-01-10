@@ -8,7 +8,12 @@ import SectionControl from "../components/SectionControl";
 import cca from "../utils/cca";
 import { getAllPageContents } from "../utils/getAllPageContents";
 import { getClientCredentialsToken } from "../utils/getClientCredentialsToken";
-import { DynamicsPageSection, PageSection } from "../utils/types";
+import {
+  DynamicsBlog,
+  DynamicsMatch,
+  DynamicsPageSection,
+  PageSection,
+} from "../utils/types";
 
 interface DynamicsProps {
   pageSections?: PageSection[];
@@ -17,46 +22,14 @@ interface DynamicsProps {
   dynamicsPageSections: DynamicsPageSection[];
   dynamicsHeaderMenuItems: any[];
   dynamicsFooterMenuItems: any[];
+  dynamicsBlogs: DynamicsBlog[];
+  dynamicsMatches: DynamicsMatch[];
   companyLogoUrl: string;
   preview: boolean;
 }
 
 const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
-  const [currentHash, setCurrentHash] = useState("");
-  const [changingHash, setChangingHash] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    //Used to monitor section change, not supported on IE
-    const allSections = document.querySelectorAll("section");
-    const onSectionEntry = (entry: any[]) => {
-      entry.forEach((change: any) => {
-        if (change.isIntersecting && !changingHash) {
-          setChangingHash(true);
-          setCurrentHash(change.target.id);
-        }
-      });
-    };
-    const options = { threshold: [0.5] };
-    const observer = new IntersectionObserver(onSectionEntry, options);
-    for (let sec of allSections) {
-      observer.observe(sec);
-    }
-  });
-
-  useEffect(() => {
-    const onHashChangeStart = (url: string) => {
-      setChangingHash(true);
-      setCurrentHash(url.substr(2));
-    };
-
-    router.events.on("hashChangeStart", onHashChangeStart);
-
-    return () => {
-      setChangingHash(false);
-      router.events.off("hashChangeStart", onHashChangeStart);
-    };
-  }, [router.events]);
+  console.log(props.dynamicsMatches);
 
   return (
     <Layout
@@ -71,12 +44,10 @@ const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
           sectionConfig[s["bsi_DesignedSection"].bsi_name]({
             dynamicsPageSection: s,
             key: s.pagesectionid,
+            dynamicsBlogs: props.dynamicsBlogs,
+            dynamicsMatches: props.dynamicsMatches,
           })
       )}
-      <SectionControl
-        dynamicsPageSections={props.dynamicsPageSections}
-        currentHash={currentHash}
-      />
     </Layout>
   );
 };
@@ -86,7 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
     const tokenResponse = await getClientCredentialsToken(cca);
     const accessToken = tokenResponse?.accessToken;
     const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
-    const dynamicsPageResult: any[] = (
+    const dynamicsPageResult: any = (
       await retrieveMultiple(
         config,
         "bsi_webpages",
@@ -97,15 +68,22 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       dynamicsPageSections,
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
+      dynamicsBlogs,
+      dynamicsMatches,
     } = await getAllPageContents(
       config,
       dynamicsPageResult[0].bsi_webpageid,
-      preview
+      preview,
+      1,
+      "",
+      ""
     );
     return {
       props: {
         preview: !!preview,
         dynamicsPageSections: dynamicsPageSections,
+        dynamicsBlogs: dynamicsBlogs.value,
+        dynamicsMatches: dynamicsMatches.value,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
         companyLogoUrl:
