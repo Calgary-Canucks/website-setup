@@ -30,8 +30,6 @@ interface DynamicsProps {
 }
 
 const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
-  console.log(props.dynamicsMatches);
-
   return (
     <Layout
       headerMenuItems={props.dynamicsHeaderMenuItems}
@@ -65,7 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
         `$filter=bsi_name eq 'Home'&${dynamicsWebpageQuery}`
       )
     ).value;
-    console.log(dynamicsPageResult);
+
     const {
       dynamicsPageSections,
       dynamicsHeaderMenuItems,
@@ -83,6 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_headermenuid,
       dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
     );
+
     return {
       props: {
         preview: !!preview,

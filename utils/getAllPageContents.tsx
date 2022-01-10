@@ -79,6 +79,15 @@ export const getAllPageContents = async (
       { representation: true }
     );
 
+    console.log(
+      generateBlogsODataQuery(
+        blogPageNumber || 1,
+        includeDraft,
+        blogCategory,
+        blogAuthor,
+        blogSlug
+      )
+    );
     const dynamicsBlogsRequest =
       !blogCategory || !blogAuthor || !blogSlug
         ? retrieveMultiple(
@@ -111,6 +120,7 @@ export const getAllPageContents = async (
       dynamicsMatches,
     ] = otherResults;
 
+    console.log(dynamicsBlogs);
     return {
       dynamicsPageSections,
       dynamicsHeaderMenuItems,
