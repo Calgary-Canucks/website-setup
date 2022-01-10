@@ -25,6 +25,10 @@ const preview = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (pageType === "static") {
+    if (previewPathName.includes("home")) {
+      res.writeHead(307, { Location: "/" });
+      return res.end();
+    }
     res.writeHead(307, { Location: previewPathName });
     return res.end();
   }
