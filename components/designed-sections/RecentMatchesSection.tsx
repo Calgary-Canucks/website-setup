@@ -28,8 +28,25 @@ const RecentMatchesSection: React.FunctionComponent<
       key={dynamicsPageSection.bsi_pagesectionid}
     >
       <Box bgColor="rgb(241,241,241)" pb={24}>
-        <Heading as="h2" width="90%" mx="auto" py={16}>
+        <Heading
+          as="h2"
+          width="90%"
+          mx="auto"
+          fontSize="1rem"
+          pt={16}
+          pb={2}
+          color={dynamicsPageSection.bsi_mainheadingtextcolor || "inherit"}
+        >
           {dynamicsPageSection.bsi_mainheading}
+        </Heading>
+        <Heading
+          as="h3"
+          width="90%"
+          mx="auto"
+          pb={16}
+          color={dynamicsPageSection.bsi_subheadingtextcolor || "inherit"}
+        >
+          {dynamicsPageSection.bsi_subheading}
         </Heading>
         <VStack
           divider={<StackDivider borderColor="gray.200" />}

@@ -15,6 +15,50 @@ a {
   scroll-behavior: smooth;
 }
 
+.react-calendar {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: rgb(241, 241, 241);
+  height: 8vh;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  height: 5vh;
+  background-color: rgb(247, 247, 247);
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-calendar__month-view__weekdays__weekday > abbr {
+  text-decoration: none !important;
+}
+
+.react-calendar__month-view__days {
+  background-color: white;
+}
+
+.react-calendar__month-view__days__day {
+  height: 15vh;
+  border: 0.5px solid rgb(241, 241, 241);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 3px;

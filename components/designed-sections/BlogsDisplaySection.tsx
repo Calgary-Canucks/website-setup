@@ -22,8 +22,25 @@ const BlogsDisplaySection: React.FunctionComponent<
       key={dynamicsPageSection.bsi_pagesectionid}
     >
       <Box bgColor="rgb(241,241,241)">
-        <Heading as="h2" width="90%" mx="auto" py={16}>
+        <Heading
+          as="h2"
+          width="90%"
+          fontSize="1rem"
+          mx="auto"
+          pt={16}
+          pb={2}
+          color={dynamicsPageSection.bsi_mainheadingtextcolor || "inherit"}
+        >
           {dynamicsPageSection.bsi_mainheading}
+        </Heading>
+        <Heading
+          as="h3"
+          width="90%"
+          pb={16}
+          mx="auto"
+          color={dynamicsPageSection.bsi_subheadingtextcolor || "inherit"}
+        >
+          {dynamicsPageSection.bsi_subheading}
         </Heading>
         <Flex
           width="90%"

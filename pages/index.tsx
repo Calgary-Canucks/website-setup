@@ -45,6 +45,7 @@ const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
             key: s.pagesectionid,
             dynamicsBlogs: props.dynamicsBlogs,
             dynamicsMatches: props.dynamicsMatches,
+            events: props.dynamicsMatches,
           })
       )}
     </Layout>

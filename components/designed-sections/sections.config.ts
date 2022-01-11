@@ -10,6 +10,7 @@ import SingleBlogSection from "./SingleBlogSection";
 import HighlightNewsSection from "./HighlightNewsSection";
 import SponsorSection from "./SponsorSection";
 import RecentMatchesSection from "./RecentMatchesSection";
+import CalendarSection from "./CalendarSection";
 
 const sections: { [key: string]: FunctionComponent<any> } = {
   BusinessBanterSection,
@@ -23,6 +24,7 @@ const sections: { [key: string]: FunctionComponent<any> } = {
   HighlightNewsSection,
   SponsorSection,
   RecentMatchesSection,
+  CalendarSection,
 };
 
 export default sections;
