@@ -9,7 +9,7 @@ interface INavbarProps {
 
 const Navbar: React.FunctionComponent<INavbarProps> = ({ menuItems }) => {
   return (
-    <Flex flexDirection="column" flexGrow={2}>
+    <Flex flexDirection="column" flexGrow={2} color="white">
       <Flex
         w="100%"
         justify="flex-start"
@@ -53,7 +53,9 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({ menuItems }) => {
         align="center"
         pl={14}
         h="60px"
-        background="linear-gradient(125deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 35px, rgb(241, 241, 241) 36px, rgb(241, 241, 241) 100%)"
+        background="linear-gradient(
+          125deg
+          , rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 35px, rgba(0, 0, 0, 0.25) 36px, rgba(0, 0, 0, 0.25) 100%)"
         borderLeft="20px transparent"
       >
         {menuItems.map((mi) => (

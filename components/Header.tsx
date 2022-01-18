@@ -13,7 +13,14 @@ const Header: React.FunctionComponent<IHeaderProps> = ({
 }) => {
   return (
     <Box>
-      <Flex justify="space-between" w="100%" mx="auto" h="100%" align="center">
+      <Flex
+        justify="space-between"
+        w="100%"
+        mx="auto"
+        h="100%"
+        align="center"
+        bgColor="rgb(1, 78, 134)"
+      >
         <LinkBox as="image">
           <LinkOverlay href="/">
             <Image

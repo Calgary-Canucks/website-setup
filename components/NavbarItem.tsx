@@ -18,7 +18,7 @@ const NavbarItem: React.FunctionComponent<INavbarItemProps> = (props) => {
         borderRadius="300px"
         fontSize="0.9rem"
         fontWeight="bold"
-        color={"blackAlpha.800"}
+        color={"white"}
       >
         {props.faceMenuItem.bsi_name}
       </Link>

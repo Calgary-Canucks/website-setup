@@ -15,15 +15,36 @@ a {
   scroll-behavior: smooth;
 }
 
-.react-calendar {
+.year-only > .react-calendar__navigation > .react-calendar__navigation__arrow {
+  width: 40px;
+  font-size: 20px;
+}
+
+.year-only > .react-calendar__navigation > .react-calendar__navigation__label {
+  flex-grow: unset !important;
+  display: inline-flex;
+  align-items: center;
+}
+
+.year-only > .react-calendar__viewContainer {
+  display: none;
+}
+
+.react-calendar .detailed-calendar {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
 
+.year-only .react-calendar__navigation {
+  color: rgb(1, 78, 134);
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0px 5px 10px 0px;
+}
+
 .react-calendar__navigation {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   background-color: rgb(241, 241, 241);
   height: 8vh;
   padding-left: 2rem;
@@ -59,6 +80,14 @@ a {
   padding: 0.5rem;
 }
 
+.detailed-calendar .react-calendar__navigation__arrow {
+  color: rgb(1, 78, 134);
+}
+
+.detailed-calendar .react-calendar__navigation__label__labelText {
+  font-size: 1.5rem;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 3px;
@@ -77,4 +106,39 @@ a {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+@media only screen and (max-width: 480px) {
+  html,
+  body {
+    font-size: 8px;
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  html,
+  body {
+    font-size: 8px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  html,
+  body {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  html,
+  body {
+    font-size: 16px;
+  }
 }

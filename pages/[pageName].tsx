@@ -85,6 +85,7 @@ const DynamicsPages: NextPage<DynamicsPagesProps> = (
             dynamicsPageSection: s,
             key: s.pagesectionid,
             dynamicsMatches: props.dynamicsMatches,
+            events: props.dynamicsMatches,
           })
       )}
       <SectionControl

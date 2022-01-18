@@ -52,7 +52,7 @@ const BlogsDisplaySection: React.FunctionComponent<
           {dynamicsBlogs.map((db) => (
             <Box
               key={db.bsi_blogid}
-              width="47%"
+              width={{ base: "100%", md: "47%" }}
               mb={8}
               boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
               bgColor="white"

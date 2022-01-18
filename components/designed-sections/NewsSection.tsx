@@ -33,7 +33,7 @@ const NewsSection: React.FunctionComponent<INewsSectionProps> = ({
                     <Text
                       as="h5"
                       fontWeight="extrabold"
-                      color="blackAlpha.800"
+                      color={dp.bsi_titletextcolor || "blackAlpha.800"}
                       fontSize="2.5rem"
                     >
                       {dp.bsi_title}
@@ -42,14 +42,20 @@ const NewsSection: React.FunctionComponent<INewsSectionProps> = ({
                       <Text
                         as="h5"
                         fontWeight="bold"
-                        color="blackAlpha.800"
+                        color={dp.bsi_subtitletextcolor || "blackAlpha.800"}
                         fontSize="1.3rem"
                         textAlign="center"
                       >
                         {dp.bsi_subtitle}
                       </Text>
                     )}
-                    <Text as="p" textAlign="center" my={8} lineHeight="2">
+                    <Text
+                      as="p"
+                      color={dp.bsi_descriptiontextcolor || "blackAlpha.800"}
+                      textAlign="center"
+                      my={8}
+                      lineHeight="2"
+                    >
                       {dp.bsi_description}
                     </Text>
                     {dp.bsi_hasctabutton && (
@@ -58,8 +64,8 @@ const NewsSection: React.FunctionComponent<INewsSectionProps> = ({
                           as="span"
                           py={4}
                           px={6}
-                          bg={royalblue}
-                          color="whiteAlpha.800"
+                          bg={dp.bsi_ctabuttonbgcolor || royalblue}
+                          color={dp.bsi_ctabuttontextcolor || "whiteAlpha.800"}
                           borderRadius="300px"
                         >
                           {dp.bsi_ctabuttontext}

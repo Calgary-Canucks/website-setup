@@ -27,7 +27,10 @@ const RecentMatchesSection: React.FunctionComponent<
       sectionId={dynamicsPageSection.bsi_sectionid || "success-stories"}
       key={dynamicsPageSection.bsi_pagesectionid}
     >
-      <Box bgColor="rgb(241,241,241)" pb={24}>
+      <Box
+        bgColor={dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"}
+        pb={24}
+      >
         <Heading
           as="h2"
           width="90%"
@@ -73,7 +76,10 @@ const RecentMatchesSection: React.FunctionComponent<
                 {new Date(m.bsi_matchtime).toLocaleTimeString("en-US")}
               </Text>
               <Flex direction="column">
-                <Flex justify="space-around" align="flex-start">
+                <Flex
+                  justify="space-around"
+                  align={{ base: "center", sm: "flex-start" }}
+                >
                   <Text
                     as="span"
                     fontSize="1.1rem"
@@ -86,17 +92,22 @@ const RecentMatchesSection: React.FunctionComponent<
                   <Flex
                     direction="column"
                     align="center"
+                    minW="20rem"
                     style={{ gap: "20px" }}
                   >
                     <Badge
                       colorScheme={
-                        m.bsi_teamonescore > m.bsi_teamtwoscore
-                          ? "green"
-                          : "red"
+                        m.bsi_teamonescore && m.bsi_teamtwoscore
+                          ? m.bsi_teamonescore > m.bsi_teamtwoscore
+                            ? "green"
+                            : "red"
+                          : "blackAlpha"
                       }
                       fontSize="1.2rem"
                     >
-                      {m.bsi_teamonescore} - {m.bsi_teamtwoscore}
+                      {m.bsi_teamonescore && m.bsi_teamtwoscore
+                        ? `${m.bsi_teamonescore} - ${m.bsi_teamtwoscore}`
+                        : new Date(m.bsi_matchtime).toLocaleTimeString("en-US")}
                     </Badge>
                     <Text as="span">League</Text>
                     <Text as="span">{m.bsi_Venue.bsi_name}</Text>

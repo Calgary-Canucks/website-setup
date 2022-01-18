@@ -29,12 +29,13 @@ interface IBlogTileProps {
 const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
   if (props.size === "mini") {
     return (
-      <article style={{ position: "relative" }}>
+      <article style={{ position: "relative", height: "90%" }}>
         <Flex
           direction="column"
           p={3}
           style={{ gap: "20px" }}
           bgColor={props.active ? "rgb(248,248,248)" : "transparent"}
+          height="100%"
           borderRadius={3}
           boxShadow={
             props.active ? "rgb(0 0 0 / 20%) 0px 3px 10px 0px" : "none"
@@ -70,25 +71,37 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
   if (props.size === "xl") {
     return (
       <article style={{ height: "100%" }}>
-        <Flex h="100%">
+        <Flex h="100%" flexDirection={{ base: "column-reverse", md: "row" }}>
           <Flex
             direction="column"
             justify="space-between"
-            align="flex-start"
-            w="50%"
+            align={{ base: "center", md: "flex-start" }}
+            style={{ gap: "20px" }}
+            w={{ base: "100%", md: "50%" }}
             h="100%"
             p={16}
           >
-            <Badge colorScheme="blue" fontSize="1.3rem">
+            <Badge
+              colorScheme="blue"
+              fontSize="1.3rem"
+              display={{ base: "none", md: "inline" }}
+            >
               NEWS
             </Badge>
             <Box>
               <NextLink href="#" passHref>
-                <Text as="a" fontSize="2.2rem" fontWeight="bold">
+                <Text
+                  as="a"
+                  fontSize="2.2rem"
+                  fontWeight="bold"
+                  textAlign={{ base: "center", md: "start" }}
+                >
                   {props.blogTitle}
                 </Text>
               </NextLink>
-              <Text as="p">{props.blogCoverText}</Text>
+              <Text as="p" textAlign={{ base: "center", md: "start" }}>
+                {props.blogCoverText}
+              </Text>
             </Box>
 
             <NextLink href="#" passHref>
@@ -97,7 +110,11 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
               </Button>
             </NextLink>
           </Flex>
-          <Box w="50%" py={8} px={28}>
+          <Box
+            w={{ base: "100%", md: "50%" }}
+            py={{ base: 20, md: 8 }}
+            px={{ base: 8, md: 28 }}
+          >
             <NextLink href="#">
               <Image
                 src={`${props.blogCoverImageUrl}?fm=jpg&fl=progressive`}

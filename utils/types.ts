@@ -78,15 +78,19 @@ export type DynamicsPageSection = {
   bsi_youtubevideoid: string;
   bsi_youtubevideoalttext: string;
   _bsi_designedsection_value: string;
+  bsi_overline: string;
   bsi_mainheading: string;
   bsi_subheading: string;
   bsi_sectionid: string;
   bsi_featuredproducts: string;
   bsi_backgroundcolor: string;
+  bsi_bordercolor: string;
+  bsi_overlinetextcolor: string;
   bsi_mainheadingtextcolor: string;
   bsi_subheadingtextcolor: string;
   bsi_paragraphtextcolor: string;
   bsi_ctabuttontextcolor: string;
+  bsi_ctabuttonhoverbgcolor: string;
   bsi_ctabuttonbgcolor: string;
   bsi_AttachedComponent_bsi_PageSection_bsi: Array<{
     bsi_attachedcomponentid: string;
@@ -97,8 +101,12 @@ export type DynamicsPageSection = {
     bsi_ctabuttontext: string;
     bsi_ctabuttonlink: string;
     bsi_ctabuttonbgcolor: string;
+    bsi_ctabuttonhoverbgcolor: string;
     bsi_ctabuttontextcolor: string;
     bsi_backgroundcolor: string;
+    bsi_bordercolor: string;
+    bsi_overline: string;
+    bsi_overlinetextcolor: string;
     bsi_title: string;
     bsi_titletextcolor: string;
     bsi_subtitle: string;
@@ -109,8 +117,11 @@ export type DynamicsPageSection = {
     }>;
   }>;
   bsi_PageSection_bsi_ImageAsset_bsi_ImageA: Array<{
+    bsi_imageassetid: string;
     bsi_name: string;
     bsi_cdnurl: string;
+    bsi_alttext: string;
+    bsi_referencingurl: string;
   }>;
 
   bsi_DesignedSection: {

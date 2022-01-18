@@ -54,20 +54,26 @@ const HighlightNewsSection: React.FunctionComponent<
     >
       <Box
         w="100%"
-        overflow="hidden"
-        h="500px"
-        backgroundColor="rgb(241,241,241)"
+        overflowX="hidden"
+        h="auto"
+        backgroundColor={
+          dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"
+        }
         pb={12}
       >
-        <Flex w="400%" h="100%" transform={`translateX(-${activeBlog * 25}%)`}>
+        <Flex w="400%" transform={`translateX(-${activeBlog * 25}%)`}>
           {dynamicsBlogs.map((db, index) => {
             if (index < 4)
               return (
-                <Box key={db.bsi_blogid} width="100vw" px={8} h="100%">
+                <Box
+                  key={db.bsi_blogid}
+                  width="100vw"
+                  h="fit-content"
+                  px={{ base: 4, md: 8 }}
+                >
                   <SlideFade
                     in={activeBlog === index}
                     offsetX="100px"
-                    style={{ height: "100%" }}
                     transition={{ enter: { duration: 0.5 } }}
                   >
                     <BlogTile
@@ -117,6 +123,8 @@ const HighlightNewsSection: React.FunctionComponent<
       </Flex>
       <Flex
         width="100%"
+        display={{ base: "none", md: "flex" }}
+        align="stretch"
         mx="auto"
         px={16}
         flexWrap="wrap"
