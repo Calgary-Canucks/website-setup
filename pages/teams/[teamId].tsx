@@ -6,8 +6,10 @@ import Layout from "../../components/Layout";
 import SubHeader from "../../components/SubHeader";
 import cca from "../../utils/cca";
 import { BLOGS_PLAGE_LIMIT } from "../../utils/constants";
+import { getAllContactInfo } from "../../utils/getAllContactInfo";
 import { getAllPageContents } from "../../utils/getAllPageContents";
 import { getAllTeamInfo } from "../../utils/getAllTeamInfo";
+import { getAllVenueInfo } from "../../utils/getAllVenueInfo";
 import { getClientCredentialsToken } from "../../utils/getClientCredentialsToken";
 import {
   dynamicsBlogAuthorsQuery,
@@ -16,9 +18,11 @@ import {
 } from "../../utils/queries";
 import {
   DynamicsMatch,
+  DynamicsOrganizationContact,
   DynamicsPageProps,
   DynamicsPageSection,
   DynamicsSportsTeam,
+  DynamicsVenue,
   xmlDynamicsBlog,
 } from "../../utils/types";
 
@@ -50,8 +54,10 @@ const TeamIdPage: React.FunctionComponent<ITeamIdProps> = (props) => {
             key: s.pagesectionid,
             dynamicsMatches: props.dynamicsMatches,
             events: props.dynamicsMatches,
-            dynamicsBlogs: props.dynamicsBlogs,
             dynamicsSportsTeams: props.dynamicsSportsTeams,
+            dynamicsBlogs: props.dynamicsBlogs,
+            dynamicsOrganizationContacts: props.dynamicsOrganizationContacts,
+            dynamicsVenues: props.dynamicsVenues,
           })
       )}
     </Layout>
@@ -87,9 +93,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async (req) => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
   try {
-    const { teamId } = req.params as IParams;
+    const { teamId } = params as IParams;
     const tokenResponse = await getClientCredentialsToken(cca);
     const accessToken = tokenResponse?.accessToken;
     const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
@@ -121,16 +130,21 @@ export const getStaticProps: GetStaticProps = async (req) => {
     );
 
     const teams = await getAllTeamInfo(config, teamId);
+    const contacts = await getAllContactInfo(config);
+    const venues = await getAllVenueInfo(config);
 
     return {
       props: {
-        dynamicsPageSections: dynamicsPageSections,
+        preview: preview,
         dynamicsPageName: dynamicsPageResult[0].bsi_name,
+        dynamicsPageSections: dynamicsPageSections,
         dynamicsSportsTeams: teams,
+        dynamicsVenues: venues as DynamicsVenue[],
+        dynamicsOrganizationContacts: contacts as DynamicsOrganizationContact[],
+        dynamicsMatches: dynamicsMatches.value,
+        dynamicsBlogs: dynamicsBlogs.value,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
-        dynamicsBlogs: dynamicsBlogs.value,
-        dynamicsMatches: dynamicsMatches.value,
         companyLogoUrl:
           dynamicsPageResult[0].bsi_Website.bsi_CompanyLogo.bsi_cdnurl,
       },

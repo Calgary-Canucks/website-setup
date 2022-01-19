@@ -6,7 +6,6 @@ import NewsSection from "./NewsSection";
 import ProductSection from "./ProductSection";
 import SuccessStoriesSection from "./SuccessStoriesSection";
 import BlogsDisplaySection from "./BlogsDisplaySection";
-import SingleBlogSection from "./SingleBlogSection";
 import HighlightNewsSection from "./HighlightNewsSection";
 import SponsorSection from "./SponsorSection";
 import RecentMatchesSection from "./RecentMatchesSection";
@@ -23,7 +22,6 @@ const sections: { [key: string]: FunctionComponent<any> } = {
   ProductSection,
   SuccessStoriesSection,
   BlogsDisplaySection,
-  SingleBlogSection,
   HighlightNewsSection,
   SponsorSection,
   RecentMatchesSection,

@@ -5,15 +5,23 @@ import sectionConfig from "../../../../../components/designed-sections/sections.
 import Layout from "../../../../../components/Layout";
 import cca from "../../../../../utils/cca";
 import { BLOGS_PLAGE_LIMIT } from "../../../../../utils/constants";
+import { getAllContactInfo } from "../../../../../utils/getAllContactInfo";
 import { getAllPageContents } from "../../../../../utils/getAllPageContents";
+import { getAllTeamInfo } from "../../../../../utils/getAllTeamInfo";
+import { getAllVenueInfo } from "../../../../../utils/getAllVenueInfo";
 import { getClientCredentialsToken } from "../../../../../utils/getClientCredentialsToken";
 import {
   dynamicsBlogAuthorsQuery,
   dynamicsWebpageQuery,
 } from "../../../../../utils/queries";
 import {
+  DynamicsBlog,
+  DynamicsMatch,
+  DynamicsOrganizationContact,
   DynamicsPageProps,
   DynamicsPageSection,
+  DynamicsSportsTeam,
+  DynamicsVenue,
   xmlDynamicsBlog,
 } from "../../../../../utils/types";
 
@@ -37,7 +45,12 @@ const AuthorPage: React.FunctionComponent<IBlogAuthorProps> = (props) => {
           sectionConfig[s["bsi_DesignedSection"].bsi_name]({
             dynamicsPageSection: s,
             key: s.pagesectionid,
+            dynamicsMatches: props.dynamicsMatches,
+            events: props.dynamicsMatches,
+            dynamicsSportsTeams: props.dynamicsSportsTeams,
             dynamicsBlogs: props.dynamicsBlogs,
+            dynamicsOrganizationContacts: props.dynamicsOrganizationContacts,
+            dynamicsVenues: props.dynamicsVenues,
           })
       )}
     </Layout>
@@ -79,9 +92,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async (req) => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
   try {
-    const { author, page } = req.params as IParams;
+    const { author, page } = params as IParams;
     const tokenResponse = await getClientCredentialsToken(cca);
     const accessToken = tokenResponse?.accessToken;
     const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
@@ -99,6 +115,7 @@ export const getStaticProps: GetStaticProps = async (req) => {
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
       dynamicsBlogs,
+      dynamicsMatches,
     } = await getAllPageContents(
       config,
       dynamicsPageResult[0].bsi_webpageid,
@@ -111,12 +128,22 @@ export const getStaticProps: GetStaticProps = async (req) => {
       dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
     );
 
+    const teams = await getAllTeamInfo(config);
+    const contacts = await getAllContactInfo(config);
+    const venues = await getAllVenueInfo(config);
+
     return {
       props: {
-        dynamicsPageSections: dynamicsPageSections,
-        dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
-        dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
-        dynamicsBlogs: dynamicsBlogs.value,
+        preview: preview,
+        dynamicsPageName: dynamicsPageResult[0].bsi_name as string,
+        dynamicsPageSections: dynamicsPageSections as DynamicsPageSection[],
+        dynamicsSportsTeams: teams as DynamicsSportsTeam[],
+        dynamicsVenues: venues as DynamicsVenue[],
+        dynamicsOrganizationContacts: contacts as DynamicsOrganizationContact[],
+        dynamicsMatches: dynamicsMatches.value as DynamicsMatch[],
+        dynamicsBlogs: dynamicsBlogs.value as DynamicsBlog[],
+        dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value as any[],
+        dynamicsFooterMenuItems: dynamicsFooterMenuItems.value as any[],
         companyLogoUrl:
           dynamicsPageResult[0].bsi_Website.bsi_CompanyLogo.bsi_cdnurl,
       },

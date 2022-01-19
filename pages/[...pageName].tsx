@@ -136,15 +136,16 @@ export const getStaticProps: GetStaticProps = async ({
     return {
       props: {
         preview: preview,
-        dynamicsPageName: dynamicsPageResult[0].bsi_name,
-        dynamicsPageSections: dynamicsPageSections,
-        dynamicsSportsTeams: teams,
-        dynamicsVenues: venues,
-        dynamicsOrganizationContacts: contacts,
-        dynamicsMatches: dynamicsMatches.value,
-        dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
-        dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
-        dynamicsBlogs: dynamicsBlogs.value,
+        dynamicsPageName: dynamicsPageResult[0].bsi_name as string,
+        dynamicsPageSections: dynamicsPageSections as DynamicsPageSection[],
+        dynamicsSportsTeams: teams as DynamicsSportsTeam[],
+        dynamicsVenues: venues as DynamicsVenue[],
+        dynamicsOrganizationContacts: contacts as DynamicsOrganizationContact[],
+        dynamicsMatches: dynamicsMatches.value as DynamicsMatch[],
+        dynamicsBlogs: dynamicsBlogs.value as DynamicsBlog[],
+        dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value as any[],
+        dynamicsFooterMenuItems: dynamicsFooterMenuItems.value as any[],
+
         companyLogoUrl:
           dynamicsPageResult[0].bsi_Website.bsi_CompanyLogo.bsi_cdnurl,
       },
