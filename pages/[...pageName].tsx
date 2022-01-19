@@ -76,7 +76,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     locale?: string | undefined;
   }[] = [];
   dynamicsPagesResult.forEach((pr: any) => {
-    if (!pr.bsi_pageurl.contains("[")) {
+    if (!pr.bsi_pageurl.includes("[")) {
       const urls = pr.bsi_pageurl.substring(1).split("/");
       paths.push({
         params: {
