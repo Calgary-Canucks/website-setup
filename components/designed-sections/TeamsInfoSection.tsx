@@ -52,11 +52,13 @@ const TeamsInfoSection: React.FunctionComponent<ITeamsInfoSectionProps> = ({
               <Text
                 as="a"
                 fontSize="1.3rem"
-                color="rgb(1, 78, 134)"
+                color={
+                  dynamicsPageSection.bsi_overlinetextcolor || "rgb(1, 78, 134)"
+                }
                 fontWeight="bold"
                 textAlign={{ base: "start", md: "start" }}
               >
-                TEAM INFO
+                {dynamicsPageSection.bsi_overline}
               </Text>
 
               <Text

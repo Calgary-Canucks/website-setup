@@ -108,7 +108,7 @@ export const getStaticProps: GetStaticProps = async ({
       await retrieveMultiple(
         config,
         "bsi_webpages",
-        `$filter=bsi_name eq 'Teams'&${dynamicsWebpageQuery}`
+        `$filter=bsi_name eq 'Team Template'&${dynamicsWebpageQuery}`
       )
     ).value;
 
