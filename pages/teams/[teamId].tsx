@@ -52,11 +52,12 @@ const TeamIdPage: React.FunctionComponent<ITeamIdProps> = (props) => {
           sectionConfig[s["bsi_DesignedSection"].bsi_name]({
             dynamicsPageSection: s,
             key: s.pagesectionid,
-            dynamicsMatches: props.dynamicsMatches,
+            dynamicsMatches: props.dynamicsSportsTeams[0].bsi_matches,
             events: props.dynamicsMatches,
             dynamicsSportsTeams: props.dynamicsSportsTeams,
             dynamicsBlogs: props.dynamicsBlogs,
             dynamicsOrganizationContacts: props.dynamicsOrganizationContacts,
+            dynamicsTeamContacts: props.dynamicsSportsTeams[0].bsi_contacts,
             dynamicsVenues: props.dynamicsVenues,
           })
       )}

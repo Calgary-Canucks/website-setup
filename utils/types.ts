@@ -121,18 +121,7 @@ export type DynamicsSportsTeam = {
     bsi_name: string;
     bsi_matchid: string;
   }>;
-  bsi_matches: Array<{
-    bsi_name: string;
-    bsi_matchid: string;
-    bsi_matchtime: Date;
-    bsi_teamonescore: number;
-    bsi_teamtwoscore: number;
-    bsi_TeamOne: { bsi_name: string };
-    bsi_TeamTwo: { bsi_name: string };
-    bsi_Venue: {
-      bsi_name: string;
-    };
-  }>;
+  bsi_matches: DynamicsMatch[];
   bsi_contacts: Array<{
     bsi_name: string;
     bsi_email: string;

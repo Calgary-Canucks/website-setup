@@ -30,49 +30,58 @@ const RecentMatchesSection: React.FunctionComponent<
         dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"
       }
     >
-      <Box pb={24}>
-        <Heading
-          as="h2"
-          width="90%"
-          mx="auto"
-          fontSize="1rem"
-          pt={16}
-          pb={2}
-          color={dynamicsPageSection.bsi_mainheadingtextcolor || "inherit"}
+      <Box pb={24} w="95%" mx="auto">
+        <Flex
+          flexDirection="column"
+          alignItems="flex-start"
+          px={4}
+          py={{ base: 8, md: 2 }}
+          w={{ base: "100%", md: "65%" }}
+          style={{ gap: "20px" }}
         >
-          {dynamicsPageSection.bsi_mainheading}
-        </Heading>
-        <Heading
-          as="h3"
-          width="90%"
-          mx="auto"
-          pb={16}
-          color={dynamicsPageSection.bsi_subheadingtextcolor || "inherit"}
-        >
-          {dynamicsPageSection.bsi_subheading}
-        </Heading>
-        <VStack
-          divider={<StackDivider borderColor="gray.200" />}
-          space={4}
-          align="stretch"
-          w="90%"
-          mx="auto"
-          bgColor="white"
-        >
+          <Text
+            as="a"
+            fontSize="1.3rem"
+            color={
+              dynamicsPageSection.bsi_overlinetextcolor || "rgb(1, 78, 134)"
+            }
+            fontWeight="bold"
+            textAlign={{ base: "start", md: "start" }}
+          >
+            {dynamicsPageSection.bsi_overline}
+          </Text>
+
+          <Text
+            as="p"
+            fontSize="1.8rem"
+            fontWeight="bold"
+            textAlign={{ base: "start", md: "start" }}
+            color={dynamicsPageSection.bsi_mainheadingtextcolor || "inherit"}
+          >
+            {dynamicsPageSection.bsi_mainheading}
+          </Text>
+        </Flex>
+
+        <Flex w="100%" flexDirection="column">
           {dynamicsMatches.map((m) => (
             <Flex
               key={m.bsi_matchid}
               direction="column"
               align="stretch"
-              p={6}
-              style={{ gap: "20px" }}
+              w="100%"
+              my={4}
+              p={4}
+              bgColor="white"
+              borderRadius="5px"
+              boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
             >
               <Text as="span">
                 {new Date(m.bsi_matchtime).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
-                })}{" "}
+                })}
+                {", "}
                 {new Date(m.bsi_matchtime).toLocaleTimeString("en-US")}
               </Text>
               <Flex direction="column">
@@ -104,6 +113,7 @@ const RecentMatchesSection: React.FunctionComponent<
                           : "blackAlpha"
                       }
                       fontSize="1.2rem"
+                      boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
                     >
                       {m.bsi_teamonescore && m.bsi_teamtwoscore
                         ? `${m.bsi_teamonescore} - ${m.bsi_teamtwoscore}`
@@ -126,7 +136,7 @@ const RecentMatchesSection: React.FunctionComponent<
               </Flex>
             </Flex>
           ))}
-        </VStack>
+        </Flex>
       </Box>
     </AnchorSection>
   );

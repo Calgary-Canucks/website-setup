@@ -26,8 +26,6 @@ const TeamsInfoSection: React.FunctionComponent<ITeamsInfoSectionProps> = ({
     }, {});
   }
 
-  console.log(dynamicsSportsTeams);
-
   return (
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid}
@@ -85,7 +83,7 @@ const TeamsInfoSection: React.FunctionComponent<ITeamsInfoSectionProps> = ({
               height="540px"
             />
           </Flex>
-          <Box py={16}>
+          {/* <Box py={16}>
             <Flex
               flexDirection="column"
               alignItems="flex-start"
@@ -190,8 +188,8 @@ const TeamsInfoSection: React.FunctionComponent<ITeamsInfoSectionProps> = ({
                 </Flex>
               ))}
             </Flex>
-          </Box>
-          <Box>
+          </Box> */}
+          {/* <Box>
             <Flex
               flexDirection="column"
               alignItems="flex-start"
@@ -256,7 +254,7 @@ const TeamsInfoSection: React.FunctionComponent<ITeamsInfoSectionProps> = ({
                 </Flex>
               ))}
             </Flex>
-          </Box>
+          </Box> */}
         </Box>
       )}
       {dynamicsSportsTeams.length > 1 &&
