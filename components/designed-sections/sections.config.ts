@@ -11,6 +11,9 @@ import HighlightNewsSection from "./HighlightNewsSection";
 import SponsorSection from "./SponsorSection";
 import RecentMatchesSection from "./RecentMatchesSection";
 import CalendarSection from "./CalendarSection";
+import TeamsInfoSection from "./TeamsInfoSection";
+import ContactPersonnelSection from "./ContactPersonnelSection";
+import MapBoxStaticMapSection from "./MapBoxStaticMapSection";
 
 const sections: { [key: string]: FunctionComponent<any> } = {
   BusinessBanterSection,
@@ -25,6 +28,9 @@ const sections: { [key: string]: FunctionComponent<any> } = {
   SponsorSection,
   RecentMatchesSection,
   CalendarSection,
+  TeamsInfoSection,
+  ContactPersonnelSection,
+  MapBoxStaticMapSection,
 };
 
 export default sections;

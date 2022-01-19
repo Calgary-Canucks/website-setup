@@ -30,7 +30,7 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props) => {
         menuItems={props.headerMenuItems}
         companyLogoUrl={props.companyLogoUrl}
       />
-      <BreadCrumb />
+
       {props.preview && (
         <Tooltip hasArrow label="Exit preview mode" bg="red.600">
           <Button

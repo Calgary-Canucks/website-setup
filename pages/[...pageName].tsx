@@ -6,27 +6,26 @@ import React, { useEffect, useState } from "react";
 import sectionConfig from "../components/designed-sections/sections.config";
 import Layout from "../components/Layout";
 import SectionControl from "../components/SectionControl";
+import SubHeader from "../components/SubHeader";
 import cca from "../utils/cca";
+import { getAllContactInfo } from "../utils/getAllContactInfo";
 import { getAllPageContents } from "../utils/getAllPageContents";
+import { getAllTeamInfo } from "../utils/getAllTeamInfo";
+import { getAllVenueInfo } from "../utils/getAllVenueInfo";
 import { getClientCredentialsToken } from "../utils/getClientCredentialsToken";
 import { dynamicsWebpageQuery } from "../utils/queries";
 import {
+  DynamicsBlog,
   DynamicsMatch,
+  DynamicsOrganizationContact,
+  DynamicsPageProps,
   DynamicsPageSection,
+  DynamicsSportsTeam,
+  DynamicsVenue,
   PageSection,
 } from "../utils/types";
 
-interface DynamicsPagesProps {
-  pageSections?: PageSection[];
-  error?: any;
-  // accessToken?: string;
-  dynamicsPageSections: DynamicsPageSection[];
-  dynamicsMatches: DynamicsMatch[];
-  dynamicsHeaderMenuItems: any[];
-  dynamicsFooterMenuItems: any[];
-  companyLogoUrl: string;
-  preview: boolean;
-}
+interface DynamicsPagesProps extends DynamicsPageProps {}
 
 interface IParams extends ParsedUrlQuery {
   pageName: string;
@@ -35,42 +34,6 @@ interface IParams extends ParsedUrlQuery {
 const DynamicsPages: NextPage<DynamicsPagesProps> = (
   props: DynamicsPagesProps
 ) => {
-  const [currentHash, setCurrentHash] = useState("");
-  const [changingHash, setChangingHash] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    //Used to monitor section change, not supported on IE
-    const allSections = document.querySelectorAll("section");
-    const onSectionEntry = (entry: any[]) => {
-      entry.forEach((change: any) => {
-        if (change.isIntersecting && !changingHash) {
-          setChangingHash(true);
-          setCurrentHash(change.target.id);
-        }
-      });
-    };
-    const options = { threshold: [0.5] };
-    const observer = new IntersectionObserver(onSectionEntry, options);
-    for (let sec of allSections) {
-      observer.observe(sec);
-    }
-  });
-
-  useEffect(() => {
-    const onHashChangeStart = (url: string) => {
-      setChangingHash(true);
-      setCurrentHash(url.substr(2));
-    };
-
-    router.events.on("hashChangeStart", onHashChangeStart);
-
-    return () => {
-      setChangingHash(false);
-      router.events.off("hashChangeStart", onHashChangeStart);
-    };
-  }, [router.events]);
-
   return (
     <Layout
       headerMenuItems={props.dynamicsHeaderMenuItems}
@@ -78,6 +41,7 @@ const DynamicsPages: NextPage<DynamicsPagesProps> = (
       companyLogoUrl={props.companyLogoUrl}
       preview={props.preview}
     >
+      <SubHeader pageTitle={props.dynamicsPageName} />
       {props.dynamicsPageSections?.map(
         (s: any) =>
           sectionConfig[s["bsi_DesignedSection"].bsi_name] &&
@@ -86,12 +50,12 @@ const DynamicsPages: NextPage<DynamicsPagesProps> = (
             key: s.pagesectionid,
             dynamicsMatches: props.dynamicsMatches,
             events: props.dynamicsMatches,
+            dynamicsSportsTeams: props.dynamicsSportsTeams,
+            dynamicsBlogs: props.dynamicsBlogs,
+            dynamicsOrganizationContacts: props.dynamicsOrganizationContacts,
+            dynamicsVenues: props.dynamicsVenues,
           })
       )}
-      <SectionControl
-        dynamicsPageSections={props.dynamicsPageSections}
-        currentHash={currentHash}
-      />
     </Layout>
   );
 };
@@ -104,24 +68,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
     await retrieveMultiple(
       config,
       "bsi_webpages",
-      "$filter=bsi_published ne false and _bsi_parentwebpageid_value eq null and bsi_name ne 'Home'&$select=bsi_name,bsi_pageurl"
+      "$filter=bsi_published ne false&$select=bsi_name,bsi_pageurl"
     )
   ).value;
-  const paths: (
-    | string
-    | {
-        params: IParams;
-        locale?: string | undefined;
-      }
-  )[] = [];
+  const paths: {
+    params: IParams;
+    locale?: string | undefined;
+  }[] = [];
   dynamicsPagesResult.forEach((pr: any) => {
-    if (pr.bsi_name !== "Blogs" && pr.bsi_name !== "Blog Template")
-      paths.push({
-        params: {
-          pageName: pr.bsi_pageurl.replace(/\//g, ""),
-        },
-      });
+    const urls = pr.bsi_pageurl.substring(1).split("/");
+    paths.push({
+      params: {
+        pageName: urls,
+      },
+    });
   });
+
   return {
     paths,
     fallback: false,
@@ -137,7 +99,8 @@ export const getStaticProps: GetStaticProps = async ({
     const accessToken = tokenResponse?.accessToken;
     const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
     const { pageName } = params as IParams;
-    const webpageName = pageName.replace(/-/g, " ");
+
+    const webpageName = pageName[pageName.length - 1];
 
     const dynamicsPageResult: any[] = (
       await retrieveMultiple(
@@ -146,29 +109,40 @@ export const getStaticProps: GetStaticProps = async ({
         `$filter=bsi_name eq '${webpageName}'&${dynamicsWebpageQuery}`
       )
     ).value;
+
     const {
       dynamicsPageSections,
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
       dynamicsMatches,
+      dynamicsBlogs,
     } = await getAllPageContents(
       config,
       dynamicsPageResult[0].bsi_webpageid,
       preview,
-      undefined,
+      1,
       undefined,
       undefined,
       undefined,
       dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_headermenuid,
       dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
     );
+
+    const teams = await getAllTeamInfo(config);
+    const contacts = await getAllContactInfo(config);
+    const venues = await getAllVenueInfo(config);
     return {
       props: {
         preview: preview,
+        dynamicsPageName: dynamicsPageResult[0].bsi_name,
         dynamicsPageSections: dynamicsPageSections,
+        dynamicsSportsTeams: teams,
+        dynamicsVenues: venues,
+        dynamicsOrganizationContacts: contacts,
         dynamicsMatches: dynamicsMatches.value,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
+        dynamicsBlogs: dynamicsBlogs.value,
         companyLogoUrl:
           dynamicsPageResult[0].bsi_Website.bsi_CompanyLogo.bsi_cdnurl,
       },

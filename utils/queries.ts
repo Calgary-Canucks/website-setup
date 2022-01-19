@@ -7,6 +7,12 @@ export const attachedComponentsQuery =
 export const dynamicsMatchesQuery =
   "$select=bsi_name,bsi_teamonescore,bsi_teamtwoscore,bsi_matchtime&$orderby=bsi_matchtime asc&$expand=bsi_TeamOne($select=bsi_name),bsi_TeamTwo($select=bsi_name),bsi_Venue($select=bsi_name,bsi_addressline1)";
 
+export const dynamicsVenuesQuery =
+  "$select=bsi_name,bsi_address,bsi_latitude,bsi_longtitude,bsi_addressline1,bsi_city,bsi_province,bsi_postalcode";
+
+export const dynamicsTeamsQuery =
+  "$select=bsi_name,bsi_teaminfo,bsi_description&$expand=bsi_AgeGroup($select=bsi_name),bsi_Match_TeamOne_bsi_SportsTeam($select=bsi_name),bsi_Match_TeamTwo_bsi_SportsTeam($select=bsi_name)";
+
 export const dynamicsHeaderMenuItemsQuery =
   "$select=bsi_name,bsi_linkurl,bsi_navigationmenuitemid&$expand=bsi_NavigationMenuSubItem_NavigationMenuI($select=bsi_name,bsi_linkurl,bsi_navigationmenusubitemid)";
 
@@ -17,7 +23,7 @@ export const dynamicsBlogSlugsQuery =
   "$select=bsi_name,bsi_slug&$orderby=createdon asc";
 
 export const dynamicsWebpageQuery =
-  "$select=bsi_webpageid&$expand=bsi_Website($select=bsi_name;$expand=bsi_CompanyLogo($select=bsi_cdnurl),bsi_HeaderMenu($select=bsi_name),bsi_FooterMenu($select=bsi_name))";
+  "$select=bsi_webpageid,bsi_name&$expand=bsi_Website($select=bsi_name;$expand=bsi_CompanyLogo($select=bsi_cdnurl),bsi_HeaderMenu($select=bsi_name),bsi_FooterMenu($select=bsi_name))";
 
 export const dynamicsBlogAuthorsQuery =
   "$select=bsi_name,bsi_slug&$orderby=bsi_name asc&$expand=bsi_Blog_bsi_BlogAuthor_bsi_BlogAuthor($select=bsi_name)";

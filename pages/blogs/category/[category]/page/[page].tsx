@@ -11,19 +11,12 @@ import {
   dynamicsWebpageQuery,
 } from "../../../../../utils/queries";
 import {
+  DynamicsPageProps,
   DynamicsPageSection,
   xmlDynamicsBlog,
 } from "../../../../../utils/types";
 
-interface IBlogCategoryProps {
-  error?: any;
-  // accessToken?: string;
-  dynamicsPageSections: DynamicsPageSection[];
-  dynamicsHeaderMenuItems: any[];
-  dynamicsFooterMenuItems: any[];
-  dynamicsBlogs: xmlDynamicsBlog[];
-  companyLogoUrl: string;
-}
+interface IBlogCategoryProps extends DynamicsPageProps {}
 
 interface IParams extends ParsedUrlQuery {
   category: string;

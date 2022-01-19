@@ -20,8 +20,10 @@ const BlogsDisplaySection: React.FunctionComponent<
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid}
       key={dynamicsPageSection.bsi_pagesectionid}
+      py={32}
+      bgColor="rgb(241,241,241)"
     >
-      <Box bgColor="rgb(241,241,241)">
+      <Box>
         <Heading
           as="h2"
           width="90%"

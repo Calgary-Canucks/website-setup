@@ -12,19 +12,12 @@ import {
   dynamicsWebpageQuery,
 } from "../../../../../utils/queries";
 import {
+  DynamicsPageProps,
   DynamicsPageSection,
   xmlDynamicsBlog,
 } from "../../../../../utils/types";
 
-interface IBlogAuthorProps {
-  error?: any;
-  // accessToken?: string;
-  dynamicsPageSections: DynamicsPageSection[];
-  dynamicsHeaderMenuItems: any[];
-  dynamicsFooterMenuItems: any[];
-  dynamicsBlogs: xmlDynamicsBlog[];
-  companyLogoUrl: string;
-}
+interface IBlogAuthorProps extends DynamicsPageProps {}
 
 interface IParams extends ParsedUrlQuery {
   author: string;

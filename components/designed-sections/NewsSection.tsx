@@ -16,6 +16,9 @@ const NewsSection: React.FunctionComponent<INewsSectionProps> = ({
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid || "introduction"}
       key={dynamicsPageSection.bsi_sectionid}
+      backgroundColor={
+        dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"
+      }
     >
       <Box w="100%" my={24}>
         <Flex flexDirection="column" w="90%" mx="auto" align="center">

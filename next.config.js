@@ -2,7 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["images.ctfassets.net"],
+    domains: ["images.ctfassets.net", "api.mapbox.com"],
   },
   async redirects() {
     return [
@@ -16,6 +16,7 @@ module.exports = {
         destination: "/blogs/author/:author/page/1",
         permanent: false,
       },
+      { source: "/home", destination: "/", permanent: true },
       {
         source: "/blogs",
         destination: "/blogs/page/1",

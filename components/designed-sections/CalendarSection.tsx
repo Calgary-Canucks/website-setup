@@ -51,8 +51,11 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid}
       key={dynamicsPageSection.bsi_pagesectionid}
+      backgroundColor={
+        dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"
+      }
     >
-      <Box bgColor="rgb(241,241,241)" pb={32}>
+      <Box pb={32}>
         <Flex
           h="10vh"
           bg="white"

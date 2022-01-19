@@ -1,3 +1,7 @@
+export interface DesignedSection {
+  dynamicsPageSection: DynamicsPageSection;
+}
+
 export type MenuItem = {
   name: string;
   url: string;
@@ -65,6 +69,79 @@ export type xmlDynamicsBlog = {
   bsi_author: string;
   bsi_blogbody: string;
   modifiedon: string;
+};
+
+export interface DynamicsPageProps {
+  error?: any;
+  dynamicsPageName: string;
+  dynamicsVenues: DynamicsVenue[];
+  dynamicsOrganizationContacts: DynamicsOrganizationContact[];
+  dynamicsPageSections: DynamicsPageSection[];
+  dynamicsMatches: DynamicsMatch[];
+  dynamicsSportsTeams: DynamicsSportsTeam[];
+  dynamicsHeaderMenuItems: any[];
+  dynamicsFooterMenuItems: any[];
+  dynamicsBlogs: DynamicsBlog[];
+  companyLogoUrl: string;
+  preview: boolean;
+}
+
+export type DynamicsVenue = {
+  bsi_name: string;
+  bsi_addressline1: string;
+  bsi_city: string;
+  bsi_province: string;
+  bsi_postalcode: string;
+  bsi_latitude: string;
+  bsi_longtitude: string;
+  bsi_venueid: string;
+};
+
+export type DynamicsOrganizationContact = {
+  bsi_name: string;
+  bsi_email: string;
+  bsi_title: string;
+  bsi_organizationcontactid: string;
+};
+
+export type DynamicsSportsTeam = {
+  bsi_name: string;
+  bsi_teaminfo: string;
+  bsi_description: string;
+  bsi_sportsteamid: string;
+  bsi_AgeGroup: {
+    bsi_agegroupid: string;
+    bsi_name: string;
+  };
+  bsi_Match_TeamOne_bsi_SportsTeam: Array<{
+    bsi_name: string;
+    bsi_matchid: string;
+  }>;
+  bsi_Match_TeamTwo_bsi_SportsTeam: Array<{
+    bsi_name: string;
+    bsi_matchid: string;
+  }>;
+  bsi_matches: Array<{
+    bsi_name: string;
+    bsi_matchid: string;
+    bsi_matchtime: Date;
+    bsi_teamonescore: number;
+    bsi_teamtwoscore: number;
+    bsi_TeamOne: { bsi_name: string };
+    bsi_TeamTwo: { bsi_name: string };
+    bsi_Venue: {
+      bsi_name: string;
+    };
+  }>;
+  bsi_contacts: Array<{
+    bsi_name: string;
+    bsi_email: string;
+    bsi_sportsteammemberid: string;
+    bsi_SportsTeamMember_bsi_SportsTeamRoles_: Array<{
+      bsi_name: string;
+      bsi_sportsteamroleid: string;
+    }>;
+  }>;
 };
 
 export type DynamicsPageSection = {

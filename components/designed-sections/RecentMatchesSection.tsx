@@ -26,11 +26,11 @@ const RecentMatchesSection: React.FunctionComponent<
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid || "success-stories"}
       key={dynamicsPageSection.bsi_pagesectionid}
+      backgroundColor={
+        dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"
+      }
     >
-      <Box
-        bgColor={dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"}
-        pb={24}
-      >
+      <Box pb={24}>
         <Heading
           as="h2"
           width="90%"

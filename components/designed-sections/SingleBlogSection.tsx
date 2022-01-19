@@ -20,6 +20,10 @@ const SingleBlogSection: React.FunctionComponent<ISingleBlogSectionProps> = ({
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid}
       key={dynamicsPageSection.bsi_pagesectionid}
+      py={32}
+      backgroundColor={
+        dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"
+      }
     >
       <Flex
         flexDirection={"column"}

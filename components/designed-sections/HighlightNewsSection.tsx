@@ -51,16 +51,12 @@ const HighlightNewsSection: React.FunctionComponent<
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid}
       key={dynamicsPageSection.bsi_pagesectionid}
+      py={16}
+      backgroundColor={
+        dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"
+      }
     >
-      <Box
-        w="100%"
-        overflowX="hidden"
-        h="auto"
-        backgroundColor={
-          dynamicsPageSection.bsi_backgroundcolor || "rgb(241,241,241)"
-        }
-        pb={12}
-      >
+      <Box w="100%" overflowX="hidden" h="auto" pb={12}>
         <Flex w="400%" transform={`translateX(-${activeBlog * 25}%)`}>
           {dynamicsBlogs.map((db, index) => {
             if (index < 4)

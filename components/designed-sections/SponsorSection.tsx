@@ -17,6 +17,7 @@ const SponsorSection: React.FunctionComponent<ISponsorSectionProps> = ({
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid || "success-stories"}
       key={dynamicsPageSection.bsi_pagesectionid}
+      backgroundColor={dynamicsPageSection.bsi_backgroundcolor || "white"}
     >
       <Flex align="center" w="100%" overflow="hidden" h="30vh">
         <Flex w="2980px" justify="space-between">

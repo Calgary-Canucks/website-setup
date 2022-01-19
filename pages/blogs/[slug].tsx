@@ -12,22 +12,17 @@ import {
   dynamicsBlogSlugsQuery,
   dynamicsWebpageQuery,
 } from "../../utils/queries";
-import { DynamicsBlog, DynamicsPageSection } from "../../utils/types";
+import {
+  DynamicsBlog,
+  DynamicsPageProps,
+  DynamicsPageSection,
+} from "../../utils/types";
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
 }
 
-interface ISlugProps {
-  error?: any;
-  // accessToken?: string;
-  dynamicsPageSections: DynamicsPageSection[];
-  dynamicsHeaderMenuItems: any[];
-  dynamicsFooterMenuItems: any[];
-  dynamicsBlogs: DynamicsBlog[];
-  companyLogoUrl: string;
-  preview: boolean;
-}
+interface ISlugProps extends DynamicsPageProps {}
 
 const Slug: React.FunctionComponent<ISlugProps> = (props) => {
   const router = useRouter();
@@ -127,6 +122,7 @@ export const getStaticProps: GetStaticProps = async ({
     return {
       props: {
         preview: preview,
+
         dynamicsPageSections: dynamicsPageSections,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
