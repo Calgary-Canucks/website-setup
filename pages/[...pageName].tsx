@@ -76,12 +76,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     locale?: string | undefined;
   }[] = [];
   dynamicsPagesResult.forEach((pr: any) => {
-    const urls = pr.bsi_pageurl.substring(1).split("/");
-    paths.push({
-      params: {
-        pageName: urls,
-      },
-    });
+    if (!pr.bsi_pageurl.contains("[")) {
+      const urls = pr.bsi_pageurl.substring(1).split("/");
+      paths.push({
+        params: {
+          pageName: urls,
+        },
+      });
+    }
   });
 
   return {
