@@ -1,18 +1,7 @@
-import {
-  Badge,
-  Box,
-  Flex,
-  Heading,
-  Image,
-  StackDivider,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Badge, Box, Flex, Text } from "@chakra-ui/react";
 import * as React from "react";
 import { DynamicsMatch, DynamicsPageSection } from "../../utils/types";
 import AnchorSection from "../AnchorSection";
-import winningteam from "../../public/winningteam.svg";
-import losingteam from "../../public/losingteam.svg";
 
 interface IRecentMatchesSectionProps {
   dynamicsPageSection: DynamicsPageSection;

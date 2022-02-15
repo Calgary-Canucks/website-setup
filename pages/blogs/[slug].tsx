@@ -1,5 +1,5 @@
 import { retrieveMultiple, WebApiConfig } from "dataverse-webapi/lib/node";
-import { GetStaticPaths, GetStaticPathsContext, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/dist/client/router";
 import { ParsedUrlQuery } from "querystring";
 import * as React from "react";
@@ -124,8 +124,8 @@ export const getStaticProps: GetStaticProps = async ({
       "",
       "",
       slug,
-      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_headermenuid,
-      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
+      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_navigationmenuid,
+      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
     if ((dynamicsBlogs.value as any).length === 0) {
       return {

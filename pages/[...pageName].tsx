@@ -1,11 +1,9 @@
 import { retrieveMultiple, WebApiConfig } from "dataverse-webapi/lib/node";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useRouter } from "next/dist/client/router";
 import { ParsedUrlQuery } from "querystring";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import sectionConfig from "../components/designed-sections/sections.config";
 import Layout from "../components/Layout";
-import SectionControl from "../components/SectionControl";
 import SubHeader from "../components/SubHeader";
 import cca from "../utils/cca";
 import { getAllContactInfo } from "../utils/getAllContactInfo";
@@ -22,7 +20,6 @@ import {
   DynamicsPageSection,
   DynamicsSportsTeam,
   DynamicsVenue,
-  PageSection,
 } from "../utils/types";
 
 interface DynamicsPagesProps extends DynamicsPageProps {}
@@ -126,8 +123,8 @@ export const getStaticProps: GetStaticProps = async ({
       undefined,
       undefined,
       undefined,
-      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_headermenuid,
-      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
+      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_navigationmenuid,
+      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
 
     const teams = await getAllTeamInfo(config);

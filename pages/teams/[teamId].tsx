@@ -5,25 +5,16 @@ import sectionConfig from "../../components/designed-sections/sections.config";
 import Layout from "../../components/Layout";
 import SubHeader from "../../components/SubHeader";
 import cca from "../../utils/cca";
-import { BLOGS_PLAGE_LIMIT } from "../../utils/constants";
 import { getAllContactInfo } from "../../utils/getAllContactInfo";
 import { getAllPageContents } from "../../utils/getAllPageContents";
 import { getAllTeamInfo } from "../../utils/getAllTeamInfo";
 import { getAllVenueInfo } from "../../utils/getAllVenueInfo";
 import { getClientCredentialsToken } from "../../utils/getClientCredentialsToken";
+import { dynamicsTeamsQuery, dynamicsWebpageQuery } from "../../utils/queries";
 import {
-  dynamicsBlogAuthorsQuery,
-  dynamicsTeamsQuery,
-  dynamicsWebpageQuery,
-} from "../../utils/queries";
-import {
-  DynamicsMatch,
   DynamicsOrganizationContact,
   DynamicsPageProps,
-  DynamicsPageSection,
-  DynamicsSportsTeam,
   DynamicsVenue,
-  xmlDynamicsBlog,
 } from "../../utils/types";
 
 interface ITeamIdProps extends DynamicsPageProps {}
@@ -126,8 +117,8 @@ export const getStaticProps: GetStaticProps = async ({
       "",
       undefined,
       undefined,
-      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_headermenuid,
-      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
+      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_navigationmenuid,
+      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
 
     const teams = await getAllTeamInfo(config, teamId);

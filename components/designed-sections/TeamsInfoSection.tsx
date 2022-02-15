@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import * as React from "react";
 import { DynamicsPageSection, DynamicsSportsTeam } from "../../utils/types";
 import AnchorSection from "../AnchorSection";
@@ -79,10 +79,14 @@ const TeamsInfoSection: React.FunctionComponent<ITeamsInfoSectionProps> = ({
               ></Box>
             </Flex>
             <Image
-              src="/placeholder.jpg"
-              alt="placeholder"
+              src={
+                dynamicsSportsTeams[0].bsi_TeamImage.bsi_cdnurl ||
+                "/placeholder.jpg"
+              }
+              alt={dynamicsSportsTeams[0].bsi_TeamImage.bsi_alttext}
               width="960px"
               height="540px"
+              className="single-image"
             />
           </Flex>
           {/* <Box py={16}>
@@ -285,8 +289,8 @@ const TeamsInfoSection: React.FunctionComponent<ITeamsInfoSectionProps> = ({
                     flexDirection="column"
                   >
                     <Image
-                      src="/placeholder.jpg"
-                      alt="placeholder"
+                      src={t.bsi_TeamImage.bsi_cdnurl || "/placeholder.jpg"}
+                      alt={t.bsi_TeamImage.bsi_alttext}
                       width="480px"
                       height="270px"
                       objectFit="contain"

@@ -1,33 +1,15 @@
 import { retrieveMultiple, WebApiConfig } from "dataverse-webapi/lib/node";
 import { GetStaticProps, NextPage } from "next";
-import { useRouter } from "next/dist/client/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import sectionConfig from "../components/designed-sections/sections.config";
 import Layout from "../components/Layout";
-import SectionControl from "../components/SectionControl";
 import cca from "../utils/cca";
 import { getAllPageContents } from "../utils/getAllPageContents";
 import { getClientCredentialsToken } from "../utils/getClientCredentialsToken";
 import { dynamicsWebpageQuery } from "../utils/queries";
-import {
-  DynamicsBlog,
-  DynamicsMatch,
-  DynamicsPageSection,
-  PageSection,
-} from "../utils/types";
+import { DynamicsPageProps } from "../utils/types";
 
-interface DynamicsProps {
-  pageSections?: PageSection[];
-  error?: any;
-  // accessToken?: string;
-  dynamicsPageSections: DynamicsPageSection[];
-  dynamicsHeaderMenuItems: any[];
-  dynamicsFooterMenuItems: any[];
-  dynamicsBlogs: DynamicsBlog[];
-  dynamicsMatches: DynamicsMatch[];
-  companyLogoUrl: string;
-  preview: boolean;
-}
+interface DynamicsProps extends DynamicsPageProps {}
 
 const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
   return (
@@ -79,8 +61,8 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       "",
       "",
       undefined,
-      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_headermenuid,
-      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_footermenuid
+      dynamicsPageResult[0].bsi_Website.bsi_HeaderMenu.bsi_navigationmenuid,
+      dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
 
     return {

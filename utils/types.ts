@@ -102,6 +102,10 @@ export type DynamicsOrganizationContact = {
   bsi_email: string;
   bsi_title: string;
   bsi_organizationcontactid: string;
+  bsi_ProfilePicture: {
+    bsi_alttext: string;
+    bsi_cdnurl: string;
+  };
 };
 
 export type DynamicsSportsTeam = {
@@ -109,6 +113,10 @@ export type DynamicsSportsTeam = {
   bsi_teaminfo: string;
   bsi_description: string;
   bsi_sportsteamid: string;
+  bsi_TeamImage: {
+    bsi_alttext: string;
+    bsi_cdnurl: string;
+  };
   bsi_AgeGroup: {
     bsi_agegroupid: string;
     bsi_name: string;
@@ -125,6 +133,10 @@ export type DynamicsSportsTeam = {
   bsi_contacts: Array<{
     bsi_name: string;
     bsi_email: string;
+    bsi_ProfilePicture: {
+      bsi_alttext: string;
+      bsi_cdnurl: string;
+    };
     bsi_sportsteammemberid: string;
     bsi_SportsTeamMember_bsi_SportsTeamRoles_: Array<{
       bsi_name: string;

@@ -1,13 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Flex,
-  Image,
-  Link,
-  LinkBox,
-  Text,
-} from "@chakra-ui/react";
+import { Badge, Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import * as React from "react";
 import NextLink from "next/link";
 import { DynamicsBlog } from "../utils/types";

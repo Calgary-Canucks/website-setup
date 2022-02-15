@@ -6,7 +6,7 @@ export const getAllContactInfo = async (config: WebApiConfig) => {
       await retrieveMultiple(
         config,
         "bsi_organizationcontacts",
-        "$select=bsi_name,bsi_email,bsi_title"
+        "$select=bsi_name,bsi_email,bsi_title&$expand=bsi_ProfilePicture($select=bsi_alttext,bsi_cdnurl)"
       )
     ).value;
     return contacts;

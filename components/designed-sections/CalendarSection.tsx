@@ -20,8 +20,8 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
-import Calendar, { YearView } from "react-calendar";
+import React, { useState } from "react";
+import Calendar from "react-calendar";
 import { DynamicsPageSection } from "../../utils/types";
 import AnchorSection from "../AnchorSection";
 

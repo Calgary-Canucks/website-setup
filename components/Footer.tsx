@@ -1,6 +1,5 @@
 import { Box, Flex, Text, Link, Icon, Button, Image } from "@chakra-ui/react";
 import * as React from "react";
-import NextLink from "next/link";
 import {
   FaFacebookF,
   FaLinkedinIn,

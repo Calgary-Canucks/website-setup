@@ -11,7 +11,7 @@ export const dynamicsVenuesQuery =
   "$select=bsi_name,bsi_address,bsi_latitude,bsi_longtitude,bsi_addressline1,bsi_city,bsi_province,bsi_postalcode";
 
 export const dynamicsTeamsQuery =
-  "$select=bsi_name,bsi_teaminfo,bsi_description&$expand=bsi_AgeGroup($select=bsi_name),bsi_Match_TeamOne_bsi_SportsTeam($select=bsi_name),bsi_Match_TeamTwo_bsi_SportsTeam($select=bsi_name)";
+  "$select=bsi_name,bsi_teaminfo,bsi_description&$expand=bsi_AgeGroup($select=bsi_name),bsi_Match_TeamOne_bsi_SportsTeam($select=bsi_name),bsi_Match_TeamTwo_bsi_SportsTeam($select=bsi_name),bsi_TeamImage($select=bsi_alttext,bsi_cdnurl)";
 
 export const dynamicsHeaderMenuItemsQuery =
   "$select=bsi_name,bsi_linkurl,bsi_navigationmenuitemid&$expand=bsi_NavigationMenuSubItem_NavigationMenuI($select=bsi_name,bsi_linkurl,bsi_navigationmenusubitemid)";

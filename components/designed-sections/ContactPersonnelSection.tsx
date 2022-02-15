@@ -77,7 +77,11 @@ const ContactPersonnelSection: React.FunctionComponent<
                 boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
                 p={4}
               >
-                <Avatar name={c.bsi_name} size="lg" />
+                <Avatar
+                  src={c.bsi_ProfilePicture.bsi_cdnurl}
+                  name={c.bsi_name}
+                  size="lg"
+                />
                 <Flex flexDirection="column" ml={4} flexGrow={1}>
                   <Text color="rgb(118,118,118)" fontSize="0.9rem">
                     {c.bsi_SportsTeamMember_bsi_SportsTeamRoles_[0].bsi_name}
@@ -158,7 +162,11 @@ const ContactPersonnelSection: React.FunctionComponent<
               boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
               p={4}
             >
-              <Avatar name={c.bsi_name} size="lg" />
+              <Avatar
+                src={c.bsi_ProfilePicture.bsi_cdnurl}
+                name={c.bsi_name}
+                size="lg"
+              />
               <Flex flexDirection="column" ml={4} flexGrow={1}>
                 <Text color="rgb(118,118,118)" fontSize="0.9rem">
                   {c.bsi_title}

@@ -17,7 +17,7 @@ export const getAllTeamInfo = async (config: WebApiConfig, teamId?: string) => {
         await retrieveMultiple(
           config,
           "bsi_sportsteammembers",
-          `$filter=_bsi_sportsteam_value eq ${teamId} and bsi_SportsTeamMember_bsi_SportsTeamRoles_/any(o:o/bsi_name eq 'Team Administrator')&$select=bsi_name,bsi_email&$expand=bsi_SportsTeamMember_bsi_SportsTeamRoles_($select=bsi_name)`
+          `$filter=_bsi_sportsteam_value eq ${teamId} and bsi_SportsTeamMember_bsi_SportsTeamRoles_/any(o:o/bsi_name eq 'Team Administrator')&$select=bsi_name,bsi_email&$expand=bsi_SportsTeamMember_bsi_SportsTeamRoles_($select=bsi_name),bsi_ProfilePicture($select=bsi_alttext,bsi_cdnurl)`
         )
       ).value;
       const matches = (

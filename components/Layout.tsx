@@ -3,7 +3,6 @@ import { Box } from "@chakra-ui/layout";
 import { Button, Tooltip } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import * as React from "react";
-import BreadCrumb from "./BreadCrumb";
 import Footer from "./Footer";
 import Header from "./Header";
 
