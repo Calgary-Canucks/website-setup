@@ -17,6 +17,19 @@ export type SectionItem = {
   sectionId: string;
 };
 
+export type DynamicsContactForm = {
+  bsi_name: string;
+  bsi_contactformid: string;
+};
+
+export type DynamicsContactFormField = {
+  bsi_name: string;
+  bsi_contactfieldlogicname: string;
+  bsi_fieldname: string;
+  bsi_sequence: number;
+  bsi_fieldtype: number;
+};
+
 export type DynamicsMatch = {
   bsi_name: string;
   bsi_matchid: string;
