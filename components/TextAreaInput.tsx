@@ -24,7 +24,7 @@ const TextAreaInput: React.FunctionComponent<ITextAreaInputProps> = ({
   return (
     <FormControl isInvalid={!!(meta.error && meta.touched)} {...chakraProps}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
-      <Textarea {...field} id={id} name={name} resize="vertical" rows={15} />
+      <Textarea {...field} id={id} name={name} resize="vertical" rows={5} />
       {!!meta.error && <FormErrorMessage>{meta.error}</FormErrorMessage>}
     </FormControl>
   );

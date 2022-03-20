@@ -39,6 +39,7 @@ export const getAllPageContents = async (
 
     for (const section of dynamicsPageSections) {
       const attachedComponentsRequest: any[] = [];
+
       (section as any).bsi_AttachedComponent_bsi_PageSection_bsi.forEach(
         (po: any) => {
           attachedComponentsRequest.push(

@@ -135,6 +135,7 @@ export const getStaticProps: GetStaticProps = async ({
     const teams = await getAllTeamInfo(config);
     const contacts = await getAllContactInfo(config);
     const venues = await getAllVenueInfo(config);
+
     return {
       props: {
         preview: preview,

@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import * as React from "react";
-import ReCAPTCHA from "react-google-recaptcha";
 import { contactFormSubmissionSchema } from "../utils/validation";
 import ControlledRecaptcha from "./ControlledRecaptcha";
 import TextAreaInput from "./TextAreaInput";
