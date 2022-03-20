@@ -1,7 +1,7 @@
 import { NotAllowedIcon } from "@chakra-ui/icons";
 import { Box } from "@chakra-ui/layout";
 import { Button, Tooltip } from "@chakra-ui/react";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import * as React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -10,6 +10,7 @@ interface ILayoutProps {
   children?: React.ReactNode | string;
   headerMenuItems: any[];
   footerMenuItems: any[];
+  dynamicsSocialPlatforms: any[];
   companyLogoUrl: string;
   preview?: boolean;
 }
@@ -50,6 +51,7 @@ const Layout: React.FunctionComponent<ILayoutProps> = (props) => {
       <Footer
         menuItems={props.footerMenuItems}
         companyLogoUrl={props.companyLogoUrl}
+        dynamicsSocialPlatforms={props.dynamicsSocialPlatforms}
       />
     </Box>
   );

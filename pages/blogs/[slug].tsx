@@ -1,6 +1,6 @@
 import { retrieveMultiple, WebApiConfig } from "dataverse-webapi/lib/node";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import * as React from "react";
 import sectionConfig from "../../components/designed-sections/sections.config";
@@ -42,6 +42,7 @@ const Slug: React.FunctionComponent<ISlugProps> = (props) => {
     <Layout
       headerMenuItems={props.dynamicsHeaderMenuItems}
       footerMenuItems={props.dynamicsFooterMenuItems}
+      dynamicsSocialPlatforms={props.dynamicsSocialPlatforms}
       companyLogoUrl={props.companyLogoUrl}
       preview={props.preview}
     >
@@ -116,6 +117,7 @@ export const getStaticProps: GetStaticProps = async ({
       dynamicsFooterMenuItems,
       dynamicsBlogs,
       dynamicsMatches,
+      dynamicsSocialPlatforms,
     } = await getAllPageContents(
       config,
       dynamicsPageResult[0].bsi_webpageid,
@@ -147,6 +149,7 @@ export const getStaticProps: GetStaticProps = async ({
         dynamicsBlogs: dynamicsBlogs.value as DynamicsBlog[],
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value as any[],
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value as any[],
+        dynamicsSocialPlatforms: dynamicsSocialPlatforms.value,
         companyLogoUrl:
           dynamicsPageResult[0].bsi_Website.bsi_CompanyLogo.bsi_cdnurl,
       },

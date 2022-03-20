@@ -28,6 +28,7 @@ const TeamIdPage: React.FunctionComponent<ITeamIdProps> = (props) => {
     <Layout
       headerMenuItems={props.dynamicsHeaderMenuItems}
       footerMenuItems={props.dynamicsFooterMenuItems}
+      dynamicsSocialPlatforms={props.dynamicsSocialPlatforms}
       companyLogoUrl={props.companyLogoUrl}
     >
       <SubHeader
@@ -109,6 +110,7 @@ export const getStaticProps: GetStaticProps = async ({
       dynamicsFooterMenuItems,
       dynamicsBlogs,
       dynamicsMatches,
+      dynamicsSocialPlatforms,
     } = await getAllPageContents(
       config,
       dynamicsPageResult[0].bsi_webpageid,
@@ -137,6 +139,7 @@ export const getStaticProps: GetStaticProps = async ({
         dynamicsBlogs: dynamicsBlogs.value,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
+        dynamicsSocialPlatforms: dynamicsSocialPlatforms.value,
         companyLogoUrl:
           dynamicsPageResult[0].bsi_Website.bsi_CompanyLogo.bsi_cdnurl,
       },

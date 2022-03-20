@@ -16,6 +16,7 @@ const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
     <Layout
       headerMenuItems={props.dynamicsHeaderMenuItems}
       footerMenuItems={props.dynamicsFooterMenuItems}
+      dynamicsSocialPlatforms={props.dynamicsSocialPlatforms}
       companyLogoUrl={props.companyLogoUrl}
       preview={props.preview}
     >
@@ -53,6 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       dynamicsFooterMenuItems,
       dynamicsBlogs,
       dynamicsMatches,
+      dynamicsSocialPlatforms,
     } = await getAllPageContents(
       config,
       dynamicsPageResult[0].bsi_webpageid,
@@ -73,6 +75,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
         dynamicsMatches: dynamicsMatches.value,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
+        dynamicsSocialPlatforms: dynamicsSocialPlatforms.value,
         companyLogoUrl:
           dynamicsPageResult[0].bsi_Website.bsi_CompanyLogo.bsi_cdnurl,
       },

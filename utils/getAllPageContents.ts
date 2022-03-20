@@ -10,6 +10,7 @@ import {
   dynamicsHeaderMenuItemsQuery,
   dynamicsMatchesQuery,
   dynamicsPageSectionsQuery,
+  dynamicsSocialPlatformsQuery,
   generateBlogsODataQuery,
 } from "./queries";
 
@@ -96,11 +97,20 @@ export const getAllPageContents = async (
           )
         : { value: {} };
 
+    const dynamicsSocialPlatformRequest = retrieveMultiple(
+      config,
+      "bsi_socialplatforms",
+      `${
+        includeDraft ? "" : "$filter=bsi_published ne false&"
+      }${dynamicsSocialPlatformsQuery}`
+    );
+
     const promises = [
       dynamicsHeaderMenuItemsRequest,
       dynamicsFooterMenuItemsRequest,
       dynamicsBlogsRequest,
       dynamicsMatchesRequest,
+      dynamicsSocialPlatformRequest,
     ];
 
     const otherResults = await Promise.all(promises);
@@ -110,6 +120,7 @@ export const getAllPageContents = async (
       dynamicsFooterMenuItems,
       dynamicsBlogs,
       dynamicsMatches,
+      dynamicsSocialPlatforms,
     ] = otherResults;
 
     return {
@@ -118,6 +129,7 @@ export const getAllPageContents = async (
       dynamicsFooterMenuItems,
       dynamicsBlogs,
       dynamicsMatches,
+      dynamicsSocialPlatforms,
     };
   } catch (error) {
     throw error;

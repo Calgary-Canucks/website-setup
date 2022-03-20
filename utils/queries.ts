@@ -2,7 +2,7 @@ export const dynamicsPageSectionsQuery =
   "$select=bsi_name,bsi_pagesectionid,bsi_videourl,bsi_paragraph,bsi_ctabuttonlink,bsi_ctabuttontext,bsi_youtubevideoid,_bsi_designedsection_value,bsi_youtubevideoalttext,bsi_hasctabutton,bsi_overline,bsi_mainheading,bsi_subheading,bsi_sectionid,bsi_featuredproducts,bsi_backgroundcolor,bsi_overlinetextcolor,bsi_mainheadingtextcolor,bsi_subheadingtextcolor,bsi_paragraphtextcolor,bsi_ctabuttontextcolor,bsi_ctabuttonbgcolor,bsi_ctabuttonhoverbgcolor,bsi_bordercolor&$orderby=bsi_sequence asc&$expand=bsi_AttachedComponent_bsi_PageSection_bsi($select=bsi_attachedcomponentid,bsi_name,bsi_description,bsi_descriptiontextcolor,bsi_hasctabutton,bsi_ctabuttontext,bsi_ctabuttontextcolor,bsi_ctabuttonbgcolor,bsi_ctabuttonhoverbgcolor,bsi_bordercolor,bsi_ctabuttonlink,bsi_overline,bsi_overlinetextcolor,bsi_title,bsi_titletextcolor,bsi_subtitle,bsi_subtitletextcolor,bsi_backgroundcolor),bsi_PageSection_bsi_ImageAsset_bsi_ImageA($select=bsi_cdnurl,bsi_alttext,bsi_referencingurl),bsi_DesignedSection($select=bsi_name),bsi_Background($select=bsi_cdnurl,bsi_alttext)";
 
 export const attachedComponentsQuery =
-  "$select=bsi_attachedcomponentid,bsi_name,bsi_description,bsi_descriptiontextcolor,bsi_hasctabutton,bsi_ctabuttontext,bsi_ctabuttontextcolor,bsi_ctabuttonbgcolor,bsi_ctabuttonhoverbgcolor,bsi_bordercolor,bsi_ctabuttonlink,bsi_overline,bsi_overlinetextcolor,bsi_title,bsi_titletextcolor,bsi_subtitle,bsi_subtitletextcolor,bsi_backgroundcolor&$expand=bsi_AttachedComponent_bsi_ImageAsset_bsi_($select=bsi_cdnurl,bsi_name)";
+  "$select=bsi_attachedcomponentid,bsi_name,bsi_description,bsi_descriptiontextcolor,bsi_hasctabutton,bsi_ctabuttontext,bsi_ctabuttontextcolor,bsi_ctabuttonbgcolor,bsi_ctabuttonhoverbgcolor,bsi_bordercolor,bsi_ctabuttonlink,bsi_overline,bsi_overlinetextcolor,bsi_title,bsi_titletextcolor,bsi_subtitle,bsi_subtitletextcolor,bsi_backgroundcolor&$expand=bsi_AttachedComponent_bsi_ImageAsset_bsi_($select=bsi_cdnurl,bsi_name),bsi_AttachedComponent_bsi_FileAsset_bsi_F($select=bsi_cdnrul,bsi_name)";
 
 export const dynamicsMatchesQuery =
   "$select=bsi_name,bsi_teamonescore,bsi_teamtwoscore,bsi_matchtime&$orderby=bsi_matchtime asc&$expand=bsi_TeamOne($select=bsi_name),bsi_TeamTwo($select=bsi_name),bsi_Venue($select=bsi_name,bsi_addressline1)";
@@ -30,6 +30,9 @@ export const dynamicsBlogAuthorsQuery =
 
 export const dynamicsBlogCategoriesQuery =
   "$select=bsi_name&$orderby=createdon asc&$expand=bsi_BlogCategory_bsi_Blog_bsi_Blog($select=bsi_name)";
+
+export const dynamicsSocialPlatformsQuery =
+  "$select=bsi_name,bsi_socialplatformurl,bsi_socialplatformchannel";
 
 export const generateBlogsODataQuery = (
   pageNumber: number,

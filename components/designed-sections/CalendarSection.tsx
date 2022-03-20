@@ -89,24 +89,25 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
           </FormControl>
         </Flex>
 
-        <Calendar
-          defaultValue={value}
-          view={isListView ? "month" : "year"}
-          onActiveStartDateChange={(dateProps) => {
-            setValue(() => dateProps.activeStartDate);
-          }}
-          className={["year-only"]}
-        />
-        <Box h="20vh" bgColor="rgb(241,241,241)"></Box>
-        {!events.find((e) => {
-          const matchDate = new Date(e.bsi_matchtime);
-          return matchDate >= firstDayOfMonth && matchDate <= lastDayOfMonth;
-        }) && (
-          <Center pb={32}>
-            <Text as="h2">No match history found for this period.</Text>
-          </Center>
-        )}
         <Box display={isListView ? "block" : "none"}>
+          <Calendar
+            value={value}
+            view={isListView ? "month" : "year"}
+            onActiveStartDateChange={(dateProps) => {
+              setValue(() => dateProps.activeStartDate);
+            }}
+            className={["year-only"]}
+          />
+          <Box h="20vh" bgColor="rgb(241,241,241)"></Box>
+          {!events.find((e) => {
+            const matchDate = new Date(e.bsi_matchtime);
+            return matchDate >= firstDayOfMonth && matchDate <= lastDayOfMonth;
+          }) && (
+            <Center pb={32}>
+              <Text as="h2">No match history found for this period.</Text>
+            </Center>
+          )}
+
           <VStack
             divider={<StackDivider borderColor="gray.200" />}
             spacing={8}

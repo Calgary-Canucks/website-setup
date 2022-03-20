@@ -95,6 +95,7 @@ export interface DynamicsPageProps {
   dynamicsHeaderMenuItems: any[];
   dynamicsFooterMenuItems: any[];
   dynamicsBlogs: DynamicsBlog[];
+  dynamicsSocialPlatforms: any[];
   companyLogoUrl: string;
   preview: boolean;
 }

@@ -22,7 +22,9 @@ a {
 
 .year-only > .react-calendar__navigation > .react-calendar__navigation__label {
   flex-grow: unset !important;
+  width: 150px;
   display: inline-flex;
+  justify-content: center;
   align-items: center;
 }
 

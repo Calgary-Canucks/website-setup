@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import * as React from "react";
 import {
   DesignedSection,
@@ -6,6 +6,7 @@ import {
   DynamicsSportsTeam,
 } from "../../utils/types";
 import AnchorSection from "../AnchorSection";
+import ContactForm from "../ContactForm";
 
 interface IContactPersonnelSectionProps extends DesignedSection {
   dynamicsOrganizationContacts: DynamicsOrganizationContact[];
@@ -19,6 +20,8 @@ const ContactPersonnelSection: React.FunctionComponent<
   dynamicsOrganizationContacts,
   dynamicsTeamContacts,
 }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [sentTo, setSentTo] = React.useState({ name: "", id: "" });
   if (!dynamicsPageSection) {
     return null;
   }
@@ -75,6 +78,13 @@ const ContactPersonnelSection: React.FunctionComponent<
                 bgColor="white"
                 borderRadius="5px"
                 boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
+                onClick={() => {
+                  onOpen();
+                  setSentTo((_prev) => ({
+                    name: c.bsi_name,
+                    id: c.bsi_sportsteammemberid,
+                  }));
+                }}
                 p={4}
               >
                 <Avatar
@@ -101,6 +111,12 @@ const ContactPersonnelSection: React.FunctionComponent<
             ))}
           </Flex>
         </Box>
+        <ContactForm
+          isOpen={isOpen}
+          onClose={onClose}
+          onOpen={onOpen}
+          sentTo={sentTo}
+        />
       </AnchorSection>
     );
   }
@@ -161,6 +177,13 @@ const ContactPersonnelSection: React.FunctionComponent<
               borderRadius="5px"
               boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
               p={4}
+              onClick={() => {
+                onOpen();
+                setSentTo((_prev) => ({
+                  name: c.bsi_name,
+                  id: c.bsi_organizationcontactid,
+                }));
+              }}
             >
               <Avatar
                 src={c.bsi_ProfilePicture.bsi_cdnurl}
@@ -186,6 +209,12 @@ const ContactPersonnelSection: React.FunctionComponent<
           ))}
         </Flex>
       </Box>
+      <ContactForm
+        isOpen={isOpen}
+        onClose={onClose}
+        onOpen={onOpen}
+        sentTo={sentTo}
+      />
     </AnchorSection>
   );
 };
