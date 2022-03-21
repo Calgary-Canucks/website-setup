@@ -20,7 +20,6 @@ const ContactPersonnelSection: React.FunctionComponent<
   dynamicsOrganizationContacts,
   dynamicsTeamContacts,
 }) => {
-  console.log("render");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [sentTo, setSentTo] = React.useState({ name: "", id: "" });
   if (!dynamicsPageSection) {
