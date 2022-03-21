@@ -1,15 +1,26 @@
-import { WebApiConfig, retrieveMultiple } from "dataverse-webapi/lib/node";
+import {
+  WebApiConfig,
+  retrieveMultiple,
+  RetrieveMultipleResponse,
+} from "dataverse-webapi/lib/node";
+import { dynamicsOrganizationContactsQuery } from "./queries";
+
+interface dynamicsWebApiResponse extends RetrieveMultipleResponse {
+  error?: any;
+}
 
 export const getAllContactInfo = async (config: WebApiConfig) => {
   try {
-    const contacts = (
-      await retrieveMultiple(
-        config,
-        "bsi_organizationcontacts",
-        "$select=bsi_name,bsi_email,bsi_title&$expand=bsi_ProfilePicture($select=bsi_alttext,bsi_cdnurl)"
-      )
-    ).value;
-    return contacts;
+    const contacts: dynamicsWebApiResponse = await retrieveMultiple(
+      config,
+      "contacts",
+      dynamicsOrganizationContactsQuery
+    );
+    if (contacts.error) {
+      throw new Error(contacts.error.message);
+    }
+
+    return contacts.value;
   } catch (error) {
     throw error;
   }

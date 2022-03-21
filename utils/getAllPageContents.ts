@@ -77,7 +77,7 @@ export const getAllPageContents = async (
 
     const dynamicsMatchesRequest = retrieveMultiple(
       config,
-      "bsi_matchs",
+      "msmedia_mediaevents",
       dynamicsMatchesQuery,
       { representation: true }
     );

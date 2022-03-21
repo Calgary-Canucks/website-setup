@@ -67,6 +67,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
 
+    console.log(dynamicsMatches);
     return {
       props: {
         preview: !!preview,

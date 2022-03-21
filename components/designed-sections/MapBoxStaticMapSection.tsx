@@ -11,12 +11,16 @@ interface IMapBoxStaticMapSectionProps extends DesignedSection {
 const MapBoxStaticMapSection: React.FunctionComponent<
   IMapBoxStaticMapSectionProps
 > = ({ dynamicsPageSection, dynamicsVenues }) => {
-  const [mapPoint, setMapPoint] = useState(dynamicsVenues[0].bsi_venueid);
+  const [mapPoint, setMapPoint] = useState(
+    dynamicsVenues[0].msmedia_mediavenueid
+  );
   if (!dynamicsPageSection) {
     return null;
   }
 
-  const currentVenue = dynamicsVenues.find((v) => v.bsi_venueid === mapPoint);
+  const currentVenue = dynamicsVenues.find(
+    (v) => v.msmedia_mediavenueid === mapPoint
+  );
 
   return (
     <AnchorSection
@@ -35,16 +39,18 @@ const MapBoxStaticMapSection: React.FunctionComponent<
         boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
       >
         <Link
-          href={`https://www.google.com/maps?z=12&t=m&q=${currentVenue?.bsi_latitude},${currentVenue?.bsi_longtitude}`}
+          href={`https://www.google.com/maps?z=12&t=m&q=${currentVenue?.msmedia_latitude},${currentVenue?.msmedia_longitude}`}
         >
           <Image
             width="1000px"
             height="600px"
             alt="Venue Location"
             src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/url-https%3A%2F%2Fdocs.mapbox.com%2Fapi%2Fimg%2Fcustom-marker.png(${
-              currentVenue!.bsi_latitude
-            },${currentVenue!.bsi_longtitude})/${currentVenue!.bsi_latitude},${
-              currentVenue!.bsi_longtitude
+              currentVenue!.msmedia_latitude
+            },${currentVenue!.msmedia_longitude})/${
+              currentVenue!.msmedia_latitude
+            },${
+              currentVenue!.msmedia_longitude
             },15/1000x600?access_token=pk.eyJ1IjoiYmVuY29udmV5MSIsImEiOiJjanFxdTF4OTAwZXY0NDhwcmIyeDRkcDdhIn0.EM1eFhBXmXW5SiTq8kLCxQ`}
           />
         </Link>
@@ -65,21 +71,25 @@ const MapBoxStaticMapSection: React.FunctionComponent<
             fontSize="0.9rem"
           >
             {dynamicsVenues.map((v) => (
-              <option key={v.bsi_venueid} value={v.bsi_venueid}>
-                {v.bsi_name}
+              <option
+                key={v.msmedia_mediavenueid}
+                value={v.msmedia_mediavenueid}
+              >
+                {v.msmedia_name}
               </option>
             ))}
           </Select>
           <Box>
-            <Text as="p">{currentVenue?.bsi_addressline1}</Text>
-            <Text as="p">{currentVenue?.bsi_city}</Text>
-            <Text as="p">{currentVenue?.bsi_province}</Text>
-            <Text as="p">{currentVenue?.bsi_postalcode}</Text>
+            <Text as="p">{currentVenue?.msmedia_addressline1}</Text>
+            <Text as="p">{currentVenue?.msmedia_addresscity}</Text>
+            <Text as="p">{currentVenue?.msmedia_addressstateorprovince}</Text>
+            <Text as="p">{currentVenue?.msmedia_addresspostalcode}</Text>
+            <Text as="p">{currentVenue?.msmedia_addresscountry}</Text>
           </Box>
           <Link
             fontWeight="bold"
             color="rgb(1, 78, 134)"
-            href={`https://www.google.com/maps?z=12&t=m&q=${currentVenue?.bsi_latitude},${currentVenue?.bsi_longtitude}`}
+            href={`https://www.google.com/maps?z=12&t=m&q=${currentVenue?.msmedia_latitude},${currentVenue?.msmedia_longitude}`}
           >
             VIEW ON GOOGLE MAP
           </Link>

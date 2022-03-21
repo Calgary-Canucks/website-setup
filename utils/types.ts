@@ -30,26 +30,6 @@ export type DynamicsContactFormField = {
   bsi_fieldtype: number;
 };
 
-export type DynamicsMatch = {
-  bsi_name: string;
-  bsi_matchid: string;
-  bsi_TeamOne: {
-    bsi_name: string;
-    bsi_sportsteamid: string;
-  };
-  bsi_TeamTwo: {
-    bsi_name: string;
-    bsi_sportsteamid: string;
-  };
-  bsi_teamonescore: number;
-  bsi_teamtwoscore: number;
-  bsi_matchtime: Date;
-  bsi_Venue: {
-    bsi_name: string;
-    bsi_addressline1: string;
-  };
-};
-
 export type DynamicsBlog = {
   bsi_name: string;
   bsi_BlogCoverImage: {
@@ -100,22 +80,44 @@ export interface DynamicsPageProps {
   preview: boolean;
 }
 
+export type DynamicsMatch = {
+  msmedia_name: string;
+  msmedia_mediaeventid: string;
+  msmedia_hometeamscore: number;
+  msmedia_visitingteamscore: number;
+  bsi_starttime: Date;
+  msmedia_eventtimezone: any;
+  msmedia_HomeTeam: {
+    msmedia_name: string;
+    msmedia_sportsteamid: string;
+  };
+  msmedia_VisitingTeam: {
+    msmedia_name: string;
+    msmedia_sportsteamid: string;
+  };
+  msmedia_PrimaryVenue: {
+    msmedia_name: string;
+    msmedia_addressline1: string;
+  };
+};
+
 export type DynamicsVenue = {
-  bsi_name: string;
-  bsi_addressline1: string;
-  bsi_city: string;
-  bsi_province: string;
-  bsi_postalcode: string;
-  bsi_latitude: string;
-  bsi_longtitude: string;
-  bsi_venueid: string;
+  msmedia_name: string;
+  msmedia_addressline1: string;
+  msmedia_latitude: string;
+  msmedia_longitude: string;
+  msmedia_addresscity: string;
+  msmedia_addressstateorprovince: string;
+  msmedia_addresspostalcode: string;
+  msmedia_addresscountry: string;
+  msmedia_mediavenueid: string;
 };
 
 export type DynamicsOrganizationContact = {
-  bsi_name: string;
-  bsi_email: string;
-  bsi_title: string;
-  bsi_organizationcontactid: string;
+  fullname: string;
+  emailaddress1: string;
+  jobtitle: string;
+  contactid: string;
   bsi_ProfilePicture: {
     bsi_alttext: string;
     bsi_cdnurl: string;
@@ -123,39 +125,39 @@ export type DynamicsOrganizationContact = {
 };
 
 export type DynamicsSportsTeam = {
-  bsi_name: string;
+  msmedia_name: string;
   bsi_teaminfo: string;
   bsi_description: string;
-  bsi_sportsteamid: string;
+  msmedia_sportsteamid: string;
   bsi_TeamImage: {
     bsi_alttext: string;
     bsi_cdnurl: string;
   };
-  bsi_AgeGroup: {
-    bsi_agegroupid: string;
-    bsi_name: string;
+  msmedia_Division: {
+    msmedia_divisionid: string;
+    msmedia_name: string;
   };
-  bsi_Match_TeamOne_bsi_SportsTeam: Array<{
-    bsi_name: string;
-    bsi_matchid: string;
+  msmedia_MediaEvent_HomeTeam_msmedia_Sport: Array<{
+    msmedia_name: string;
+    msmedia_mediaeventid: string;
   }>;
-  bsi_Match_TeamTwo_bsi_SportsTeam: Array<{
-    bsi_name: string;
-    bsi_matchid: string;
+  msmedia_MediaEvent_VisitingTeam_msmedia_S: Array<{
+    msmedia_name: string;
+    msmedia_mediaeventid: string;
   }>;
   bsi_matches: DynamicsMatch[];
   bsi_contacts: Array<{
-    bsi_name: string;
-    bsi_email: string;
+    msmedia_name: string;
+    bsi_Contact: {
+      fullname: string;
+      emailaddress1: string;
+    };
     bsi_ProfilePicture: {
       bsi_alttext: string;
       bsi_cdnurl: string;
     };
-    bsi_sportsteammemberid: string;
-    bsi_SportsTeamMember_bsi_SportsTeamRoles_: Array<{
-      bsi_name: string;
-      bsi_sportsteamroleid: string;
-    }>;
+    msmedia_sportsplayerid: string;
+    "bsi_teamrole@OData.Community.Display.V1.FormattedValue": string;
   }>;
 };
 

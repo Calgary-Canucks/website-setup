@@ -20,11 +20,14 @@ const ContactPersonnelSection: React.FunctionComponent<
   dynamicsOrganizationContacts,
   dynamicsTeamContacts,
 }) => {
+  console.log("render");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [sentTo, setSentTo] = React.useState({ name: "", id: "" });
   if (!dynamicsPageSection) {
     return null;
   }
+
+  //If team contacts are given, render the team contacts
   if (dynamicsTeamContacts) {
     return (
       <AnchorSection
@@ -66,7 +69,7 @@ const ContactPersonnelSection: React.FunctionComponent<
           <Flex w="100%" flexWrap="wrap" alignItems="center">
             {dynamicsTeamContacts.map((c) => (
               <Flex
-                key={c.bsi_sportsteammemberid}
+                key={c.msmedia_sportsplayerid}
                 w={{
                   base: "100%",
                   md: "calc(50% - 15px)",
@@ -81,28 +84,32 @@ const ContactPersonnelSection: React.FunctionComponent<
                 onClick={() => {
                   onOpen();
                   setSentTo((_prev) => ({
-                    name: c.bsi_name,
-                    id: c.bsi_sportsteammemberid,
+                    name: c.bsi_Contact.fullname,
+                    id: c.msmedia_sportsplayerid,
                   }));
                 }}
                 p={4}
               >
                 <Avatar
                   src={c.bsi_ProfilePicture.bsi_cdnurl}
-                  name={c.bsi_name}
+                  name={c.bsi_Contact.fullname}
                   size="lg"
                 />
                 <Flex flexDirection="column" ml={4} flexGrow={1}>
                   <Text color="rgb(118,118,118)" fontSize="0.9rem">
-                    {c.bsi_SportsTeamMember_bsi_SportsTeamRoles_[0].bsi_name}
+                    {
+                      c[
+                        "bsi_teamrole@OData.Community.Display.V1.FormattedValue"
+                      ]
+                    }
                   </Text>
-                  <Text fontSize="1.1rem">{c.bsi_name}</Text>
+                  <Text fontSize="1.1rem">{c.bsi_Contact.fullname}</Text>
                   <Text
                     fontSize="0.9rem"
                     alignSelf="flex-end"
                     color="rgb(1, 78, 134)"
                     as="a"
-                    href={`mailto:${c.bsi_email}`}
+                    href={`mailto:${c.bsi_Contact.emailaddress1}`}
                   >
                     EMAIL
                   </Text>
@@ -120,6 +127,8 @@ const ContactPersonnelSection: React.FunctionComponent<
       </AnchorSection>
     );
   }
+
+  //Return organization contacts if no sports team contacts were given
   return (
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid}
@@ -164,7 +173,7 @@ const ContactPersonnelSection: React.FunctionComponent<
         <Flex w="100%" flexWrap="wrap" alignItems="center">
           {dynamicsOrganizationContacts.map((c) => (
             <Flex
-              key={c.bsi_organizationcontactid}
+              key={c.contactid}
               w={{
                 base: "100%",
                 md: "calc(50% - 15px)",
@@ -180,27 +189,27 @@ const ContactPersonnelSection: React.FunctionComponent<
               onClick={() => {
                 onOpen();
                 setSentTo((_prev) => ({
-                  name: c.bsi_name,
-                  id: c.bsi_organizationcontactid,
+                  name: c.fullname,
+                  id: c.contactid,
                 }));
               }}
             >
               <Avatar
                 src={c.bsi_ProfilePicture.bsi_cdnurl}
-                name={c.bsi_name}
+                name={c.fullname}
                 size="lg"
               />
               <Flex flexDirection="column" ml={4} flexGrow={1}>
                 <Text color="rgb(118,118,118)" fontSize="0.9rem">
-                  {c.bsi_title}
+                  {c.jobtitle}
                 </Text>
-                <Text fontSize="1.1rem">{c.bsi_name}</Text>
+                <Text fontSize="1.1rem">{c.fullname}</Text>
                 <Text
                   fontSize="0.9rem"
                   alignSelf="flex-end"
                   color="rgb(1, 78, 134)"
                   as="a"
-                  href={`mailto:${c.bsi_email}`}
+                  href={`mailto:${c.emailaddress1}`}
                 >
                   EMAIL
                 </Text>
