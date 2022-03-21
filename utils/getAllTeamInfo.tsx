@@ -1,5 +1,9 @@
 import { WebApiConfig, retrieveMultiple } from "dataverse-webapi/lib/node";
-import { dynamicsMatchesQuery, dynamicsTeamsQuery } from "./queries";
+import {
+  dynamicsMatchesQuery,
+  dynamicsSportsPlayersQuery,
+  dynamicsTeamsQuery,
+} from "./queries";
 
 export const getAllTeamInfo = async (config: WebApiConfig, teamId?: string) => {
   try {
@@ -7,35 +11,36 @@ export const getAllTeamInfo = async (config: WebApiConfig, teamId?: string) => {
       const team = (
         await retrieveMultiple(
           config,
-          "bsi_sportsteams",
-          `$filter= bsi_sportsteamid eq ${teamId}&${dynamicsTeamsQuery}`,
+          "msmedia_sportsteams",
+          `$filter= msmedia_sportsteamid eq ${teamId}&${dynamicsTeamsQuery}`,
           { representation: true }
         )
       ).value;
 
-      const contacts: any = (
+      const sportsPlayers: any = (
         await retrieveMultiple(
           config,
-          "bsi_sportsteammembers",
-          `$filter=_bsi_sportsteam_value eq ${teamId} and bsi_SportsTeamMember_bsi_SportsTeamRoles_/any(o:o/bsi_name eq 'Team Administrator')&$select=bsi_name,bsi_email&$expand=bsi_SportsTeamMember_bsi_SportsTeamRoles_($select=bsi_name),bsi_ProfilePicture($select=bsi_alttext,bsi_cdnurl)`
+          "msmedia_sportsplayers",
+          `$filter=Microsoft.Dynamics.CRM.ContainValues(PropertyName='bsi_teamrole',PropertyValues='606600002') and _msmedia_currentteam_value eq ${teamId}&${dynamicsSportsPlayersQuery}`,
+          { representation: true }
         )
       ).value;
       const matches = (
         await retrieveMultiple(
           config,
-          "bsi_matchs",
-          `$filter= _bsi_teamone_value eq ${teamId} or _bsi_teamtwo_value eq ${teamId}&${dynamicsMatchesQuery}`
+          "msmedia_mediaevents",
+          `$filter= _msmedia_hometeam_value eq ${teamId} or _msmedia_visitingteam_value eq ${teamId}&${dynamicsMatchesQuery}`
         )
       ).value;
       team[0].bsi_matches = matches;
-      team[0].bsi_contacts = contacts;
+      team[0].bsi_contacts = sportsPlayers;
       return team;
     }
     const teams = (
       await retrieveMultiple(
         config,
-        "bsi_sportsteams",
-        `${dynamicsTeamsQuery}&$orderby=_bsi_agegroup_value asc`
+        "msmedia_sportsteams",
+        `${dynamicsTeamsQuery}&$orderby=_msmedia_division_value asc`
       )
     ).value;
 
@@ -46,8 +51,8 @@ export const getAllTeamInfo = async (config: WebApiConfig, teamId?: string) => {
       teamMatchQueries.push(
         retrieveMultiple(
           config,
-          "bsi_matchs",
-          `$filter= _bsi_teamone_value eq ${t.bsi_sportsteamid} or _bsi_teamtwo_value eq ${t.bsi_sportsteamid}&${dynamicsMatchesQuery}&$top=3`
+          "msmedia_mediaevents",
+          `$filter= _msmedia_hometeam_value eq ${t.msmedia_sportsteamid} or _msmedia_visitingteam_value eq ${t.msmedia_sportsteamid}&${dynamicsMatchesQuery}&$top=3`
         )
       );
       //   teamContactQueries.push(
@@ -63,7 +68,7 @@ export const getAllTeamInfo = async (config: WebApiConfig, teamId?: string) => {
     // const contacts = await Promise.all(teamContactQueries);
 
     teams.forEach((t, index) => {
-      t.bsi_matches = result[index].value;
+      t.matches = result[index].value;
       //   t.bsi_contacts = contacts[index].value;
     });
 

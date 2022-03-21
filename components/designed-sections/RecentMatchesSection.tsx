@@ -54,7 +54,7 @@ const RecentMatchesSection: React.FunctionComponent<
         <Flex w="100%" flexDirection="column">
           {dynamicsMatches.map((m) => (
             <Flex
-              key={m.bsi_matchid}
+              key={m.msmedia_mediaeventid}
               direction="column"
               align="stretch"
               w="100%"
@@ -65,13 +65,13 @@ const RecentMatchesSection: React.FunctionComponent<
               boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
             >
               <Text as="span">
-                {new Date(m.bsi_matchtime).toLocaleDateString("en-US", {
+                {new Date(m.bsi_starttime).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                 })}
                 {", "}
-                {new Date(m.bsi_matchtime).toLocaleTimeString("en-US")}
+                {new Date(m.bsi_starttime).toLocaleTimeString("en-US")}
               </Text>
               <Flex direction="column">
                 <Flex
@@ -85,7 +85,7 @@ const RecentMatchesSection: React.FunctionComponent<
                     w="300px"
                     textAlign="center"
                   >
-                    {m.bsi_TeamOne.bsi_name}
+                    {m.msmedia_HomeTeam.msmedia_name}
                   </Text>
                   <Flex
                     direction="column"
@@ -95,8 +95,9 @@ const RecentMatchesSection: React.FunctionComponent<
                   >
                     <Badge
                       colorScheme={
-                        m.bsi_teamonescore && m.bsi_teamtwoscore
-                          ? m.bsi_teamonescore > m.bsi_teamtwoscore
+                        m.msmedia_hometeamscore && m.msmedia_visitingteamscore
+                          ? m.msmedia_hometeamscore >
+                            m.msmedia_visitingteamscore
                             ? "green"
                             : "red"
                           : "blackAlpha"
@@ -104,12 +105,12 @@ const RecentMatchesSection: React.FunctionComponent<
                       fontSize="1.2rem"
                       boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
                     >
-                      {m.bsi_teamonescore && m.bsi_teamtwoscore
-                        ? `${m.bsi_teamonescore} - ${m.bsi_teamtwoscore}`
-                        : new Date(m.bsi_matchtime).toLocaleTimeString("en-US")}
+                      {m.msmedia_hometeamscore && m.msmedia_visitingteamscore
+                        ? `${m.msmedia_hometeamscore} - ${m.msmedia_visitingteamscore}`
+                        : new Date(m.bsi_starttime).toLocaleTimeString("en-US")}
                     </Badge>
                     <Text as="span">League</Text>
-                    <Text as="span">{m.bsi_Venue.bsi_name}</Text>
+                    <Text as="span">{m.msmedia_PrimaryVenue.msmedia_name}</Text>
                   </Flex>
 
                   <Text
@@ -119,7 +120,7 @@ const RecentMatchesSection: React.FunctionComponent<
                     w="300px"
                     textAlign="center"
                   >
-                    {m.bsi_TeamTwo.bsi_name}
+                    {m.msmedia_VisitingTeam.msmedia_name}
                   </Text>
                 </Flex>
               </Flex>

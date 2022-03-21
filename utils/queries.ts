@@ -5,13 +5,19 @@ export const attachedComponentsQuery =
   "$select=bsi_attachedcomponentid,bsi_name,bsi_description,bsi_descriptiontextcolor,bsi_hasctabutton,bsi_ctabuttontext,bsi_ctabuttontextcolor,bsi_ctabuttonbgcolor,bsi_ctabuttonhoverbgcolor,bsi_bordercolor,bsi_ctabuttonlink,bsi_overline,bsi_overlinetextcolor,bsi_title,bsi_titletextcolor,bsi_subtitle,bsi_subtitletextcolor,bsi_backgroundcolor&$expand=bsi_AttachedComponent_bsi_ImageAsset_bsi_($select=bsi_cdnurl,bsi_name),bsi_AttachedComponent_bsi_FileAsset_bsi_F($select=bsi_cdnrul,bsi_name)";
 
 export const dynamicsMatchesQuery =
-  "$select=bsi_name,bsi_teamonescore,bsi_teamtwoscore,bsi_matchtime&$orderby=bsi_matchtime asc&$expand=bsi_TeamOne($select=bsi_name),bsi_TeamTwo($select=bsi_name),bsi_Venue($select=bsi_name,bsi_addressline1)";
+  "$select=msmedia_name,msmedia_hometeamscore,msmedia_visitingteamscore,bsi_starttime,msmedia_eventtimezone&$orderby=msmedia_startdate asc&$expand=msmedia_HomeTeam($select=msmedia_name),msmedia_VisitingTeam($select=msmedia_name),msmedia_PrimaryVenue($select=msmedia_name,msmedia_addressline1)";
 
 export const dynamicsVenuesQuery =
-  "$select=bsi_name,bsi_address,bsi_latitude,bsi_longtitude,bsi_addressline1,bsi_city,bsi_province,bsi_postalcode";
+  "$select=msmedia_name,msmedia_addressline1,msmedia_latitude,msmedia_longitude,msmedia_addresscity,msmedia_addressstateorprovince,msmedia_addresspostalcode,msmedia_addresscountry";
 
 export const dynamicsTeamsQuery =
-  "$select=bsi_name,bsi_teaminfo,bsi_description&$expand=bsi_AgeGroup($select=bsi_name),bsi_Match_TeamOne_bsi_SportsTeam($select=bsi_name),bsi_Match_TeamTwo_bsi_SportsTeam($select=bsi_name),bsi_TeamImage($select=bsi_alttext,bsi_cdnurl)";
+  "$select=msmedia_name,bsi_teaminfo,bsi_description,_msmedia_division_value&$expand=msmedia_Division($select=msmedia_name),msmedia_MediaEvent_HomeTeam_msmedia_Sport($select=msmedia_name),msmedia_MediaEvent_VisitingTeam_msmedia_S($select=msmedia_name),bsi_TeamImage($select=bsi_alttext,bsi_cdnurl)";
+
+export const dynamicsSportsPlayersQuery =
+  "$select=msmedia_name,bsi_teamrole&$expand=bsi_Contact($select=fullname,emailaddress1),bsi_ProfilePicture($select=bsi_alttext,bsi_cdnurl)";
+
+export const dynamicsOrganizationContactsQuery =
+  "$filter=bsi_isorganizationcontact eq true&$select=fullname,emailaddress1,jobtitle&$expand=bsi_ProfilePicture($select=bsi_alttext,bsi_cdnurl)";
 
 export const dynamicsHeaderMenuItemsQuery =
   "$select=bsi_name,bsi_linkurl,bsi_navigationmenuitemid&$expand=bsi_NavigationMenuSubItem_NavigationMenuI($select=bsi_name,bsi_linkurl,bsi_navigationmenusubitemid)";

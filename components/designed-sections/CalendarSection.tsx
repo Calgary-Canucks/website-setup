@@ -13,7 +13,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Input,
   StackDivider,
   Switch,
   Text,
@@ -22,11 +21,11 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import { DynamicsPageSection } from "../../utils/types";
+import { DynamicsMatch, DynamicsPageSection } from "../../utils/types";
 import AnchorSection from "../AnchorSection";
 
 interface ICalendarSectionProps {
-  events: any[];
+  events: DynamicsMatch[];
   dynamicsPageSection: DynamicsPageSection;
 }
 
@@ -100,7 +99,7 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
           />
           <Box h="20vh" bgColor="rgb(241,241,241)"></Box>
           {!events.find((e) => {
-            const matchDate = new Date(e.bsi_matchtime);
+            const matchDate = new Date(e.bsi_starttime);
             return matchDate >= firstDayOfMonth && matchDate <= lastDayOfMonth;
           }) && (
             <Center pb={32}>
@@ -114,11 +113,11 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
             align="stretch"
           >
             {events.map((e) => {
-              const matchDate = new Date(e.bsi_matchtime);
+              const matchDate = new Date(e.bsi_starttime);
               if (matchDate >= firstDayOfMonth && matchDate <= lastDayOfMonth) {
                 return (
                   <Box
-                    key={e.bsi_matchid}
+                    key={e.msmedia_mediaeventid}
                     w="95%"
                     mx="auto"
                     bgColor="white"
@@ -159,14 +158,20 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                         bgColor="rgb(1, 78, 134)"
                         h="100%"
                         flexGrow={1}
+                        display="flex"
+                        alignItems="center"
                         borderRadius="0px 5px 0px 0px"
                         bgImage="linear-gradient(
                 70deg
                 , rgb(255, 255, 255) 0px, rgb(255, 255, 255) 25px, transparent 25px)"
-                      ></Box>
+                      >
+                        <Text as="p" pl={16} fontSize="1.3rem" color="white">
+                          {matchDate.toLocaleTimeString("en-US")}
+                        </Text>
+                      </Box>
                     </Flex>
                     <Flex
-                      key={e.bsi_matchid}
+                      key={e.msmedia_mediaeventid}
                       direction="column"
                       align="stretch"
                       p={6}
@@ -181,7 +186,7 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                             w="300px"
                             textAlign="center"
                           >
-                            {e.bsi_TeamOne.bsi_name}
+                            {e.msmedia_HomeTeam.msmedia_name}
                           </Text>
                           <Flex
                             direction="column"
@@ -190,22 +195,27 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                           >
                             <Badge
                               colorScheme={
-                                e.bsi_teamonescore && e.bsi_teamtwoscore
-                                  ? e.bsi_teamonescore > e.bsi_teamtwoscore
+                                e.msmedia_hometeamscore &&
+                                e.msmedia_visitingteamscore
+                                  ? e.msmedia_hometeamscore >
+                                    e.msmedia_visitingteamscore
                                     ? "green"
                                     : "red"
                                   : "blackAlpha"
                               }
                               fontSize="1.2rem"
                             >
-                              {e.bsi_teamonescore && e.bsi_teamtwoscore
-                                ? `${e.bsi_teamonescore} - ${e.bsi_teamtwoscore}`
-                                : new Date(e.bsi_matchtime).toLocaleTimeString(
+                              {e.msmedia_hometeamscore &&
+                              e.msmedia_visitingteamscore
+                                ? `${e.msmedia_hometeamscore} - ${e.msmedia_visitingteamscore}`
+                                : new Date(e.bsi_starttime).toLocaleTimeString(
                                     "en-US"
                                   )}
                             </Badge>
                             <Text as="span">League</Text>
-                            <Text as="span">{e.bsi_Venue.bsi_name}</Text>
+                            <Text as="span">
+                              {e.msmedia_PrimaryVenue.msmedia_name}
+                            </Text>
                           </Flex>
 
                           <Text
@@ -215,7 +225,7 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                             w="300px"
                             textAlign="center"
                           >
-                            {e.bsi_TeamTwo.bsi_name}
+                            {e.msmedia_VisitingTeam.msmedia_name}
                           </Text>
                         </Flex>
                       </Flex>
@@ -262,18 +272,19 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                   fontSize="0.8rem"
                 >
                   {events.map((e) => {
-                    const matchdate = new Date(e.bsi_matchtime);
+                    const matchdate = new Date(e.bsi_starttime);
 
                     if (matchdate >= date && matchdate < nextDate) {
                       return (
-                        <React.Fragment key={e.bsi_matchid}>
+                        <React.Fragment key={e.msmedia_mediaeventid}>
                           <Text
                             as="p"
                             whiteSpace="nowrap"
                             overflow="hidden"
                             textOverflow="ellipsis"
                           >
-                            {e.bsi_TeamOne.bsi_name} vs {e.bsi_TeamTwo.bsi_name}
+                            {e.msmedia_HomeTeam.msmedia_name} vs{" "}
+                            {e.msmedia_VisitingTeam.msmedia_name}
                           </Text>
                           <Text
                             as="p"
@@ -340,11 +351,11 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                 align="stretch"
               >
                 {events.map((m) => {
-                  const matchdate = new Date(m.bsi_matchtime);
+                  const matchdate = new Date(m.bsi_starttime);
                   if (matchdate >= matchDate && matchdate < nextMatchDate) {
                     return (
                       <Flex
-                        key={m.bsi_matchid}
+                        key={m.msmedia_mediaeventid}
                         direction="column"
                         align="stretch"
                         p={6}
@@ -359,7 +370,7 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                               w="300px"
                               textAlign="center"
                             >
-                              {m.bsi_TeamOne.bsi_name}
+                              {m.msmedia_HomeTeam.msmedia_name}
                             </Text>
                             <Flex
                               direction="column"
@@ -368,22 +379,27 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                             >
                               <Badge
                                 colorScheme={
-                                  m.bsi_teamonescore && m.bsi_teamtwoscore
-                                    ? m.bsi_teamonescore > m.bsi_teamtwoscore
+                                  m.msmedia_hometeamscore &&
+                                  m.msmedia_visitingteamscore
+                                    ? m.msmedia_hometeamscore >
+                                      m.msmedia_visitingteamscore
                                       ? "green"
                                       : "red"
                                     : "blackAlpha"
                                 }
                                 fontSize="1.2rem"
                               >
-                                {m.bsi_teamonescore && m.bsi_teamtwoscore
-                                  ? `${m.bsi_teamonescore} - ${m.bsi_teamtwoscore}`
+                                {m.msmedia_hometeamscore &&
+                                m.msmedia_visitingteamscore
+                                  ? `${m.msmedia_hometeamscore} - ${m.msmedia_visitingteamscore}`
                                   : new Date(
-                                      m.bsi_matchtime
+                                      m.bsi_starttime
                                     ).toLocaleTimeString("en-US")}
                               </Badge>
                               <Text as="span">League</Text>
-                              <Text as="span">{m.bsi_Venue.bsi_name}</Text>
+                              <Text as="span">
+                                {m.msmedia_PrimaryVenue.msmedia_name}
+                              </Text>
                             </Flex>
 
                             <Text
@@ -393,7 +409,7 @@ const CalendarSection: React.FunctionComponent<ICalendarSectionProps> = ({
                               w="300px"
                               textAlign="center"
                             >
-                              {m.bsi_TeamTwo.bsi_name}
+                              {m.msmedia_VisitingTeam.msmedia_name}
                             </Text>
                           </Flex>
                         </Flex>

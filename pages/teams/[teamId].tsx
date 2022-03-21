@@ -14,6 +14,7 @@ import { dynamicsTeamsQuery, dynamicsWebpageQuery } from "../../utils/queries";
 import {
   DynamicsOrganizationContact,
   DynamicsPageProps,
+  DynamicsSportsTeam,
   DynamicsVenue,
 } from "../../utils/types";
 
@@ -34,7 +35,7 @@ const TeamIdPage: React.FunctionComponent<ITeamIdProps> = (props) => {
       <SubHeader
         pageTitle={
           props.dynamicsSportsTeams.length === 1
-            ? props.dynamicsSportsTeams[0].bsi_name
+            ? props.dynamicsSportsTeams[0].msmedia_name
             : props.dynamicsPageName
         }
       />
@@ -64,7 +65,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const accessToken = tokenResponse?.accessToken;
   const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
   const dynamicsTeamsResult: any = (
-    await retrieveMultiple(config, "bsi_sportsteams", dynamicsTeamsQuery)
+    await retrieveMultiple(config, "msmedia_sportsteams", dynamicsTeamsQuery)
   ).value;
   const paths: (
     | string
@@ -73,10 +74,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
         locale?: string | undefined;
       }
   )[] = [];
-  dynamicsTeamsResult.forEach((tr: any) => {
+  dynamicsTeamsResult.forEach((tr: DynamicsSportsTeam) => {
     paths.push({
       params: {
-        teamId: tr.bsi_sportsteamid,
+        teamId: tr.msmedia_sportsteamid,
       },
     });
   });
