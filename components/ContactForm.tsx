@@ -29,7 +29,11 @@ const ContactForm: React.FunctionComponent<IContactFormProps> = (props) => {
     <Modal isOpen={props.isOpen} onClose={props.onClose} size="6xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Message to {props.sentTo.name}</ModalHeader>
+        <ModalHeader>
+          {!!props.sentTo.name
+            ? `Message to ${props.sentTo.name}`
+            : "Message Submission"}
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Formik
@@ -38,6 +42,7 @@ const ContactForm: React.FunctionComponent<IContactFormProps> = (props) => {
               bsi_lastname: "",
               bsi_email: "",
               bsi_message: "",
+              bsi_contactid: props.sentTo.id,
               recaptcha: "",
             }}
             validationSchema={contactFormSubmissionSchema}

@@ -151,6 +151,7 @@ export type DynamicsSportsTeam = {
     bsi_Contact: {
       fullname: string;
       emailaddress1: string;
+      contactid: string;
     };
     bsi_ProfilePicture: {
       bsi_alttext: string;

@@ -1,4 +1,8 @@
-import { WebApiConfig, createWithReturnData } from "dataverse-webapi/lib/node";
+import {
+  WebApiConfig,
+  createWithReturnData,
+  retrieveMultiple,
+} from "dataverse-webapi/lib/node";
 import { NextApiRequest, NextApiResponse } from "next";
 import fetch from "node-fetch";
 import cca from "../../utils/cca";
@@ -11,7 +15,7 @@ const contactformsubmission = async (
   try {
     switch (req.method) {
       case "POST":
-        const { recaptcha, ...entity } = JSON.parse(req.body);
+        const { recaptcha, bsi_contactid, ...entity } = JSON.parse(req.body);
         const result = await fetch(
           "https://www.google.com/recaptcha/api/siteverify",
           {
@@ -33,6 +37,24 @@ const contactformsubmission = async (
           accessToken,
           process.env.CLIENT_URL
         );
+
+        if (bsi_contactid) {
+          entity["bsi_MessageTo@odata.bind"] = `contacts(${bsi_contactid})`;
+        }
+
+        const existingContact = (
+          await retrieveMultiple(
+            config,
+            "contacts",
+            `$filter=emailaddress1 eq '${entity.bsi_email}'&$select=fullname`
+          )
+        ).value;
+
+        if (existingContact.length > 0) {
+          entity[
+            "bsi_Contact@odata.bind"
+          ] = `contacts(${existingContact[0].contactid})`;
+        }
 
         const createResult = await createWithReturnData(
           config,

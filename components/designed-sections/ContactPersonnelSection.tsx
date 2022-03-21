@@ -84,7 +84,7 @@ const ContactPersonnelSection: React.FunctionComponent<
                   onOpen();
                   setSentTo((_prev) => ({
                     name: c.bsi_Contact.fullname,
-                    id: c.msmedia_sportsplayerid,
+                    id: c.bsi_Contact.contactid,
                   }));
                 }}
                 p={4}
@@ -186,11 +186,11 @@ const ContactPersonnelSection: React.FunctionComponent<
               boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
               p={4}
               onClick={() => {
-                onOpen();
                 setSentTo((_prev) => ({
                   name: c.fullname,
                   id: c.contactid,
                 }));
+                onOpen();
               }}
             >
               <Avatar

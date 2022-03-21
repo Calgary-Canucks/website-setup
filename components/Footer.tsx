@@ -7,15 +7,11 @@ import {
   Button,
   Image,
   Center,
+  useDisclosure,
 } from "@chakra-ui/react";
 import * as React from "react";
-import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaTwitter,
-  FaYoutube,
-} from "react-icons/fa";
 import { dynamicsSocialPlatformMap } from "../utils/constants";
+import ContactForm from "./ContactForm";
 
 interface IFooterProps {
   menuItems: any[];
@@ -28,6 +24,7 @@ const Footer: React.FunctionComponent<IFooterProps> = ({
   companyLogoUrl,
   dynamicsSocialPlatforms,
 }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box>
       <Box w="100%" bg="rgb(1, 78, 134)">
@@ -105,8 +102,8 @@ const Footer: React.FunctionComponent<IFooterProps> = ({
               events!
             </Text>
 
-            <Button as="a" href="#" colorScheme="whiteAlpha">
-              SIGN UP
+            <Button colorScheme="whiteAlpha" onClick={onOpen}>
+              MESSAGE US
             </Button>
           </Flex>
         </Flex>
@@ -122,6 +119,12 @@ const Footer: React.FunctionComponent<IFooterProps> = ({
           Powered by @Betach Solutions Inc. D365 CMS
         </Text>
       </Flex>
+      <ContactForm
+        isOpen={isOpen}
+        onClose={onClose}
+        onOpen={onOpen}
+        sentTo={{ name: "", id: "" }}
+      />
     </Box>
   );
 };
