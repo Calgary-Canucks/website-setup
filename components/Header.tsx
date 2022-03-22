@@ -1,15 +1,18 @@
 import { Box, Flex, Image, LinkBox, LinkOverlay } from "@chakra-ui/react";
 import * as React from "react";
+import { CurrentUser } from "../types/dynamicsEntities";
 import Navbar from "./Navbar";
 
 interface IHeaderProps {
   menuItems: any[];
   companyLogoUrl: string;
+  user?: CurrentUser;
 }
 
 const Header: React.FunctionComponent<IHeaderProps> = ({
   menuItems,
   companyLogoUrl,
+  user,
 }) => {
   return (
     <Box>

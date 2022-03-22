@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import sectionConfig from "../../../../../components/designed-sections/sections.config";
 import Layout from "../../../../../components/Layout";
-import cca from "../../../../../utils/cca";
+import { instantiateCca } from "../../../../../utils/cca";
 import { BLOGS_PLAGE_LIMIT } from "../../../../../utils/constants";
 import { getAllContactInfo } from "../../../../../utils/getAllContactInfo";
 import { getAllPageContents } from "../../../../../utils/getAllPageContents";
@@ -60,6 +60,7 @@ const AuthorPage: React.FunctionComponent<IBlogAuthorProps> = (props) => {
 export default AuthorPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const cca = await instantiateCca();
   const tokenResponse = await getClientCredentialsToken(cca);
   const accessToken = tokenResponse?.accessToken;
   const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
@@ -98,6 +99,7 @@ export const getStaticProps: GetStaticProps = async ({
 }) => {
   try {
     const { author, page } = params as IParams;
+    const cca = await instantiateCca();
     const tokenResponse = await getClientCredentialsToken(cca);
     const accessToken = tokenResponse?.accessToken;
     const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);

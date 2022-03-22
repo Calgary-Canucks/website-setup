@@ -1,45 +1,34 @@
-import { ICachePlugin } from "@azure/msal-common";
-import fs from "fs";
+import { TokenCacheContext } from "@azure/msal-node";
 
-export function cachePluginFunc(cacheLocation: string) {
-  const beforeCacheAccess = (cacheContext: any) => {
+export async function cachePluginFunc(
+  tokenExists: () => Promise<number>,
+  setToken: (token: string) => Promise<void>,
+  getToken: () => Promise<string | null>
+) {
+  const doesTokenExist = await tokenExists();
+  const beforeCacheAccess = (cacheContext: TokenCacheContext) => {
     return new Promise<void>((resolve, reject) => {
-      if (fs.existsSync(cacheLocation)) {
-        fs.readFile(cacheLocation, "utf-8", (err, data) => {
-          if (err) {
-            reject();
-          } else {
-            cacheContext.tokenCache.deserialize(data);
+      if (doesTokenExist === 1) {
+        getToken()
+          .then((data) => {
+            cacheContext.tokenCache.deserialize(data || "");
             resolve();
-          }
-        });
+          })
+          .catch((err) => reject(err));
       } else {
-        fs.writeFile(
-          cacheLocation,
-          cacheContext.tokenCache.serialize(),
-          (err) => {
-            if (err) {
-              reject();
-            }
-          }
+        setToken(cacheContext.tokenCache.serialize()).catch((err) =>
+          reject(err)
         );
       }
     });
   };
 
-  const afterCacheAccess = (cacheContext: any) => {
+  const afterCacheAccess = (cacheContext: TokenCacheContext) => {
     return new Promise<void>((resolve, reject) => {
       if (cacheContext.cacheHasChanged) {
-        fs.writeFile(
-          cacheLocation,
-          cacheContext.tokenCache.serialize(),
-          (err) => {
-            if (err) {
-              reject(err);
-            }
-            resolve();
-          }
-        );
+        setToken(cacheContext.tokenCache.serialize())
+          .then(() => resolve())
+          .catch((err) => reject(err));
       } else {
         resolve();
       }

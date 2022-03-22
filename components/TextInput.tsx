@@ -13,6 +13,7 @@ interface ITextInputProps extends ChakraProps {
   id: string;
   name: string;
   label: string;
+  autoComplete?: string;
 }
 
 const TextInput: React.FunctionComponent<ITextInputProps> = ({
@@ -20,13 +21,20 @@ const TextInput: React.FunctionComponent<ITextInputProps> = ({
   id,
   name,
   label,
+  autoComplete,
   ...chakraProps
 }) => {
   const [field, meta, _helpers] = useField(name);
   return (
     <FormControl isInvalid={!!(meta.error && meta.touched)} {...chakraProps}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
-      <Input {...field} id={id} name={name} type={type} />
+      <Input
+        {...field}
+        id={id}
+        name={name}
+        type={type}
+        autoComplete={autoComplete || "off"}
+      />
       {!!meta.error && <FormErrorMessage>{meta.error}</FormErrorMessage>}
     </FormControl>
   );

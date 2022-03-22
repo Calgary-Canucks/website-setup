@@ -6,7 +6,7 @@ export const getClientCredentialsToken = async (
   try {
     const clientCredentialRequest = {
       scopes: [`${process.env.CLIENT_URL}/.default`],
-      skipCache: true,
+      skipCache: false,
     };
     const response = await cca.acquireTokenByClientCredential(
       clientCredentialRequest

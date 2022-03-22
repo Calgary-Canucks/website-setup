@@ -1,30 +1,67 @@
+import { ConfidentialClientApplication, Configuration } from "@azure/msal-node";
 import { cachePluginFunc } from "./cachePlugin";
-import { Configuration } from "@azure/msal-node";
+import { getcache, setcache, tokenKeyExist } from "./redisDB/redis";
 
-//This part runs in the server, use commonjs import
-const msal = require("@azure/msal-node");
+let cachedCca: ConfidentialClientApplication | null = null;
 
-const cacheLocation = process.cwd() + "/data/cache.json";
+if (!cachedCca) {
+  cachedCca = null;
+}
 
-const cachePlugin = cachePluginFunc(cacheLocation);
-
-const clientConfig: Configuration = {
-  auth: {
-    clientId: process.env.CLIENT_ID!,
-    authority: `https://login.microsoftonline.com/${process.env.TENANT_ID}/`,
-    clientSecret: process.env.CLIENT_SECRET,
-    knownAuthorities: [
-      `https://login.microsoftonline.com/${process.env.TENANT_ID}/`,
-    ],
-  },
-  //Comment out for deployment
-  // cache: {
-  //   cachePlugin,
-  // },
+export const instantiateCca = async () => {
+  try {
+    if (cachedCca) {
+      return cachedCca;
+    }
+    const cachePlugin = await cachePluginFunc(
+      tokenKeyExist,
+      setcache,
+      getcache
+    );
+    const clientConfig: Configuration = {
+      auth: {
+        clientId: process.env.CLIENT_ID!,
+        authority: `https://login.microsoftonline.com/${process.env.TENANT_ID}/`,
+        clientSecret: process.env.CLIENT_SECRET,
+        knownAuthorities: [
+          `https://login.microsoftonline.com/${process.env.TENANT_ID}/`,
+        ],
+      },
+      cache: {
+        cachePlugin,
+      },
+    };
+    const confidentialClientApplication = new ConfidentialClientApplication(
+      clientConfig
+    );
+    cachedCca = confidentialClientApplication;
+    return cachedCca;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const confidentialClientApplication = new msal.ConfidentialClientApplication(
-  clientConfig
-);
+// const cacheLocation = process.cwd() + "/data/cache.json";
 
-export default confidentialClientApplication;
+// const cachePlugin = cachePluginFunc(cacheLocation);
+
+// const clientConfig: Configuration = {
+//   auth: {
+//     clientId: process.env.CLIENT_ID!,
+//     authority: `https://login.microsoftonline.com/${process.env.TENANT_ID}/`,
+//     clientSecret: process.env.CLIENT_SECRET,
+//     knownAuthorities: [
+//       `https://login.microsoftonline.com/${process.env.TENANT_ID}/`,
+//     ],
+//   },
+//   Comment out for deployment
+//   cache: {
+//     cachePlugin,
+//   },
+// };
+
+// const confidentialClientApplication = new msal.ConfidentialClientApplication(
+//   clientConfig
+// );
+
+// export default confidentialClientApplication;

@@ -3,7 +3,8 @@ import { GetStaticProps, NextPage } from "next";
 import React from "react";
 import sectionConfig from "../components/designed-sections/sections.config";
 import Layout from "../components/Layout";
-import cca from "../utils/cca";
+import { useCurrentUser } from "../hooks/useCurrentUser";
+import { instantiateCca } from "../utils/cca";
 import { getAllPageContents } from "../utils/getAllPageContents";
 import { getClientCredentialsToken } from "../utils/getClientCredentialsToken";
 import { dynamicsWebpageQuery } from "../utils/queries";
@@ -12,6 +13,8 @@ import { DynamicsPageProps } from "../utils/types";
 interface DynamicsProps extends DynamicsPageProps {}
 
 const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
+  const { user } = useCurrentUser();
+
   return (
     <Layout
       headerMenuItems={props.dynamicsHeaderMenuItems}
@@ -19,6 +22,7 @@ const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
       dynamicsSocialPlatforms={props.dynamicsSocialPlatforms}
       companyLogoUrl={props.companyLogoUrl}
       preview={props.preview}
+      user={user}
     >
       {props.dynamicsPageSections?.map(
         (s: any) =>
@@ -37,6 +41,7 @@ const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   try {
+    const cca = await instantiateCca();
     const tokenResponse = await getClientCredentialsToken(cca);
     const accessToken = tokenResponse?.accessToken;
     const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
@@ -67,7 +72,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
 
-    console.log(dynamicsMatches);
     return {
       props: {
         preview: !!preview,

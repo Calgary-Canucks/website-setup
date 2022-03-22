@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import sectionConfig from "../../../../../components/designed-sections/sections.config";
 import Layout from "../../../../../components/Layout";
-import cca from "../../../../../utils/cca";
+import { instantiateCca } from "../../../../../utils/cca";
 import { getAllContactInfo } from "../../../../../utils/getAllContactInfo";
 import { getAllPageContents } from "../../../../../utils/getAllPageContents";
 import { getAllTeamInfo } from "../../../../../utils/getAllTeamInfo";
@@ -59,6 +59,7 @@ const CategoryPage: React.FunctionComponent<IBlogCategoryProps> = (props) => {
 export default CategoryPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const cca = await instantiateCca();
   const tokenResponse = await getClientCredentialsToken(cca);
   const accessToken = tokenResponse?.accessToken;
   const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
@@ -101,6 +102,7 @@ export const getStaticProps: GetStaticProps = async ({
 }) => {
   try {
     const { category, page } = params as IParams;
+    const cca = await instantiateCca();
     const tokenResponse = await getClientCredentialsToken(cca);
     const accessToken = tokenResponse?.accessToken;
     const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);

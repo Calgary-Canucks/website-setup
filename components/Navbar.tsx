@@ -1,15 +1,17 @@
 import NextLink from "next/link";
-import { Flex, Link } from "@chakra-ui/react";
+import { Button, Flex, Heading, Link, Text } from "@chakra-ui/react";
 import * as React from "react";
 import MenuItemDropdown from "./NavbarItem";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 interface INavbarProps {
   menuItems: any[];
 }
 
 const Navbar: React.FunctionComponent<INavbarProps> = ({ menuItems }) => {
+  const { user, isLoading } = useCurrentUser();
   return (
-    <Flex flexDirection="column" flexGrow={2} color="white">
+    <Flex as="nav" flexDirection="column" flexGrow={2} color="white">
       <Flex
         w="100%"
         justify="flex-start"
@@ -41,12 +43,28 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({ menuItems }) => {
       <Flex
         h="30px"
         align="center"
-        fontSize="1.4rem"
-        fontWeight="bold"
+        justify="space-between"
         pl="14"
+        pr="9.5rem"
         mb="30px"
       >
-        CALGARY CANUCKS RUGBY
+        <Heading as="h1" fontSize="1.4rem" fontWeight="bold">
+          CALGARY CANUCKS RUGBY
+        </Heading>
+        {user ? (
+          <Text as="span">Welcome back, {user.fullname}</Text>
+        ) : (
+          <Button
+            as="a"
+            href="/login"
+            variant="solid"
+            color="rgb(1, 78, 134)"
+            borderRadius="500"
+            isLoading={isLoading}
+          >
+            Login
+          </Button>
+        )}
       </Flex>
       <Flex
         justify="space-around"
