@@ -4,6 +4,7 @@ import * as React from "react";
 import MenuItemDropdown from "./NavbarItem";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { logout } from "../services/user";
+import { useSWRConfig } from "swr";
 
 interface INavbarProps {
   menuItems: any[];
@@ -11,6 +12,7 @@ interface INavbarProps {
 
 const Navbar: React.FunctionComponent<INavbarProps> = ({ menuItems }) => {
   const { user, isLoading, isError, mutateUser } = useCurrentUser();
+  // const { mutate } = useSWRConfig();
   return (
     <Flex as="nav" flexDirection="column" flexGrow={2} color="white">
       <Flex

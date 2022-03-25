@@ -77,7 +77,7 @@ const DownloadsSection: React.FunctionComponent<IDownloadsSectionProps> = ({
             </Alert>
           </Box>
         )}
-        {(!!user || !dynamicsPageSection.bsi_restricted) && (
+        {((!!user && !isError) || !dynamicsPageSection.bsi_restricted) && (
           <VStack
             divider={<StackDivider borderColor="gray.200" />}
             spacing={4}

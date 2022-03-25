@@ -42,7 +42,7 @@ const Login: NextPage<ILoginProps> = () => {
                 status: "success",
                 duration: 3000,
                 isClosable: true,
-                onCloseComplete: () => router.push("/"),
+                onCloseComplete: () => router.back(),
               });
             } catch (error: any) {
               return toast({
