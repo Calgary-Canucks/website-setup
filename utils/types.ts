@@ -164,6 +164,7 @@ export type DynamicsSportsTeam = {
 
 export type DynamicsPageSection = {
   bsi_name: string;
+  bsi_restricted: boolean;
   bsi_pagesectionid: string;
   bsi_videourl: string;
   bsi_paragraph: string;
@@ -228,6 +229,15 @@ export type DynamicsPageSection = {
   bsi_MarketingFormPage: {
     msdyncrm_javascriptcode: string;
   };
+
+  bsi_FileAsset_bsi_PageSection_bsi_PageSec: Array<{
+    bsi_name: string;
+    bsi_fileassetid: string;
+    bsi_cdnurl: string;
+    bsi_description: string;
+    bsi_file_name: string;
+    bsi_restricted: boolean;
+  }>;
 };
 
 export type PageSection = {

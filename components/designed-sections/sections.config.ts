@@ -13,6 +13,7 @@ import CalendarSection from "./CalendarSection";
 import TeamsInfoSection from "./TeamsInfoSection";
 import ContactPersonnelSection from "./ContactPersonnelSection";
 import MapBoxStaticMapSection from "./MapBoxStaticMapSection";
+import DownloadsSection from "./DownloadsSection";
 
 const sections: { [key: string]: FunctionComponent<any> } = {
   BusinessBanterSection,
@@ -29,6 +30,7 @@ const sections: { [key: string]: FunctionComponent<any> } = {
   TeamsInfoSection,
   ContactPersonnelSection,
   MapBoxStaticMapSection,
+  DownloadsSection,
 };
 
 export default sections;

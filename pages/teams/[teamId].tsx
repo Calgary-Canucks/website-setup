@@ -39,7 +39,7 @@ const TeamIdPage: React.FunctionComponent<ITeamIdProps> = (props) => {
             : props.dynamicsPageName
         }
       />
-      {props.dynamicsPageSections?.map(
+      {/* {props.dynamicsPageSections?.map(
         (s: any) =>
           sectionConfig[s["bsi_DesignedSection"].bsi_name] &&
           sectionConfig[s["bsi_DesignedSection"].bsi_name]({
@@ -53,7 +53,22 @@ const TeamIdPage: React.FunctionComponent<ITeamIdProps> = (props) => {
             dynamicsTeamContacts: props.dynamicsSportsTeams[0].bsi_contacts,
             dynamicsVenues: props.dynamicsVenues,
           })
-      )}
+      )} */}
+      {props.dynamicsPageSections?.map((s) => {
+        const Section = sectionConfig[s.bsi_DesignedSection.bsi_name];
+        return (
+          <Section
+            key={s.bsi_pagesectionid}
+            dynamicsPageSection={s}
+            events={props.dynamicsMatches}
+            dynamicsSportsTeams={props.dynamicsSportsTeams}
+            dynamicsOrganizationContacts={props.dynamicsOrganizationContacts}
+            dynamicsVenues={props.dynamicsVenues}
+            dynamicsBlogs={props.dynamicsBlogs}
+            dynamicsMatches={props.dynamicsSportsTeams[0].bsi_matches}
+          />
+        );
+      })}
     </Layout>
   );
 };

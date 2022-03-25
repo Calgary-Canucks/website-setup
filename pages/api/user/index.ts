@@ -5,7 +5,7 @@ function userRoute(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case "GET":
       if (!req.session.user) {
-        return res.status(404).json({
+        return res.status(401).json({
           error: {
             name: "Not Authenticated",
             message: "User is not logged in.",

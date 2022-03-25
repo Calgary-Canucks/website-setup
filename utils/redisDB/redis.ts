@@ -12,19 +12,30 @@ const connect = async () => {
   console.log("Connected successfully.");
 };
 
+export const disconnect = async () => {
+  if (!client.isOpen) {
+    return;
+  }
+  await client.disconnect();
+  console.log("Disconnected.");
+};
+
 export const tokenKeyExist = async () => {
   await connect();
   const exists = await client.exists("cache");
+  await disconnect();
   return exists;
 };
 
 export const getcache = async () => {
   await connect();
   const cache = await client.get("cache");
+  await disconnect();
   return cache;
 };
 
 export const setcache = async (token: string) => {
   await connect();
   await client.set("cache", token);
+  return await disconnect();
 };

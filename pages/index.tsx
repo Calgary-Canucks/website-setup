@@ -8,6 +8,7 @@ import { instantiateCca } from "../utils/cca";
 import { getAllPageContents } from "../utils/getAllPageContents";
 import { getClientCredentialsToken } from "../utils/getClientCredentialsToken";
 import { dynamicsWebpageQuery } from "../utils/queries";
+import { disconnect } from "../utils/redisDB/redis";
 import { DynamicsPageProps } from "../utils/types";
 
 interface DynamicsProps extends DynamicsPageProps {}
@@ -24,17 +25,20 @@ const Dynamics: NextPage<DynamicsProps> = (props: DynamicsProps) => {
       preview={props.preview}
       user={user}
     >
-      {props.dynamicsPageSections?.map(
-        (s: any) =>
-          sectionConfig[s["bsi_DesignedSection"].bsi_name] &&
-          sectionConfig[s["bsi_DesignedSection"].bsi_name]({
-            dynamicsPageSection: s,
-            key: s.pagesectionid,
-            dynamicsBlogs: props.dynamicsBlogs,
-            dynamicsMatches: props.dynamicsMatches,
-            events: props.dynamicsMatches,
-          })
-      )}
+      {props.dynamicsPageSections?.map((s) => {
+        const Section = sectionConfig[s.bsi_DesignedSection.bsi_name];
+        return (
+          <Section
+            key={s.bsi_pagesectionid}
+            dynamicsPageSection={s}
+            events={props.dynamicsMatches}
+            dynamicsSportsTeams={props.dynamicsSportsTeams}
+            dynamicsOrganizationContacts={props.dynamicsOrganizationContacts}
+            dynamicsVenues={props.dynamicsVenues}
+            dynamicsBlogs={props.dynamicsBlogs}
+          />
+        );
+      })}
     </Layout>
   );
 };
@@ -52,6 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
         `$filter=bsi_name eq 'Home'&${dynamicsWebpageQuery}`
       )
     ).value;
+    await disconnect();
 
     const {
       dynamicsPageSections,

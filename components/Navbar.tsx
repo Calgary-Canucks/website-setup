@@ -3,13 +3,14 @@ import { Button, Flex, Heading, Link, Text } from "@chakra-ui/react";
 import * as React from "react";
 import MenuItemDropdown from "./NavbarItem";
 import { useCurrentUser } from "../hooks/useCurrentUser";
+import { logout } from "../services/user";
 
 interface INavbarProps {
   menuItems: any[];
 }
 
 const Navbar: React.FunctionComponent<INavbarProps> = ({ menuItems }) => {
-  const { user, isLoading } = useCurrentUser();
+  const { user, isLoading, isError, mutateUser } = useCurrentUser();
   return (
     <Flex as="nav" flexDirection="column" flexGrow={2} color="white">
       <Flex
@@ -51,19 +52,45 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({ menuItems }) => {
         <Heading as="h1" fontSize="1.4rem" fontWeight="bold">
           CALGARY CANUCKS RUGBY
         </Heading>
-        {user ? (
-          <Text as="span">Welcome back, {user.fullname}</Text>
+        {user && !isError ? (
+          <Flex style={{ gap: "2rem" }} align="center">
+            <Text as="span">Hi, {user.fullname}</Text>
+            <Button
+              variant="solid"
+              color="rgb(1, 78, 134)"
+              borderRadius="500"
+              isLoading={isLoading}
+              onClick={async () => {
+                await logout();
+                await mutateUser();
+              }}
+            >
+              Logout
+            </Button>
+          </Flex>
         ) : (
-          <Button
-            as="a"
-            href="/login"
-            variant="solid"
-            color="rgb(1, 78, 134)"
-            borderRadius="500"
-            isLoading={isLoading}
-          >
-            Login
-          </Button>
+          <Flex style={{ gap: "2rem" }}>
+            <Button
+              as="a"
+              href="/login"
+              variant="solid"
+              color="rgb(1, 78, 134)"
+              borderRadius="500"
+              isLoading={isLoading}
+            >
+              Login
+            </Button>
+            <Button
+              as="a"
+              href="/register"
+              variant="solid"
+              color="rgb(1, 78, 134)"
+              borderRadius="500"
+              isLoading={isLoading}
+            >
+              Register
+            </Button>
+          </Flex>
         )}
       </Flex>
       <Flex

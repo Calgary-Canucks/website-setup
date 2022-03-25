@@ -12,6 +12,7 @@ import { getAllTeamInfo } from "../utils/getAllTeamInfo";
 import { getAllVenueInfo } from "../utils/getAllVenueInfo";
 import { getClientCredentialsToken } from "../utils/getClientCredentialsToken";
 import { dynamicsWebpageQuery } from "../utils/queries";
+import { disconnect } from "../utils/redisDB/redis";
 import {
   DynamicsBlog,
   DynamicsMatch,
@@ -40,20 +41,21 @@ const DynamicsPages: NextPage<DynamicsPagesProps> = (
       preview={props.preview}
     >
       <SubHeader pageTitle={props.dynamicsPageName} />
-      {props.dynamicsPageSections?.map(
-        (s: any) =>
-          sectionConfig[s["bsi_DesignedSection"].bsi_name] &&
-          sectionConfig[s["bsi_DesignedSection"].bsi_name]({
-            dynamicsPageSection: s,
-            key: s.pagesectionid,
-            dynamicsMatches: props.dynamicsMatches,
-            events: props.dynamicsMatches,
-            dynamicsSportsTeams: props.dynamicsSportsTeams,
-            dynamicsBlogs: props.dynamicsBlogs,
-            dynamicsOrganizationContacts: props.dynamicsOrganizationContacts,
-            dynamicsVenues: props.dynamicsVenues,
-          })
-      )}
+
+      {props.dynamicsPageSections?.map((s) => {
+        const Section = sectionConfig[s.bsi_DesignedSection.bsi_name];
+        return (
+          <Section
+            key={s.bsi_pagesectionid}
+            dynamicsPageSection={s}
+            events={props.dynamicsMatches}
+            dynamicsSportsTeams={props.dynamicsSportsTeams}
+            dynamicsOrganizationContacts={props.dynamicsOrganizationContacts}
+            dynamicsVenues={props.dynamicsVenues}
+            dynamicsBlogs={props.dynamicsBlogs}
+          />
+        );
+      })}
     </Layout>
   );
 };
@@ -137,6 +139,7 @@ export const getStaticProps: GetStaticProps = async ({
     const teams = await getAllTeamInfo(config);
     const contacts = await getAllContactInfo(config);
     const venues = await getAllVenueInfo(config);
+    await disconnect();
 
     return {
       props: {

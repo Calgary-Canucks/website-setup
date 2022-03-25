@@ -1,16 +1,28 @@
 import { Badge, Box, Flex, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import * as React from "react";
 import { DynamicsMatch, DynamicsPageSection } from "../../utils/types";
 import AnchorSection from "../AnchorSection";
 
 interface IRecentMatchesSectionProps {
   dynamicsPageSection: DynamicsPageSection;
-  dynamicsMatches: DynamicsMatch[];
+  events: DynamicsMatch[];
 }
 
 const RecentMatchesSection: React.FunctionComponent<
   IRecentMatchesSectionProps
-> = ({ dynamicsPageSection, dynamicsMatches }) => {
+> = ({ dynamicsPageSection, events }) => {
+  const router = useRouter();
+  const { teamId } = router.query;
+  let matches: DynamicsMatch[] = events;
+  if (teamId) {
+    matches = events.filter(
+      (e) =>
+        e.msmedia_HomeTeam.msmedia_sportsteamid === teamId ||
+        e.msmedia_VisitingTeam.msmedia_sportsteamid === teamId
+    );
+  }
+
   return (
     <AnchorSection
       sectionId={dynamicsPageSection.bsi_sectionid || "success-stories"}
@@ -50,82 +62,90 @@ const RecentMatchesSection: React.FunctionComponent<
             {dynamicsPageSection.bsi_mainheading}
           </Text>
         </Flex>
-
         <Flex w="100%" flexDirection="column">
-          {dynamicsMatches.map((m) => (
-            <Flex
-              key={m.msmedia_mediaeventid}
-              direction="column"
-              align="stretch"
-              w="100%"
-              my={4}
-              p={4}
-              bgColor="white"
-              borderRadius="5px"
-              boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
-            >
-              <Text as="span">
-                {new Date(m.bsi_starttime).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-                {", "}
-                {new Date(m.bsi_starttime).toLocaleTimeString("en-US")}
-              </Text>
-              <Flex direction="column">
+          {matches.map((m, index) => {
+            if (index < 3)
+              return (
                 <Flex
-                  justify="space-around"
-                  align={{ base: "center", sm: "flex-start" }}
+                  key={m.msmedia_mediaeventid}
+                  direction="column"
+                  align="stretch"
+                  w="100%"
+                  my={4}
+                  p={4}
+                  bgColor="white"
+                  borderRadius="5px"
+                  boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
                 >
-                  <Text
-                    as="span"
-                    fontSize="1.1rem"
-                    fontWeight="bold"
-                    w="300px"
-                    textAlign="center"
-                  >
-                    {m.msmedia_HomeTeam.msmedia_name}
+                  <Text as="span">
+                    {new Date(m.bsi_starttime).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                    {", "}
+                    {new Date(m.bsi_starttime).toLocaleTimeString("en-US")}
                   </Text>
-                  <Flex
-                    direction="column"
-                    align="center"
-                    minW="20rem"
-                    style={{ gap: "20px" }}
-                  >
-                    <Badge
-                      colorScheme={
-                        m.msmedia_hometeamscore && m.msmedia_visitingteamscore
-                          ? m.msmedia_hometeamscore >
-                            m.msmedia_visitingteamscore
-                            ? "green"
-                            : "red"
-                          : "blackAlpha"
-                      }
-                      fontSize="1.2rem"
-                      boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
+                  <Flex direction="column">
+                    <Flex
+                      justify="space-around"
+                      align={{ base: "center", sm: "flex-start" }}
                     >
-                      {m.msmedia_hometeamscore && m.msmedia_visitingteamscore
-                        ? `${m.msmedia_hometeamscore} - ${m.msmedia_visitingteamscore}`
-                        : new Date(m.bsi_starttime).toLocaleTimeString("en-US")}
-                    </Badge>
-                    <Text as="span">League</Text>
-                    <Text as="span">{m.msmedia_PrimaryVenue.msmedia_name}</Text>
-                  </Flex>
+                      <Text
+                        as="span"
+                        fontSize="1.1rem"
+                        fontWeight="bold"
+                        w="300px"
+                        textAlign="center"
+                      >
+                        {m.msmedia_HomeTeam.msmedia_name}
+                      </Text>
+                      <Flex
+                        direction="column"
+                        align="center"
+                        minW="20rem"
+                        style={{ gap: "20px" }}
+                      >
+                        <Badge
+                          colorScheme={
+                            m.msmedia_hometeamscore &&
+                            m.msmedia_visitingteamscore
+                              ? m.msmedia_hometeamscore >
+                                m.msmedia_visitingteamscore
+                                ? "green"
+                                : "red"
+                              : "blackAlpha"
+                          }
+                          fontSize="1.2rem"
+                          boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
+                        >
+                          {m.msmedia_hometeamscore &&
+                          m.msmedia_visitingteamscore
+                            ? `${m.msmedia_hometeamscore} - ${m.msmedia_visitingteamscore}`
+                            : new Date(m.bsi_starttime).toLocaleTimeString(
+                                "en-US"
+                              )}
+                        </Badge>
+                        <Text as="span">League</Text>
+                        <Text as="span">
+                          {m.msmedia_PrimaryVenue.msmedia_name}
+                        </Text>
+                      </Flex>
 
-                  <Text
-                    as="span"
-                    fontSize="1.1rem"
-                    fontWeight="bold"
-                    w="300px"
-                    textAlign="center"
-                  >
-                    {m.msmedia_VisitingTeam.msmedia_name}
-                  </Text>
+                      <Text
+                        as="span"
+                        fontSize="1.1rem"
+                        fontWeight="bold"
+                        w="300px"
+                        textAlign="center"
+                      >
+                        {m.msmedia_VisitingTeam.msmedia_name}
+                      </Text>
+                    </Flex>
+                  </Flex>
                 </Flex>
-              </Flex>
-            </Flex>
-          ))}
+              );
+          })}
         </Flex>
       </Box>
     </AnchorSection>

@@ -39,20 +39,20 @@ const AuthorPage: React.FunctionComponent<IBlogAuthorProps> = (props) => {
       dynamicsSocialPlatforms={props.dynamicsSocialPlatforms}
       companyLogoUrl={props.companyLogoUrl}
     >
-      {props.dynamicsPageSections?.map(
-        (s: any) =>
-          sectionConfig[s["bsi_DesignedSection"].bsi_name] &&
-          sectionConfig[s["bsi_DesignedSection"].bsi_name]({
-            dynamicsPageSection: s,
-            key: s.pagesectionid,
-            dynamicsMatches: props.dynamicsMatches,
-            events: props.dynamicsMatches,
-            dynamicsSportsTeams: props.dynamicsSportsTeams,
-            dynamicsBlogs: props.dynamicsBlogs,
-            dynamicsOrganizationContacts: props.dynamicsOrganizationContacts,
-            dynamicsVenues: props.dynamicsVenues,
-          })
-      )}
+      {props.dynamicsPageSections?.map((s) => {
+        const Section = sectionConfig[s.bsi_DesignedSection.bsi_name];
+        return (
+          <Section
+            key={s.bsi_pagesectionid}
+            dynamicsPageSection={s}
+            events={props.dynamicsMatches}
+            dynamicsSportsTeams={props.dynamicsSportsTeams}
+            dynamicsOrganizationContacts={props.dynamicsOrganizationContacts}
+            dynamicsVenues={props.dynamicsVenues}
+            dynamicsBlogs={props.dynamicsBlogs}
+          />
+        );
+      })}
     </Layout>
   );
 };
