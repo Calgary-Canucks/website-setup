@@ -5,8 +5,8 @@ import {
 } from "dataverse-webapi/lib/node";
 import { NextApiRequest, NextApiResponse } from "next";
 import fetch from "node-fetch";
-import { instantiateCca } from "../../utils/cca";
-import { getClientCredentialsToken } from "../../utils/getClientCredentialsToken";
+import { instantiateCca } from "../../utils/msal/cca";
+import { getClientCredentialsToken } from "../../utils/msal/getClientCredentialsToken";
 
 const contactformsubmission = async (
   req: NextApiRequest,

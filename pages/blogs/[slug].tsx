@@ -3,18 +3,15 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import * as React from "react";
-import sectionConfig from "../../components/designed-sections/sections.config";
-import Layout from "../../components/Layout";
-import { instantiateCca } from "../../utils/cca";
-import { getAllContactInfo } from "../../utils/getAllContactInfo";
-import { getAllPageContents } from "../../utils/getAllPageContents";
-import { getAllTeamInfo } from "../../utils/getAllTeamInfo";
-import { getAllVenueInfo } from "../../utils/getAllVenueInfo";
-import { getClientCredentialsToken } from "../../utils/getClientCredentialsToken";
+import sectionConfig from "../../designed-sections/sections.config";
+import Layout from "../../components/common/Layout";
+import { instantiateCca } from "../../utils/msal/cca";
+import { getAllPageContents } from "../../utils/dynamics-365/common/getAllPageContents";
+import { getClientCredentialsToken } from "../../utils/msal/getClientCredentialsToken";
 import {
   dynamicsBlogSlugsQuery,
   dynamicsWebpageQuery,
-} from "../../utils/queries";
+} from "../../utils/dynamics-365/common/queries";
 import {
   DynamicsBlog,
   DynamicsMatch,
@@ -23,7 +20,8 @@ import {
   DynamicsPageSection,
   DynamicsSportsTeam,
   DynamicsVenue,
-} from "../../utils/types";
+} from "../../utils/dynamics-365/common/types";
+import { getCustomizedPageContent } from "../../utils/dynamics-365/customized/getCustomizedPageContent";
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
@@ -118,7 +116,6 @@ export const getStaticProps: GetStaticProps = async ({
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
       dynamicsBlogs,
-      dynamicsMatches,
       dynamicsSocialPlatforms,
     } = await getAllPageContents(
       config,
@@ -136,18 +133,22 @@ export const getStaticProps: GetStaticProps = async ({
         notFound: true,
       };
     }
-    const teams = await getAllTeamInfo(config);
-    const contacts = await getAllContactInfo(config);
-    const venues = await getAllVenueInfo(config);
+    const {
+      dynamicsEvents,
+      dynamicsOrganizationContacts,
+      dynamicsTeams,
+      dynamicsVenues,
+    } = await getCustomizedPageContent(config);
     return {
       props: {
         preview: preview,
         dynamicsPageName: dynamicsPageResult[0].bsi_name as string,
         dynamicsPageSections: dynamicsPageSections as DynamicsPageSection[],
-        dynamicsSportsTeams: teams as DynamicsSportsTeam[],
-        dynamicsVenues: venues as DynamicsVenue[],
-        dynamicsOrganizationContacts: contacts as DynamicsOrganizationContact[],
-        dynamicsMatches: dynamicsMatches.value as DynamicsMatch[],
+        dynamicsSportsTeams: dynamicsTeams as DynamicsSportsTeam[],
+        dynamicsVenues: dynamicsVenues as DynamicsVenue[],
+        dynamicsOrganizationContacts:
+          dynamicsOrganizationContacts as DynamicsOrganizationContact[],
+        dynamicsMatches: dynamicsEvents as DynamicsMatch[],
         dynamicsBlogs: dynamicsBlogs.value as DynamicsBlog[],
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value as any[],
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value as any[],

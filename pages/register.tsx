@@ -3,10 +3,10 @@ import { Formik, FormikProps, Form } from "formik";
 import { useRouter } from "next/router";
 import { NextPage } from "next/types";
 import * as React from "react";
-import TextInput from "../components/TextInput";
+import TextInput from "../components/common/TextInput";
 import { submitRegistration } from "../services/user";
 import { withSessionSsr } from "../utils/authentication/withSession";
-import { registrationSchema } from "../utils/validation";
+import { registrationSchema } from "../utils/formik-forms/validation";
 
 export interface RegistrationValues {
   firstName: string;

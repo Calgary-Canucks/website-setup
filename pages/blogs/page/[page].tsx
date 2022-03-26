@@ -1,20 +1,16 @@
 import { retrieveMultiple, WebApiConfig } from "dataverse-webapi/lib/node";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import sectionConfig from "../../../components/designed-sections/sections.config";
-import Layout from "../../../components/Layout";
-import SubHeader from "../../../components/SubHeader";
-import { instantiateCca } from "../../../utils/cca";
-import { BLOGS_PLAGE_LIMIT } from "../../../utils/constants";
-import { getAllContactInfo } from "../../../utils/getAllContactInfo";
-import { getAllPageContents } from "../../../utils/getAllPageContents";
-import { getAllTeamInfo } from "../../../utils/getAllTeamInfo";
-import { getAllVenueInfo } from "../../../utils/getAllVenueInfo";
-import { getClientCredentialsToken } from "../../../utils/getClientCredentialsToken";
+import sectionConfig from "../../../designed-sections/sections.config";
+import Layout from "../../../components/common/Layout";
+import SubHeader from "../../../components/common/SubHeader";
+import { instantiateCca } from "../../../utils/msal/cca";
+import { getAllPageContents } from "../../../utils/dynamics-365/common/getAllPageContents";
+import { getClientCredentialsToken } from "../../../utils/msal/getClientCredentialsToken";
 import {
   dynamicsBlogSlugsQuery,
   dynamicsWebpageQuery,
-} from "../../../utils/queries";
+} from "../../../utils/dynamics-365/common/queries";
 import {
   DynamicsBlog,
   DynamicsMatch,
@@ -23,7 +19,8 @@ import {
   DynamicsPageSection,
   DynamicsSportsTeam,
   DynamicsVenue,
-} from "../../../utils/types";
+} from "../../../utils/dynamics-365/common/types";
+import { getCustomizedPageContent } from "../../../utils/dynamics-365/customized/getCustomizedPageContent";
 
 interface IBlogPageProps extends DynamicsPageProps {}
 
@@ -78,7 +75,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
       }
   )[] = [];
 
-  const maxPage = Math.ceil(dynamicsBlogsResult.length / BLOGS_PLAGE_LIMIT);
+  const maxPage = Math.ceil(
+    dynamicsBlogsResult.length / parseInt(process.env.BLOGS_PAGE_SIZE!)
+  );
   for (let i = 1; i <= maxPage; i++) {
     paths.push({
       params: {
@@ -118,7 +117,6 @@ export const getStaticProps: GetStaticProps = async ({
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
       dynamicsBlogs,
-      dynamicsMatches,
       dynamicsSocialPlatforms,
     } = await getAllPageContents(
       config,
@@ -132,19 +130,23 @@ export const getStaticProps: GetStaticProps = async ({
       dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
 
-    const teams = await getAllTeamInfo(config);
-    const contacts = await getAllContactInfo(config);
-    const venues = await getAllVenueInfo(config);
+    const {
+      dynamicsEvents,
+      dynamicsOrganizationContacts,
+      dynamicsTeams,
+      dynamicsVenues,
+    } = await getCustomizedPageContent(config);
 
     return {
       props: {
         preview: preview,
         dynamicsPageName: dynamicsPageResult[0].bsi_name as string,
         dynamicsPageSections: dynamicsPageSections as DynamicsPageSection[],
-        dynamicsSportsTeams: teams as DynamicsSportsTeam[],
-        dynamicsVenues: venues as DynamicsVenue[],
-        dynamicsOrganizationContacts: contacts as DynamicsOrganizationContact[],
-        dynamicsMatches: dynamicsMatches.value as DynamicsMatch[],
+        dynamicsSportsTeams: dynamicsTeams as DynamicsSportsTeam[],
+        dynamicsVenues: dynamicsVenues as DynamicsVenue[],
+        dynamicsOrganizationContacts:
+          dynamicsOrganizationContacts as DynamicsOrganizationContact[],
+        dynamicsMatches: dynamicsEvents as DynamicsMatch[],
         dynamicsBlogs: dynamicsBlogs.value as DynamicsBlog[],
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value as any[],
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value as any[],

@@ -1,20 +1,18 @@
 import { ClientCredentialRequest } from "@azure/msal-node";
 import { NextApiRequest, NextApiResponse } from "next";
 import { dynamicsContact } from "../../../services/dynamicsContact";
-import { instantiateCca } from "../../../utils/cca";
+import { instantiateCca } from "../../../utils/msal/cca";
 import bcrypt from "bcrypt";
 import { withSessionRoute } from "../../../utils/authentication/withSession";
 
 async function authenticateRoute(req: NextApiRequest, res: NextApiResponse) {
   if (req.session.user) {
-    return res
-      .status(400)
-      .json({
-        error: {
-          name: "Already authenticated",
-          message: "You have already logged in.",
-        },
-      });
+    return res.status(400).json({
+      error: {
+        name: "Already authenticated",
+        message: "You have already logged in.",
+      },
+    });
   }
   const cca = await instantiateCca();
   const clientCredentialsRequest: ClientCredentialRequest = {

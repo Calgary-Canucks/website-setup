@@ -1,22 +1,25 @@
 import { retrieveMultiple, WebApiConfig } from "dataverse-webapi/lib/node";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import sectionConfig from "../../components/designed-sections/sections.config";
-import Layout from "../../components/Layout";
-import SubHeader from "../../components/SubHeader";
-import { instantiateCca } from "../../utils/cca";
-import { getAllContactInfo } from "../../utils/getAllContactInfo";
-import { getAllPageContents } from "../../utils/getAllPageContents";
-import { getAllTeamInfo } from "../../utils/getAllTeamInfo";
-import { getAllVenueInfo } from "../../utils/getAllVenueInfo";
-import { getClientCredentialsToken } from "../../utils/getClientCredentialsToken";
-import { dynamicsTeamsQuery, dynamicsWebpageQuery } from "../../utils/queries";
+import sectionConfig from "../../designed-sections/sections.config";
+import Layout from "../../components/common/Layout";
+import SubHeader from "../../components/common/SubHeader";
+import { instantiateCca } from "../../utils/msal/cca";
+import { getAllPageContents } from "../../utils/dynamics-365/common/getAllPageContents";
+import { getClientCredentialsToken } from "../../utils/msal/getClientCredentialsToken";
+import {
+  dynamicsTeamsQuery,
+  dynamicsWebpageQuery,
+} from "../../utils/dynamics-365/common/queries";
 import {
   DynamicsOrganizationContact,
   DynamicsPageProps,
   DynamicsSportsTeam,
   DynamicsVenue,
-} from "../../utils/types";
+} from "../../utils/dynamics-365/common/types";
+import { getCustomizedPageContent } from "../../utils/dynamics-365/customized/getCustomizedPageContent";
+
+//This Page is CUSTOMIZED for orgs who have Media & Entertainment Accelerator
 
 interface ITeamIdProps extends DynamicsPageProps {}
 
@@ -39,21 +42,7 @@ const TeamIdPage: React.FunctionComponent<ITeamIdProps> = (props) => {
             : props.dynamicsPageName
         }
       />
-      {/* {props.dynamicsPageSections?.map(
-        (s: any) =>
-          sectionConfig[s["bsi_DesignedSection"].bsi_name] &&
-          sectionConfig[s["bsi_DesignedSection"].bsi_name]({
-            dynamicsPageSection: s,
-            key: s.pagesectionid,
-            dynamicsMatches: props.dynamicsSportsTeams[0].bsi_matches,
-            events: props.dynamicsMatches,
-            dynamicsSportsTeams: props.dynamicsSportsTeams,
-            dynamicsBlogs: props.dynamicsBlogs,
-            dynamicsOrganizationContacts: props.dynamicsOrganizationContacts,
-            dynamicsTeamContacts: props.dynamicsSportsTeams[0].bsi_contacts,
-            dynamicsVenues: props.dynamicsVenues,
-          })
-      )} */}
+
       {props.dynamicsPageSections?.map((s) => {
         const Section = sectionConfig[s.bsi_DesignedSection.bsi_name];
         return (
@@ -127,7 +116,6 @@ export const getStaticProps: GetStaticProps = async ({
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
       dynamicsBlogs,
-      dynamicsMatches,
       dynamicsSocialPlatforms,
     } = await getAllPageContents(
       config,
@@ -141,19 +129,23 @@ export const getStaticProps: GetStaticProps = async ({
       dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
 
-    const teams = await getAllTeamInfo(config, teamId);
-    const contacts = await getAllContactInfo(config);
-    const venues = await getAllVenueInfo(config);
+    const {
+      dynamicsEvents,
+      dynamicsOrganizationContacts,
+      dynamicsTeams,
+      dynamicsVenues,
+    } = await getCustomizedPageContent(config, teamId);
 
     return {
       props: {
         preview: preview,
         dynamicsPageName: dynamicsPageResult[0].bsi_name,
         dynamicsPageSections: dynamicsPageSections,
-        dynamicsSportsTeams: teams,
-        dynamicsVenues: venues as DynamicsVenue[],
-        dynamicsOrganizationContacts: contacts as DynamicsOrganizationContact[],
-        dynamicsMatches: dynamicsMatches.value,
+        dynamicsSportsTeams: dynamicsTeams,
+        dynamicsVenues: dynamicsVenues as DynamicsVenue[],
+        dynamicsOrganizationContacts:
+          dynamicsOrganizationContacts as DynamicsOrganizationContact[],
+        dynamicsMatches: dynamicsEvents,
         dynamicsBlogs: dynamicsBlogs.value,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,

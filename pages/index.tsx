@@ -1,15 +1,16 @@
 import { retrieveMultiple, WebApiConfig } from "dataverse-webapi/lib/node";
 import { GetStaticProps, NextPage } from "next";
 import React from "react";
-import sectionConfig from "../components/designed-sections/sections.config";
-import Layout from "../components/Layout";
+import sectionConfig from "../designed-sections/sections.config";
+import Layout from "../components/common/Layout";
 import { useCurrentUser } from "../hooks/useCurrentUser";
-import { instantiateCca } from "../utils/cca";
-import { getAllPageContents } from "../utils/getAllPageContents";
-import { getClientCredentialsToken } from "../utils/getClientCredentialsToken";
-import { dynamicsWebpageQuery } from "../utils/queries";
+import { instantiateCca } from "../utils/msal/cca";
+import { getAllPageContents } from "../utils/dynamics-365/common/getAllPageContents";
+import { getClientCredentialsToken } from "../utils/msal/getClientCredentialsToken";
+import { dynamicsWebpageQuery } from "../utils/dynamics-365/common/queries";
 import { disconnect } from "../utils/redisDB/redis";
-import { DynamicsPageProps } from "../utils/types";
+import { DynamicsPageProps } from "../utils/dynamics-365/common/types";
+import { getCustomizedPageContent } from "../utils/dynamics-365/customized/getCustomizedPageContent";
 
 interface DynamicsProps extends DynamicsPageProps {}
 
@@ -56,6 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
         `$filter=bsi_name eq 'Home'&${dynamicsWebpageQuery}`
       )
     ).value;
+
     await disconnect();
 
     const {
@@ -63,7 +65,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       dynamicsHeaderMenuItems,
       dynamicsFooterMenuItems,
       dynamicsBlogs,
-      dynamicsMatches,
       dynamicsSocialPlatforms,
     } = await getAllPageContents(
       config,
@@ -77,12 +78,14 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
       dynamicsPageResult[0].bsi_Website.bsi_FooterMenu.bsi_navigationmenuid
     );
 
+    const { dynamicsEvents } = await getCustomizedPageContent(config);
+
     return {
       props: {
         preview: !!preview,
         dynamicsPageSections: dynamicsPageSections,
         dynamicsBlogs: dynamicsBlogs.value,
-        dynamicsMatches: dynamicsMatches.value,
+        dynamicsMatches: dynamicsEvents,
         dynamicsHeaderMenuItems: dynamicsHeaderMenuItems.value,
         dynamicsFooterMenuItems: dynamicsFooterMenuItems.value,
         dynamicsSocialPlatforms: dynamicsSocialPlatforms.value,
