@@ -1,7 +1,7 @@
 import { Badge, Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import * as React from "react";
 import NextLink from "next/link";
-import { DynamicsBlog } from "../../utils/dynamics-365/common/types";
+import { DynamicsBlog } from "../../types/dynamics-365/common/types";
 
 interface IBlogTileProps {
   blogTitle: string;

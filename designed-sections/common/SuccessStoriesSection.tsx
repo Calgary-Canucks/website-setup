@@ -4,7 +4,7 @@ import * as React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import AnchorSection from "../../components/common/AnchorSection";
-import { DynamicsPageSection } from "../../utils/dynamics-365/common/types";
+import { DynamicsPageSection } from "../../types/dynamics-365/common/types";
 
 interface ISuccessStoriesSectionProps {
   dynamicsPageSection?: DynamicsPageSection;

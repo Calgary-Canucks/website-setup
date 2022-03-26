@@ -3,7 +3,7 @@ import * as React from "react";
 import {
   DynamicsPageSection,
   DynamicsSportsTeam,
-} from "../../utils/dynamics-365/common/types";
+} from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 import Image from "next/image";
 

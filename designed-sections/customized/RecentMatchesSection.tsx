@@ -1,11 +1,9 @@
 import { Badge, Box, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import * as React from "react";
-import {
-  DynamicsMatch,
-  DynamicsPageSection,
-} from "../../utils/dynamics-365/common/types";
+import { DynamicsPageSection } from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
+import { DynamicsMatch } from "../../types/dynamics-365/customized/types";
 
 interface IRecentMatchesSectionProps {
   dynamicsPageSection: DynamicsPageSection;

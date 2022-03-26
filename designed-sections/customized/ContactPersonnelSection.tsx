@@ -4,7 +4,7 @@ import {
   DesignedSection,
   DynamicsOrganizationContact,
   DynamicsSportsTeam,
-} from "../../utils/dynamics-365/common/types";
+} from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 import ContactForm from "../../components/common/ContactForm";
 

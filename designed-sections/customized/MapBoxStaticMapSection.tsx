@@ -2,7 +2,7 @@ import { Box, Flex, Link, Select, Text } from "@chakra-ui/react";
 import {
   DesignedSection,
   DynamicsVenue,
-} from "../../utils/dynamics-365/common/types";
+} from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 import Image from "next/image";
 import { useState } from "react";

@@ -9,7 +9,7 @@ import { getAllPageContents } from "../utils/dynamics-365/common/getAllPageConte
 import { getClientCredentialsToken } from "../utils/msal/getClientCredentialsToken";
 import { dynamicsWebpageQuery } from "../utils/dynamics-365/common/queries";
 import { disconnect } from "../utils/redisDB/redis";
-import { DynamicsPageProps } from "../utils/dynamics-365/common/types";
+import { DynamicsPageProps } from "../types/dynamics-365/common/types";
 import { getCustomizedPageContent } from "../utils/dynamics-365/customized/getCustomizedPageContent";
 
 interface DynamicsProps extends DynamicsPageProps {}

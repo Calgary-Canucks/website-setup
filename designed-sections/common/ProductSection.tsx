@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import NextLink from "next/link";
 import AnchorSection from "../../components/common/AnchorSection";
-import { DynamicsPageSection } from "../../utils/dynamics-365/common/types";
+import { DynamicsPageSection } from "../../types/dynamics-365/common/types";
 
 interface IProductSectionProps {
   dynamicsPageSection?: DynamicsPageSection;

@@ -1,4 +1,3 @@
-import { NavbarItem, SectionItem } from "./dynamics-365/common/types";
 import {
   FaFacebookF,
   FaInstagram,

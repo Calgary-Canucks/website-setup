@@ -1,7 +1,7 @@
 import { Flex, FlexProps, Image, Link } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import * as React from "react";
-import { DynamicsPageSection } from "../../utils/dynamics-365/common/types";
+import { DynamicsPageSection } from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 
 interface ISponsorSectionProps {

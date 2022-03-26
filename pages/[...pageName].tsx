@@ -12,13 +12,15 @@ import { dynamicsWebpageQuery } from "../utils/dynamics-365/common/queries";
 import { disconnect } from "../utils/redisDB/redis";
 import {
   DynamicsBlog,
-  DynamicsMatch,
-  DynamicsOrganizationContact,
   DynamicsPageProps,
   DynamicsPageSection,
-  DynamicsVenue,
-} from "../utils/dynamics-365/common/types";
+} from "../types/dynamics-365/common/types";
 import { getCustomizedPageContent } from "../utils/dynamics-365/customized/getCustomizedPageContent";
+import {
+  DynamicsVenue,
+  DynamicsOrganizationContact,
+  DynamicsMatch,
+} from "../types/dynamics-365/customized/types";
 
 interface DynamicsPagesProps extends DynamicsPageProps {}
 

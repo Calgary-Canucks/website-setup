@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {
   DynamicsBlog,
   DynamicsPageSection,
-} from "../../utils/dynamics-365/common/types";
+} from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 import BlogTile from "../../components/common/BlogTile";
 

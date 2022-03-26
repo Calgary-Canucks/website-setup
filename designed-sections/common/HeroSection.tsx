@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import React, { useEffect, useState } from "react";
 import { SlideFade } from "@chakra-ui/react";
 import AnchorSection from "../../components/common/AnchorSection";
-import { DynamicsPageSection } from "../../utils/dynamics-365/common/types";
+import { DynamicsPageSection } from "../../types/dynamics-365/common/types";
 
 interface IHeroSectionProps {
   dynamicsPageSection?: DynamicsPageSection;

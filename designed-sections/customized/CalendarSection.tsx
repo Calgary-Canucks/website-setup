@@ -21,11 +21,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import {
-  DynamicsMatch,
-  DynamicsPageSection,
-} from "../../utils/dynamics-365/common/types";
+import { DynamicsPageSection } from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
+import { DynamicsMatch } from "../../types/dynamics-365/customized/types";
 
 interface ICalendarSectionProps {
   events: DynamicsMatch[];

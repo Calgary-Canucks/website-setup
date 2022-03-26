@@ -12,14 +12,16 @@ import {
 } from "../../../../../utils/dynamics-365/common/queries";
 import {
   DynamicsBlog,
-  DynamicsMatch,
-  DynamicsOrganizationContact,
   DynamicsPageProps,
   DynamicsPageSection,
+} from "../../../../../types/dynamics-365/common/types";
+import { getCustomizedPageContent } from "../../../../../utils/dynamics-365/customized/getCustomizedPageContent";
+import {
   DynamicsSportsTeam,
   DynamicsVenue,
-} from "../../../../../utils/dynamics-365/common/types";
-import { getCustomizedPageContent } from "../../../../../utils/dynamics-365/customized/getCustomizedPageContent";
+  DynamicsOrganizationContact,
+  DynamicsMatch,
+} from "../../../../../types/dynamics-365/customized/types";
 
 interface IBlogCategoryProps extends DynamicsPageProps {}
 

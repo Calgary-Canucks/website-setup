@@ -1,7 +1,7 @@
 import { Box, Center, Flex, Text } from "@chakra-ui/layout";
 import * as React from "react";
 import AnchorSection from "../../components/common/AnchorSection";
-import { DynamicsPageSection } from "../../utils/dynamics-365/common/types";
+import { DynamicsPageSection } from "../../types/dynamics-365/common/types";
 
 interface IClientFeatureSectionProps {
   dynamicsPageSection?: DynamicsPageSection;

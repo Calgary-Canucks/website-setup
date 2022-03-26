@@ -17,7 +17,7 @@ import * as React from "react";
 import { FaRegFile } from "react-icons/fa";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { fileExtensionMap } from "../../utils/constants";
-import { DesignedSection } from "../../utils/dynamics-365/common/types";
+import { DesignedSection } from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 
 interface IDownloadsSectionProps extends DesignedSection {}

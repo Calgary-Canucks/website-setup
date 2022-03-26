@@ -3,7 +3,8 @@ import {
   retrieveMultiple,
   createWithReturnData,
 } from "dataverse-webapi/lib/node";
-import { Contact, User } from "../types/dynamicsEntities";
+import { User } from "../types/authentication";
+import { Contact } from "../types/dynamics-365/common/types";
 
 export const dynamicsContact = (accessToken: string) => {
   const config = new WebApiConfig("9.1", accessToken, process.env.CLIENT_URL);
