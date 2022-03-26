@@ -7,10 +7,7 @@ import SubHeader from "../../components/common/SubHeader";
 import { instantiateCca } from "../../utils/msal/cca";
 import { getAllPageContents } from "../../utils/dynamics-365/common/getAllPageContents";
 import { getClientCredentialsToken } from "../../utils/msal/getClientCredentialsToken";
-import {
-  dynamicsTeamsQuery,
-  dynamicsWebpageQuery,
-} from "../../utils/dynamics-365/common/queries";
+import { dynamicsWebpageQuery } from "../../utils/dynamics-365/common/queries";
 import {
   DynamicsOrganizationContact,
   DynamicsPageProps,
@@ -18,6 +15,7 @@ import {
   DynamicsVenue,
 } from "../../utils/dynamics-365/common/types";
 import { getCustomizedPageContent } from "../../utils/dynamics-365/customized/getCustomizedPageContent";
+import { dynamicsTeamsQuery } from "../../utils/dynamics-365/customized/queries";
 
 //This Page is CUSTOMIZED for orgs who have Media & Entertainment Accelerator
 
