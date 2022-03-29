@@ -1,6 +1,6 @@
 import { Box, Flex, Image, LinkBox, LinkOverlay } from "@chakra-ui/react";
 import * as React from "react";
-import { CurrentUser } from "../../types/dynamicsEntities";
+import { CurrentUser } from "../../types/authentication";
 import Navbar from "./Navbar";
 
 interface IHeaderProps {

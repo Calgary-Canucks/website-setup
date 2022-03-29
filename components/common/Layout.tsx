@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/layout";
 import { Button, Tooltip } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import * as React from "react";
-import { CurrentUser } from "../../types/dynamicsEntities";
+import { CurrentUser } from "../../types/authentication";
 import Footer from "./Footer";
 import Header from "./Header";
 
