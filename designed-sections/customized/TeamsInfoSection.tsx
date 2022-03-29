@@ -1,11 +1,9 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import * as React from "react";
-import {
-  DynamicsPageSection,
-  DynamicsSportsTeam,
-} from "../../types/dynamics-365/common/types";
+import { DynamicsPageSection } from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 import Image from "next/image";
+import { DynamicsSportsTeam } from "../../types/dynamics-365/customized/types";
 
 interface ITeamsInfoSectionProps {
   dynamicsPageSection: DynamicsPageSection;

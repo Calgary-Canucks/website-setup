@@ -1,11 +1,9 @@
 import { Box, Flex, Link, Select, Text } from "@chakra-ui/react";
-import {
-  DesignedSection,
-  DynamicsVenue,
-} from "../../types/dynamics-365/common/types";
+import { DesignedSection } from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 import Image from "next/image";
 import { useState } from "react";
+import { DynamicsVenue } from "../../types/dynamics-365/customized/types";
 
 interface IMapBoxStaticMapSectionProps extends DesignedSection {
   dynamicsVenues: DynamicsVenue[];

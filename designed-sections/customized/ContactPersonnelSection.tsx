@@ -1,12 +1,12 @@
 import { Avatar, Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import * as React from "react";
-import {
-  DesignedSection,
-  DynamicsOrganizationContact,
-  DynamicsSportsTeam,
-} from "../../types/dynamics-365/common/types";
+import { DesignedSection } from "../../types/dynamics-365/common/types";
 import AnchorSection from "../../components/common/AnchorSection";
 import ContactForm from "../../components/common/ContactForm";
+import {
+  DynamicsOrganizationContact,
+  DynamicsSportsTeam,
+} from "../../types/dynamics-365/customized/types";
 
 interface IContactPersonnelSectionProps extends DesignedSection {
   dynamicsOrganizationContacts: DynamicsOrganizationContact[];
