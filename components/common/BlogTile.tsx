@@ -1,4 +1,5 @@
-import { Badge, Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
+import { Badge, Box, Button, Flex, Link, Text } from "@chakra-ui/react";
+import Image from "next/image";
 import * as React from "react";
 import NextLink from "next/link";
 import { DynamicsBlog } from "../../types/dynamics-365/common/types";
@@ -94,28 +95,23 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
                 {props.blogCoverText}
               </Text>
             </Box>
-
-            <NextLink href="#" passHref>
-              <Button as="a" colorScheme="blue" size="lg">
-                READ ARTICLE
-              </Button>
-            </NextLink>
+            <Button as="a" colorScheme="blue" size="lg">
+              READ ARTICLE
+            </Button>
           </Flex>
           <Box
             w={{ base: "100%", md: "50%" }}
             py={{ base: 20, md: 8 }}
             px={{ base: 8, md: 28 }}
           >
-            <NextLink href="#">
-              <Image
-                src={`${props.blogCoverImageUrl}?fm=jpg&fl=progressive`}
-                alt={props.blogCoverImageAltText}
-                height="100%"
-                width="auto"
-                boxShadow={"rgb(0 0 0 / 20%) 0px 3px 10px 0px"}
-                borderRadius="5px"
-              />
-            </NextLink>
+            <Image
+              src={props.blogCoverImageUrl}
+              alt={props.blogCoverImageAltText}
+              height="450px"
+              width="600px"
+              // boxShadow={"rgb(0 0 0 / 20%) 0px 3px 10px 0px"}
+              // borderRadius="5px"
+            />
           </Box>
         </Flex>
       </article>
@@ -126,10 +122,11 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
       <Flex direction="column" width="100%" style={{ gap: "15px" }} p={6}>
         <NextLink href={`/blogs/${props.blogSlug}`}>
           <Image
-            src={`${props.blogCoverImageUrl}?fm=jpg&fl=progressive`}
+            src={props.blogCoverImageUrl}
             alt={props.blogCoverImageAltText}
-            width="100%"
-            objectFit="contain"
+            width="800px"
+            height="500px"
+            objectFit="fill"
           />
         </NextLink>
         <Flex justify="space-between">
