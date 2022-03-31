@@ -65,7 +65,6 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({ menuItems }) => {
               onClick={async () => {
                 await logout();
                 await mutateUser();
-                console.log(user);
               }}
             >
               Logout

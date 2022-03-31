@@ -1,7 +1,6 @@
 import { Badge, Box, Button, Flex, Link, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import * as React from "react";
-import NextLink from "next/link";
 import { DynamicsBlog } from "../../types/dynamics-365/common/types";
 
 interface IBlogTileProps {
@@ -81,7 +80,7 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
               NEWS
             </Badge>
             <Box>
-              <NextLink href="#" passHref>
+              <Link href={`/blogs/${props.blogSlug}`}>
                 <Text
                   as="a"
                   fontSize="2.2rem"
@@ -90,12 +89,17 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
                 >
                   {props.blogTitle}
                 </Text>
-              </NextLink>
+              </Link>
               <Text as="p" textAlign={{ base: "center", md: "start" }}>
                 {props.blogCoverText}
               </Text>
             </Box>
-            <Button as="a" colorScheme="blue" size="lg">
+            <Button
+              as="a"
+              href={`/blogs/${props.blogSlug}`}
+              colorScheme="blue"
+              size="lg"
+            >
               READ ARTICLE
             </Button>
           </Flex>
@@ -120,7 +124,7 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
   return (
     <article>
       <Flex direction="column" width="100%" style={{ gap: "15px" }} p={6}>
-        <NextLink href={`/blogs/${props.blogSlug}`}>
+        <Link href={`/blogs/${props.blogSlug}`}>
           <Image
             src={props.blogCoverImageUrl}
             alt={props.blogCoverImageAltText}
@@ -128,25 +132,25 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
             height="500px"
             objectFit="fill"
           />
-        </NextLink>
+        </Link>
         <Flex justify="space-between">
           <Flex align="center">
             {props.blogAuthors.map((b) => (
-              <NextLink
+              <Link
                 href={`/blogs/author/${b.bsi_slug}/page/1`}
-                passHref
                 key={b.bsi_slug}
+                mr={3}
               >
-                <Link mr={3}>{b.bsi_name}</Link>
-              </NextLink>
+                {b.bsi_name}
+              </Link>
             ))}
           </Flex>
           <Flex align="center">
             {props.blogTags.map((b) => (
               <Badge colorScheme="teal" ml={2} key={b.bsi_slug}>
-                <NextLink href={`/blogs/category/${b.bsi_slug}/page/1`}>
+                <Link href={`/blogs/category/${b.bsi_slug}/page/1`}>
                   {b.bsi_name}
-                </NextLink>
+                </Link>
               </Badge>
             ))}
           </Flex>
@@ -154,16 +158,18 @@ const BlogTile: React.FunctionComponent<IBlogTileProps> = (props) => {
         <Text as="small" suppressHydrationWarning>
           {props.publishDate.toLocaleDateString()}
         </Text>
-        <NextLink href={`/blogs/${props.blogSlug}`}>
-          <Link fontSize="1.7rem" fontWeight="bold">
-            {props.blogTitle}
-          </Link>
-        </NextLink>
+        <Link
+          href={`/blogs/${props.blogSlug}`}
+          fontSize="1.7rem"
+          fontWeight="bold"
+        >
+          {props.blogTitle}
+        </Link>
 
         <Text as="p">{props.blogCoverText}</Text>
-        <NextLink href={`/blogs/${props.blogSlug}`} passHref>
-          <Link fontSize="0.8rem">READ MORE &gt;&gt;</Link>
-        </NextLink>
+        <Link href={`/blogs/${props.blogSlug}`} fontSize="0.8rem">
+          READ MORE &gt;&gt;
+        </Link>
       </Flex>
     </article>
   );

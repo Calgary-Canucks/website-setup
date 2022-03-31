@@ -1,8 +1,8 @@
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { fetcher } from "../utils/swr/fetcher";
 
 export const useCurrentUser = () => {
-  const { data, error, mutate } = useSWR("/api/user", fetcher);
+  const { data, error, mutate } = useSWRImmutable("/api/user", fetcher);
   return {
     user: data,
     isLoading: !error && !data,
