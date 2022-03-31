@@ -52,7 +52,7 @@ const Register: NextPage<IRegisterProps> = (props) => {
                 status: "success",
                 duration: 3000,
                 isClosable: true,
-                onCloseComplete: () => router.back(),
+                onCloseComplete: () => router.push("/"),
               });
             } catch (error: any) {
               return toast({
