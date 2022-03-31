@@ -94,9 +94,13 @@ const DownloadsSection: React.FunctionComponent<IDownloadsSectionProps> = ({
                   boxShadow="rgb(0 0 0 / 5%) 0px 5px 10px 0px"
                   bgColor="white"
                 >
-                  <Link href={fs.bsi_cdnurl} target="_blank" rel="noopener">
-                    {fs.bsi_file_name}
-                  </Link>
+                  {fs.bsi_restricted && isError ? (
+                    <Text>{fs.bsi_file_name}</Text>
+                  ) : (
+                    <Link href={fs.bsi_cdnurl} target="_blank" rel="noopener">
+                      {fs.bsi_file_name}
+                    </Link>
+                  )}
                   <Center minW="10rem" justifyContent="space-between">
                     <Icon
                       fontSize="1.5rem"

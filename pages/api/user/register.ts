@@ -48,7 +48,7 @@ async function registerRoute(req: NextApiRequest, res: NextApiResponse) {
     ).createUser(user);
 
     req.session.user = {
-      fullname: createdUser.frstname + " " + createdUser.lastname,
+      fullname: createdUser.firstname + " " + createdUser.lastname,
       email: createdUser.emailaddress1 as string,
       id: createdUser.contactid as string,
       username: createdUser.bsi_username as string,

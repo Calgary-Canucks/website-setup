@@ -1,4 +1,4 @@
-import { Box, Flex, Image, LinkBox, LinkOverlay } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, LinkBox, LinkOverlay } from "@chakra-ui/react";
 import * as React from "react";
 import { CurrentUser } from "../../types/authentication";
 import Navbar from "./Navbar";
@@ -24,18 +24,16 @@ const Header: React.FunctionComponent<IHeaderProps> = ({
         align="center"
         bgColor="rgb(1, 78, 134)"
       >
-        <LinkBox as="image">
-          <LinkOverlay href="/">
-            <Image
-              src={companyLogoUrl}
-              alt="Betach Logo"
-              w="300px"
-              h="100px"
-              objectFit="contain"
-              mx={8}
-            />
-          </LinkOverlay>
-        </LinkBox>
+        <Link href="/">
+          <Image
+            src={companyLogoUrl}
+            alt="Betach Logo"
+            w="300px"
+            h="100px"
+            objectFit="contain"
+            mx={8}
+          />
+        </Link>
 
         <Navbar menuItems={menuItems} />
       </Flex>
